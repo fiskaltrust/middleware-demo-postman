@@ -1,0 +1,1718 @@
+{
+	"info": {
+		"_postman_id": "005b4e4b-1cd5-4de1-9cfd-89659741af5f",
+		"name": "fiskaltrust Middleware",
+		"description": "Sample requests that demonstrate how to implement the fiskaltrust Middleware via HTTP.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AT",
+			"item": [
+				{
+					"name": "Barumsatz",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"1\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:16:54.5231251Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Artikel 1\",\r\n            \"Amount\": 33.06,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 4707387510509010944,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Artikel 2\",\r\n            \"Amount\": 5.69,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 4707387510509010944,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bar\",\r\n            \"Amount\": 38.75,\r\n            \"ftPayItemCase\": 4707387510509010944,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4707387510509010944\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nullbeleg",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"2\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:21:55.6750892Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4707387510509010946\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inbetriebname-Beleg",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"3\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:22:13.8052879Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4707387510509010947\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ausserbetriebnahme-Beleg",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"4\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:22:36.3104849Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4707387510509010948\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Monats-Beleg",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"5\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:22:51.4172732Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4707387510509010949\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Jahres-Beleg",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"6\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:23:03.4668328Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4707387510509010950\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Sample requests for the Austrian market",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7e200b86-898b-418e-928e-dd4b7592dbe4",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "736cbe41-557f-44b1-8f19-0ee310cd62a6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "DE",
+			"item": [
+				{
+					"name": "Implicit Sequence",
+					"item": [
+						{
+							"name": "1.2 Info order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n   \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n   \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n   \"cbTerminalID\": \"T1\",\r\n   \"cbReceiptReference\": \"2020013017414513\",\r\n   \"cbReceiptMoment\": \"2020-01-30T17:42:45.222Z\",\r\n   \"cbChargeItems\": [\r\n      {\r\n         \"Position\": 1,\r\n         \"Quantity\": 1.0,\r\n         \"Description\": \"1 night stay\",\r\n         \"Amount\": 84.0,\r\n         \"VATRate\": 7.0000,\r\n         \"VATAmount\": 5.88,\r\n         \"ftChargeItemCase\": 4919338167972134914,\r\n         \"ftChargeItemCaseData\": \"\",\r\n         \"CostCenter\": \"1\",\r\n         \"AccountNumber\": \"19829182\",\r\n         \"ProductGroup\": \"Room\",\r\n         \"ProductNumber\": \"101\",\r\n         \"ProductBarcode\": \"\",\r\n         \"Unit\": \"Night\",\r\n         \"UnitQuantity\": 1,\r\n         \"UnitPrice\": 84,\r\n         \"Moment\": \"2020-01-30T17:42:40.342Z\"\r\n      }\r\n   ],\r\n   \"cbPayItems\": [\r\n      {\r\n         \"Position\": 1,\r\n         \"Quantity\": 1.0,\r\n         \"Description\": \"Internal\",\r\n         \"Amount\": 84.0,\r\n         \"ftPayItemCase\": 4919338167972134922,\r\n         \"ftPayItemCaseData\": \"\",\r\n         \"AccountNumber\": \"19829182\",\r\n         \"CostCenter\": \"827272\",\r\n         \"Moment\": \"2020-01-30T17:42:40.342Z\"\r\n      }\r\n   ],\r\n   \"ftReceiptCase\": 4919338172267102224,\r\n   \"cbArea\": \"Hotel Romantic\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Pos Receipt",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020013017414513\",\r\n    \"cbReceiptMoment\": \"2020-02-01T12:09:22.233Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"1 night stay\",\r\n            \"Amount\": 84.0,\r\n            \"VATRate\": 7.0000,\r\n            \"VATAmount\": 5.88,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"CostCenter\": \"827272\",\r\n            \"AccountNumber\": \"19829182\",\r\n            \"ProductGroup\": \"Room\",\r\n            \"ProductNumber\": \"101\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Night\",\r\n            \"UnitQuantity\": 1,\r\n            \"UnitPrice\": 84,\r\n            \"Moment\": \"2020-02-01T12:07:10.166Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1,\r\n            \"Description\": \"Bar\",\r\n            \"Amount\": 84.0,\r\n            \"ftPayItemCase\": 4919338167972134913,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"19829182\",\r\n            \"CostCenter\": \"827272\",\r\n            \"MoneyGroup\": \"BAR\",\r\n            \"MoneyNumber\": \"1234\",\r\n            \"Moment\": \"2020-02-01T12:08:33.555Z\"\r\n        }\r\n    ], \r\n    \"ftReceiptCase\":4919338172267102209,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 84.00,\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\":\"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Info Order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n   \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n   \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n   \"cbTerminalID\": \"T1\",\r\n   \"cbReceiptReference\": \"2020013017414513\",\r\n   \"cbReceiptMoment\": \"2020-02-01T19:35:41.133Z\",\r\n   \"cbChargeItems\": [\r\n      {\r\n         \"Position\": 1,\r\n         \"Quantity\": 1.0,\r\n         \"Description\": \"Bier 0,5 lt\",\r\n         \"Amount\": 3.80,\r\n         \"VATRate\": 19.00,\r\n         \"VATAmount\": 0.61,\r\n         \"ftChargeItemCase\": 4919338167972134937,\r\n         \"ftChargeItemCaseData\": \"\",\r\n         \"CostCenter\": \"827272\",\r\n         \"AccountNumber\": \"19829182\",\r\n         \"ProductGroup\": \"Bier\",\r\n         \"ProductNumber\": \"1\",\r\n         \"ProductBarcode\": \"\",\r\n         \"Unit\": \"Stk\",\r\n         \"UnitQuantity\": 1,\r\n         \"UnitPrice\": 3.80,\r\n         \"Moment\": \"2020-02-01T19:34:59.133Z\"\r\n      }\r\n   ],\r\n   \"cbPayItems\": [\r\n      {\r\n         \"Position\": 1,\r\n         \"Quantity\": 1.0,\r\n         \"Description\": \"Internal\",\r\n         \"Amount\": 84.0,\r\n         \"ftPayItemCase\": 4919338167972134922,\r\n         \"ftPayItemCaseData\": \"\",\r\n         \"AccountNumber\": \"19829182\",\r\n         \"CostCenter\": \"827272\",\r\n         \"Moment\": \"2020-02-01T19:34:59.133Z\"\r\n      }\r\n   ],\r\n   \"ftReceiptCase\": 4919338172267102224,\r\n   \"cbArea\": \"Bar Hotel Romantic\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4. Pos Receipt",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020013017414513\",\r\n    \"cbReceiptMoment\": \"2020-02-02T10:35:45.133Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bier 0,5 lt\",\r\n            \"Amount\": 3.80,\r\n            \"VATRate\": 19.00,\r\n            \"VATAmount\": 0.61,\r\n            \"ftChargeItemCase\": 4919338167972134937,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"CostCenter\": \"827272\",\r\n            \"AccountNumber\": \"33829182\",\r\n            \"ProductGroup\": \"Bier\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1,\r\n            \"UnitPrice\": 3.80,\r\n            \"Moment\": \"2020-02-02T10:35:40.323Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1,\r\n            \"Description\": \"Debitorenkarte\",\r\n            \"Amount\": 3.80,\r\n            \"ftPayItemCase\": 4919338167972134916,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"33829182\",\r\n            \"CostCenter\": \"827272\",\r\n            \"MoneyGroup\": \"DEBITCARD\",\r\n            \"MoneyNumber\": \"1235\",\r\n            \"Moment\": \"2020-02-02T10:35:42.323Z\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338172267102209,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 3.80,\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\": \"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5. Pos Receipt",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020013017414513\",\r\n    \"cbReceiptMoment\": \"2020-02-01T20:15:35.433Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Greeting Card\",\r\n            \"Amount\": 1.0,\r\n            \"VATRate\": 7.00,\r\n            \"VATAmount\": 0.07,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"CostCenter\": \"827272\",\r\n            \"AccountNumber\": \"19829182\",\r\n            \"ProductGroup\": \"Papitry\",\r\n            \"ProductNumber\": \"1872\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1,\r\n            \"UnitPrice\": 1.00,\r\n            \"Moment\": \"2020-02-01T20:15:29.123Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1,\r\n            \"Description\": \"Debitorenkarte\",\r\n            \"Amount\": 1.0,\r\n            \"ftPayItemCase\": 4919338167972134916,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"2229182\",\r\n            \"CostCenter\": \"127272\",\r\n            \"MoneyGroup\": \"DEBITCARD\",\r\n            \"MoneyNumber\": \"1235\",\r\n            \"Moment\": \"2020-02-01T20:15:33.123Z\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338172267102209,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 1.00,\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\": \"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "An implicit sequence example for a hotel booking transaction flow\r\n\r\n1. Reservation for 1 night (not cancellable) -> info-internal + info-order (1.1 Info internal, 1.2 Info order)\r\n2. Checkin -> FULL PAYMENT -> pos-receipt (2. Pos Receipt)\r\n3. Consumption 1 beer at the bar -> room charge -> info-order (3. Info Order)\r\n4. Purchase of a greeting card -> payed immediately -> pos-receipt (4. Pos Receipt)\r\n5. Checkout -> Payment of consumption from 3 -> pos-receipt (5. Pos Receipt)\r\n",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2ee9094c-ed04-49e7-bec1-cf887b1ed4de",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6115d710-26c5-4b95-b778-854873c38989",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Explicit Sequence",
+					"item": [
+						{
+							"name": "1.1.1 Info internal (Start transaction)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020013017414413\",\r\n    \"cbReceiptMoment\": \"2020-01-30T17:41:44.133Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338167972134920,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbUser\": \"System\",\r\n    \"cbArea\": \"\",\r\n    \"cbSettlement\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1.1.2 Info internal (Finish transaction)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n  \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n  \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n  \"cbTerminalID\": \"T1\",\r\n  \"cbReceiptReference\": \"2020013017414413\",\r\n  \"cbReceiptMoment\": \"2020-01-30T17:41:45.133Z\",\r\n  \"cbChargeItems\": [],\r\n  \"cbPayItems\": [],\r\n  \"ftReceiptCase\": 4919338167972134931,\r\n  \"ftReceiptCaseData\": \"\",\r\n  \"cbReceiptAmount\": 0,\r\n  \"cbUser\": \"System\",\r\n  \"cbArea\": \"\",\r\n  \"cbSettlement\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1.2.1 Info order (Start transaction)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020013017423934\",\r\n    \"cbReceiptMoment\": \"2020-01-30T17:42:39.342Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338167972134920,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbUser\": \"System\",\r\n    \"cbArea\": \"\",\r\n    \"cbSettlement\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1.2.2 Info order (Finish transaction)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n   \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n   \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n   \"cbTerminalID\": \"T1\",\r\n   \"cbReceiptReference\": \"2020013017423934\",\r\n   \"cbReceiptMoment\": \"2020-01-30T17:42:45.222Z\",\r\n   \"cbChargeItems\": [\r\n      {\r\n         \"Position\": 1,\r\n         \"Quantity\": 1.0,\r\n         \"Description\": \"1 night stay\",\r\n         \"Amount\": 84.0,\r\n         \"VATRate\": 7.0000,\r\n         \"VATAmount\": 5.88,\r\n         \"ftChargeItemCase\": 4919338167972134914,\r\n         \"ftChargeItemCaseData\": \"\",\r\n         \"CostCenter\": \"1\",\r\n         \"AccountNumber\": \"19829182\",\r\n         \"ProductGroup\": \"Room\",\r\n         \"ProductNumber\": \"101\",\r\n         \"ProductBarcode\": \"\",\r\n         \"Unit\": \"Night\",\r\n         \"UnitQuantity\": 1,\r\n         \"UnitPrice\": 84,\r\n         \"Moment\": \"2020-01-30T17:42:40.342Z\"\r\n      }\r\n   ],\r\n   \"cbPayItems\": [\r\n      {\r\n         \"Position\": 1,\r\n         \"Quantity\": 1.0,\r\n         \"Description\": \"Internal\",\r\n         \"Amount\": 84.0,\r\n         \"ftPayItemCase\": 4919338167972134922,\r\n         \"ftPayItemCaseData\": \"\",\r\n         \"AccountNumber\": \"19829182\",\r\n         \"CostCenter\": \"827272\",\r\n         \"Moment\": \"2020-01-30T17:42:40.342Z\"\r\n      }\r\n   ],\r\n   \"ftReceiptCase\": 4919338167972134928,\r\n   \"cbArea\": \"Hotel Romantic\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2.1 Pos Receipt (Start transaction)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020020112070916\",\r\n    \"cbReceiptMoment\": \"2020-02-01T12:07:09.166Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338167972134920,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\":\"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2.2 Pos Receipt (Finish transaction)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020020112070916\",\r\n    \"cbReceiptMoment\": \"2020-02-01T12:09:22.233Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"1 night stay\",\r\n            \"Amount\": 84.0,\r\n            \"VATRate\": 7.0000,\r\n            \"VATAmount\": 5.88,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"CostCenter\": \"827272\",\r\n            \"AccountNumber\": \"19829182\",\r\n            \"ProductGroup\": \"Room\",\r\n            \"ProductNumber\": \"101\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Night\",\r\n            \"UnitQuantity\": 1,\r\n            \"UnitPrice\": 84,\r\n            \"Moment\": \"2020-02-01T12:07:10.166Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1,\r\n            \"Description\": \"Bar\",\r\n            \"Amount\": 84.0,\r\n            \"ftPayItemCase\": 4919338167972134913,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"19829182\",\r\n            \"CostCenter\": \"827272\",\r\n            \"MoneyGroup\": \"BAR\",\r\n            \"MoneyNumber\": \"1234\",\r\n            \"Moment\": \"2020-02-01T12:08:33.555Z\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\":4919338167972134913,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 84.00,\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\":\"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3.1 Info Order (Start transaction)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020020119345813\",\r\n    \"cbReceiptMoment\":\"2020-02-01T19:34:58.133Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338167972134920,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbArea\":\"Bar Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3.2 Info Order (Finish transaction)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n   \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n   \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n   \"cbTerminalID\": \"T1\",\r\n   \"cbReceiptReference\": \"2020020119345813\",\r\n   \"cbReceiptMoment\": \"2020-02-01T19:35:41.133Z\",\r\n   \"cbChargeItems\": [\r\n      {\r\n         \"Position\": 1,\r\n         \"Quantity\": 1.0,\r\n         \"Description\": \"Bier 0,5 lt\",\r\n         \"Amount\": 3.80,\r\n         \"VATRate\": 19.00,\r\n         \"VATAmount\": 0.61,\r\n         \"ftChargeItemCase\": 4919338167972134937,\r\n         \"ftChargeItemCaseData\": \"\",\r\n         \"CostCenter\": \"827272\",\r\n         \"AccountNumber\": \"19829182\",\r\n         \"ProductGroup\": \"Bier\",\r\n         \"ProductNumber\": \"1\",\r\n         \"ProductBarcode\": \"\",\r\n         \"Unit\": \"Stk\",\r\n         \"UnitQuantity\": 1,\r\n         \"UnitPrice\": 3.80,\r\n         \"Moment\": \"2020-02-01T19:34:59.133Z\"\r\n      }\r\n   ],\r\n   \"cbPayItems\": [\r\n      {\r\n         \"Position\": 1,\r\n         \"Quantity\": 1.0,\r\n         \"Description\": \"Internal\",\r\n         \"Amount\": 84.0,\r\n         \"ftPayItemCase\": 4919338167972134922,\r\n         \"ftPayItemCaseData\": \"\",\r\n         \"AccountNumber\": \"19829182\",\r\n         \"CostCenter\": \"827272\",\r\n         \"Moment\": \"2020-02-01T19:34:59.133Z\"\r\n      }\r\n   ],\r\n   \"ftReceiptCase\": 4919338167972134928,\r\n   \"cbArea\": \"Bar Hotel Romantic\",\r\n   \"cbSettlement\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4.1 Pos Receipt (Start transaction)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020020120152812\",\r\n    \"cbReceiptMoment\": \"2020-02-01T20:15:28.123Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338167972134920,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\": \"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n} ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4.2 Pos Receipt (Finish transaction)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020020120152812\",\r\n    \"cbReceiptMoment\": \"2020-02-01T20:15:35.433Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Greeting Card\",\r\n            \"Amount\": 1.0,\r\n            \"VATRate\": 7.00,\r\n            \"VATAmount\": 0.07,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"CostCenter\": \"827272\",\r\n            \"AccountNumber\": \"19829182\",\r\n            \"ProductGroup\": \"Papitry\",\r\n            \"ProductNumber\": \"1872\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1,\r\n            \"UnitPrice\": 1.00,\r\n            \"Moment\": \"2020-02-01T20:15:29.123Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1,\r\n            \"Description\": \"Debitorenkarte\",\r\n            \"Amount\": 1.0,\r\n            \"ftPayItemCase\": 4919338167972134916,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"2229182\",\r\n            \"CostCenter\": \"127272\",\r\n            \"MoneyGroup\": \"DEBITCARD\",\r\n            \"MoneyNumber\": \"1235\",\r\n            \"Moment\": \"2020-02-01T20:15:29.123Z\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338167972134913,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 1.00,\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\": \"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5.1 Pos Receipt (Start transaction)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020020210353932\",\r\n    \"cbReceiptMoment\": \"2020-02-02T10:35:39.323Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338167972134920,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\": \"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5.2 Pos Receipt (Finish transaction)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020020210353932\",\r\n    \"cbReceiptMoment\": \"2020-02-02T10:35:45.133Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bier 0,5 lt\",\r\n            \"Amount\": 3.80,\r\n            \"VATRate\": 19.00,\r\n            \"VATAmount\": 0.61,\r\n            \"ftChargeItemCase\": 4919338167972134937,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"CostCenter\": \"827272\",\r\n            \"AccountNumber\": \"33829182\",\r\n            \"ProductGroup\": \"Bier\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1,\r\n            \"UnitPrice\": 3.80,\r\n            \"Moment\": \"2020-02-02T10:35:40.323Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1,\r\n            \"Description\": \"Debitorenkarte\",\r\n            \"Amount\": 3.80,\r\n            \"ftPayItemCase\": 4919338167972134916,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"33829182\",\r\n            \"CostCenter\": \"827272\",\r\n            \"MoneyGroup\": \"DEBITCARD\",\r\n            \"MoneyNumber\": \"1235\",\r\n            \"Moment\": \"2020-02-02T10:35:42.323Z\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338167972134913,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 3.80,\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\": \"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "An explicit sequence example for a hotel booking transaction flow\r\n\r\n1. Reservation for 1 night (not cancellable) -> info-internal + info-order (1.1.1 Info internal (Start transaction), 1.1.2 Info internal (Finish transaction), 1.2.1 Info order (Start transaction), 1.2.2 Info order (Finish transaction))\r\n2. Checkin -> FULL PAYMENT -> pos-receipt (2.1 Pos Receipt (Start transaction), 2.2 Pos Receipt (Finish transaction))\r\n3. Consumption of 1 beer at the bar -> room charge -> info-order (3.1 Info Order (Start transaction), 3.2 Info Order (Finish transaction))\r\n4. Purchase of a greeting card -> payed immediately -> pos-receipt (4.1 Pos Receipt (Start transaction), 4.2 Pos Receipt (Finish transaction))\r\n5. Checkout -> Payment of consumption from 3 -> pos-receipt (5.1 Pos Receipt (Start transaction), 5.2 Pos Receipt (Finish transaction))",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b2517468-a715-4eca-9357-513475bc7a4d",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "5a0f0f7d-9bd8-4317-a085-76b548a8d3ef",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Bonieren",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"b3dc6573-96d9-e611-80f7-5065f38adae1\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"1\",\r\n    \"cbReceiptMoment\": \"2019-10-25T13:32:45.133Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bier 0,5 lt\",\r\n            \"Amount\": 3.80000000000000000000000000,\r\n            \"VATRate\": 19.0000,\r\n            \"ftChargeItemCase\": 4919338167972134913,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": 0.6067226890756302521008403361,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Bier\",\r\n            \"ProductNumber\": \"101\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Liter\",\r\n            \"UnitQuantity\": 1.0000\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Schnitzel\",\r\n            \"Amount\": 9.20000000000000000000000000,\r\n            \"VATRate\": 7.0000,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": 0.601869158878504672897196262,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Speisen\",\r\n            \"ProductNumber\": \"102\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1.0000\r\n        }\r\n    ],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338172267102224,\r\n    \"cbReceiptAmount\": 13.00,\r\n    \"cbUser\": \"Chef\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v1/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v1",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Abrechnen",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"b3dc6573-96d9-e611-80f7-5065f38adae1\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"2\",\r\n    \"cbReceiptMoment\": \"2019-10-25T13:32:46.74Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bier 0,5 lt\",\r\n            \"Amount\": 3.80000000000000000000000000,\r\n            \"VATRate\": 19.0000,\r\n            \"ftChargeItemCase\": 4919338167972134913,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": 0.6067226890756302521008403361,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Bier\",\r\n            \"ProductNumber\": \"101\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Liter\",\r\n            \"UnitQuantity\": 1.0000\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Schnitzel\",\r\n            \"Amount\": 9.20000000000000000000000000,\r\n            \"VATRate\": 7.0000,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": 0.601869158878504672897196262,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Speisen\",\r\n            \"ProductNumber\": \"102\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1.0000\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bar\",\r\n            \"Amount\": 13.0000,\r\n            \"ftPayItemCase\": 4919338167972134913,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"CostCenter\": \"1\",\r\n            \"MoneyGroup\": \"1\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338172267102209,\r\n    \"cbReceiptAmount\": 13.00,\r\n    \"cbUser\": \"Chef\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v1/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v1",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rechnung zurueckholen",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"b3dc6573-96d9-e611-80f7-5065f38adae1\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"3\",\r\n    \"cbReceiptMoment\": \"2019-10-25T13:33:03.013Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bier 0,5 lt\",\r\n            \"Amount\": -3.80000000000000000000000000,\r\n            \"VATRate\": 19.0000,\r\n            \"ftChargeItemCase\": 4919338167972134913,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": -0.6067226890756302521008403361,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Bier\",\r\n            \"ProductNumber\": \"101\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Liter\",\r\n            \"UnitQuantity\": 1.0000\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Schnitzel\",\r\n            \"Amount\": -9.20000000000000000000000000,\r\n            \"VATRate\": 7.0000,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": -0.601869158878504672897196262,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Speisen\",\r\n            \"ProductNumber\": \"102\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1.0000\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bar\",\r\n            \"Amount\": -13.0000,\r\n            \"ftPayItemCase\": 4919338167972134913,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"CostCenter\": \"1\",\r\n            \"MoneyGroup\": \"1\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338172267364353,\r\n    \"cbReceiptAmount\": -13.00,\r\n    \"cbUser\": \"Chef\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v1/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v1",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stornieren",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"b3dc6573-96d9-e611-80f7-5065f38adae1\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"6\",\r\n    \"cbReceiptMoment\": \"2019-10-25T13:34:23.083Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bier 0,5 lt\",\r\n            \"Amount\": 3.80000000000000000000000000,\r\n            \"VATRate\": 19.0000,\r\n            \"ftChargeItemCase\": 4919338167972134913,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": 0.6067226890756302521008403361,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Bier\",\r\n            \"ProductNumber\": \"101\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Liter\",\r\n            \"UnitQuantity\": 1.0000\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Schnitzel\",\r\n            \"Amount\": 9.20000000000000000000000000,\r\n            \"VATRate\": 7.0000,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": 0.601869158878504672897196262,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Speisen\",\r\n            \"ProductNumber\": \"102\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1.0000\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Storno\",\r\n            \"Amount\": 13.0000,\r\n            \"ftPayItemCase\": 4919338167972134929,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"CostCenter\": \"1\",\r\n            \"MoneyGroup\": \"4\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338172267102208,\r\n    \"cbReceiptAmount\": 13.00,\r\n    \"cbUser\": \"Chef\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v1/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v1",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initial Operation Receipt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n  \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n  \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n  \"cbTerminalID\": \"T1\",\r\n  \"cbReceiptReference\": \"2020020120152812\",\r\n  \"cbReceiptMoment\": \"2020-02-01T20:15:28.123Z\",\r\n  \"cbChargeItems\": [],\r\n  \"cbPayItems\": [],\r\n  \"ftReceiptCase\": 4919338172267102211,\r\n  \"ftReceiptCaseData\": \"\",\r\n  \"cbUser\": \"Receptionist\",\r\n  \"cbArea\": \"System\",\r\n  \"cbSettlement\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v1/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v1",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Out of Operation Receipt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n  \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n  \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n  \"cbTerminalID\": \"T1\",\r\n  \"cbReceiptReference\": \"2020020120152812\",\r\n  \"cbReceiptMoment\": \"2020-02-01T20:15:28.123Z\",\r\n  \"cbChargeItems\": [],\r\n  \"cbPayItems\": [],\r\n  \"ftReceiptCase\": 4919338172267102212,\r\n  \"ftReceiptCaseData\": \"\",\r\n  \"cbUser\": \"Receptionist\",\r\n  \"cbArea\": \"System\",\r\n  \"cbSettlement\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v1/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v1",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Zero Receipt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n  \"ftReceiptCase\": 4919338172267102210,\r\n  \"ftPosSystemId\": \"b3dc6573-96d9-e611-80f7-5065f38adae1\",\r\n  \"cbTerminalID\": \"CashDesk1\",\r\n  \"cbReceiptReference\": \"ZeroReceiptAfterFailure\",\r\n  \"cbReceiptMoment\": \"2020-03-25T13:32:45.133Z\",\r\n  \"cbChargeItems\": [],\r\n  \"cbPayItems\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v1/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v1",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Sample requests for the German market",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "FR",
+			"item": [
+				{
+					"name": "Ticket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"1\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:50:09.630448Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 64.72,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 16.21,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 80.93,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229313\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment prove",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"2\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:53:13.5325847Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 81.56,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": -81.56,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229314\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invoice",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"3\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:54:08.6816674Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 27.97,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 50.72,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 78.69,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229315\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Shift receipt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"4\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:54:25.6769006Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229316\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Daily receipt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"6\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:55:32.3395244Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229317\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Monthly receipt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"7\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:55:52.6928015Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229318\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Yearly receipt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"8\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:56:17.465348Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229319\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bill",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"9\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:57:01.6123677Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 60.83,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 99.41,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": 160.24,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229320\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delivery note receipt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"10\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:57:23.8846468Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 10.79,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 26.17,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 36.96,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229321\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cash deposit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"11\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:57:39.6891856Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 85.35,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": -85.35,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229322\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payout receipt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"12\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:57:48.4151441Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 58.16,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": -58.16,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229323\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment transfer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"13\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:58:03.4696136Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 109.42,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": -109.42,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229324\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Internal receipt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"14\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:58:12.6243023Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 83.28,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 79.77,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 163.05,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229325\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forein sales receipt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"15\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:58:25.0873238Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 44.86,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 57.52,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": 102.38,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229326\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Zero receipt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"16\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:58:39.9214784Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229327\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Start receipt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"17\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:58:52.8800023Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229328\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stop receipt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"18\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:59:01.6832655Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229329\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"19\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:59:12.6247722Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229330\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Audit receipt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"20\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:59:26.4088222Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229331\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Protocol receipt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"21\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:59:35.5489836Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229332\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Archive",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"22\",\r\n    \"cbReceiptMoment\": \"2020-05-02T13:59:50.3700754Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229333\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v0/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Sign"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Sample requests for the French market",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Journal",
+			"item": [
+				{
+					"name": "Version information (0x0000000000000000)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/json/v0/Journal?ftJournalType=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Journal"
+							],
+							"query": [
+								{
+									"key": "ftJournalType",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActionJournal in internal format (0x0000000000000001)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/json/v0/Journal?type=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Journal"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReceiptJournal in internal format (0x0000000000000002)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/json/v0/Journal?type=2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Journal"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "QueueItemJournal in internal format (0x0000000000000003)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/json/v0/Journal?type=3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v0",
+								"Journal"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Echo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"Message\": \"Hello World!\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/json/v1/Echo",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"json",
+						"v1",
+						"Echo"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "9b0110e3-2f09-40d2-8191-fd8477a91065",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "448d9f1c-6312-4238-b105-d46b3bfa8f6a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "fbb68d82-ebb0-42fe-a1ed-5434c87d4d85",
+			"key": "base_url",
+			"value": "http://localhost:1500/00000000-0000-0000-0000-000000000000",
+			"type": "string"
+		},
+		{
+			"id": "d6b4b848-32d3-4233-800d-cc264f29de57",
+			"key": "data_format",
+			"value": "json",
+			"type": "string"
+		},
+		{
+			"id": "60eac590-6ac3-41bf-a072-a5b85a8ca099",
+			"key": "cashbox_id",
+			"value": "00000000-0000-0000-0000-000000000000",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
