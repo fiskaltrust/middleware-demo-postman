@@ -207,155 +207,655 @@
 			"name": "DE",
 			"item": [
 				{
-					"name": "Implicit Sequence",
+					"name": "Implicit Flow Sequenz",
 					"item": [
 						{
-							"name": "1.2 Info order",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n   \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n   \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n   \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n   \"cbTerminalID\": \"T1\",\r\n   \"cbReceiptReference\": \"2020013017414513\",\r\n   \"cbReceiptMoment\": \"2020-01-30T17:42:45.222Z\",\r\n   \"cbChargeItems\": [\r\n      {\r\n         \"Position\": 1,\r\n         \"Quantity\": 1.0,\r\n         \"Description\": \"1 night stay\",\r\n         \"Amount\": 84.0,\r\n         \"VATRate\": 7.0000,\r\n         \"VATAmount\": 5.88,\r\n         \"ftChargeItemCase\": 4919338167972134914,\r\n         \"ftChargeItemCaseData\": \"\",\r\n         \"CostCenter\": \"1\",\r\n         \"AccountNumber\": \"19829182\",\r\n         \"ProductGroup\": \"Room\",\r\n         \"ProductNumber\": \"101\",\r\n         \"ProductBarcode\": \"\",\r\n         \"Unit\": \"Night\",\r\n         \"UnitQuantity\": 1,\r\n         \"UnitPrice\": 84,\r\n         \"Moment\": \"2020-01-30T17:42:40.342Z\"\r\n      }\r\n   ],\r\n   \"cbPayItems\": [\r\n      {\r\n         \"Position\": 1,\r\n         \"Quantity\": 1.0,\r\n         \"Description\": \"Internal\",\r\n         \"Amount\": 84.0,\r\n         \"ftPayItemCase\": 4919338167972134922,\r\n         \"ftPayItemCaseData\": \"\",\r\n         \"AccountNumber\": \"19829182\",\r\n         \"CostCenter\": \"827272\",\r\n         \"Moment\": \"2020-01-30T17:42:40.342Z\"\r\n      }\r\n   ],\r\n   \"ftReceiptCase\": 4919338172267102224,\r\n   \"cbArea\": \"Hotel Romantic\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
+							"name": "Einfach",
+							"item": [
+								{
+									"name": "1. Check-In (info-internal)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"R\",\r\n    \"cbReceiptReference\":\"123401\",\r\n    \"cbReceiptMoment\":\"2020-06-01T17:00:00.01Z\",\r\n    \"cbChargeItems\":[],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338172267102227\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Zimmer 123401 => Vorgang 123401 - siehe cbReceiptReference\n"
+									},
+									"response": []
+								},
+								{
+									"name": "2. Erste Übernachtung (info-order)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"N\",\r\n    \"cbReceiptReference\":\"123401\",\r\n    \"cbReceiptMoment\":\"2020-06-01T23:00:00.01Z\",\r\n    \"cbChargeItems\":[\r\n    \t{\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-01T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-01T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-01T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-01T23:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338172267102224\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Nachtlauf - Vorgang 123401 - siehe cbReceiptReference"
+									},
+									"response": []
+								},
+								{
+									"name": "3. Konsum an der Hotelbar (info-order)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"C\",\r\n    \"cbReceiptReference\":\"123401\",\r\n    \"cbReceiptMoment\":\"2020-06-02T21:00:00.01Z\",\r\n    \"cbChargeItems\":[\r\n    \t{\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"0.5 Becks\",\r\n            \"Amount\":5.50,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T21:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"0.3 Afri Cola\",\r\n            \"Amount\":4.50,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T21:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338172267102224\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Konsum - Vorgang 123401 - siehe cbReceiptReference"
+									},
+									"response": []
+								},
+								{
+									"name": "4. Zweite Übernachtung (info-order)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"N\",\r\n    \"cbReceiptReference\":\"123401\",\r\n    \"cbReceiptMoment\":\"2020-06-02T23:00:00.01Z\",\r\n    \"cbChargeItems\":[\r\n    \t{\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338172267102224\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Nachtlauf - Vorgang 123401 - siehe cbReceiptReference"
+									},
+									"response": []
+								},
+								{
+									"name": "5. Check-Out und Bezahlung (pos-receipt)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"D\",\r\n    \"cbReceiptReference\":\"123401\",\r\n    \"cbReceiptMoment\":\"2020-06-03T09:00:00.01Z\",\r\n    \"cbChargeItems\":[\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-01T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-01T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-01T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-01T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"0.5 Becks\",\r\n            \"Amount\":5.50,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T21:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"0.3 Afri Cola\",\r\n            \"Amount\":4.50,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T21:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\":[\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"EC Karte\",\r\n            \"Amount\":410.00,      \r\n            \"ftPayItemCase\":4919338167972134916,\r\n            \"Moment\":\"2020-06-03T09:00:00.01Z\"\r\n        }\r\n    ], \r\n    \"ftReceiptCase\":4919338172267102209\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Bezahlung Zimmer - Vorgang 123401 - siehe cbReceiptReference"
+									},
+									"response": []
+								}
+							],
+							"description": "Frau und Herr Müller checken im Hotel ein, sie konsumieren über mehrere Tage hinweg und zahlen zum Schluß die Rechnung.",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "52081552-fd9f-4e4c-ac0d-973bd625b00d",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/json/v1/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"v1",
-										"Sign"
-									]
+								{
+									"listen": "test",
+									"script": {
+										"id": "9c23fdd9-9d1f-4e33-a2ed-be2002280bca",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
 								}
-							},
-							"response": []
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
 						},
 						{
-							"name": "2. Pos Receipt",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020013017414513\",\r\n    \"cbReceiptMoment\": \"2020-02-01T12:09:22.233Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"1 night stay\",\r\n            \"Amount\": 84.0,\r\n            \"VATRate\": 7.0000,\r\n            \"VATAmount\": 5.88,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"CostCenter\": \"827272\",\r\n            \"AccountNumber\": \"19829182\",\r\n            \"ProductGroup\": \"Room\",\r\n            \"ProductNumber\": \"101\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Night\",\r\n            \"UnitQuantity\": 1,\r\n            \"UnitPrice\": 84,\r\n            \"Moment\": \"2020-02-01T12:07:10.166Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1,\r\n            \"Description\": \"Bar\",\r\n            \"Amount\": 84.0,\r\n            \"ftPayItemCase\": 4919338167972134913,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"19829182\",\r\n            \"CostCenter\": \"827272\",\r\n            \"MoneyGroup\": \"BAR\",\r\n            \"MoneyNumber\": \"1234\",\r\n            \"Moment\": \"2020-02-01T12:08:33.555Z\"\r\n        }\r\n    ], \r\n    \"ftReceiptCase\":4919338172267102209,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 84.00,\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\":\"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
+							"name": "Split",
+							"item": [
+								{
+									"name": "1. Check-In (info-internal)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"R\",\r\n    \"cbReceiptReference\":\"123401\",\r\n    \"cbReceiptMoment\":\"2020-06-01T17:00:00.01Z\",\r\n    \"cbChargeItems\":[],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338172267102227\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Zimmer 123401 => Vorgang 123401 - siehe cbReceiptReference"
+									},
+									"response": []
+								},
+								{
+									"name": "2. Erste Übernachtung (info-order)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"N\",\r\n    \"cbReceiptReference\":\"123401\",\r\n    \"cbReceiptMoment\":\"2020-06-01T23:00:00.01Z\",\r\n    \"cbChargeItems\":[\r\n    \t{\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-01T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-01T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-01T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-01T23:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338172267102224\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Nachtlauf - Vorgang 123401 - siehe cbReceiptReference"
+									},
+									"response": []
+								},
+								{
+									"name": "3. Konsum an der Hotelbar (Info-order)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"C\",\r\n    \"cbReceiptReference\":\"123401\",\r\n    \"cbReceiptMoment\":\"2020-06-02T21:00:00.01Z\",\r\n    \"cbChargeItems\":[\r\n    \t{\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"0.5 Becks\",\r\n            \"Amount\":5.50,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T21:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"0.3 Afri Cola\",\r\n            \"Amount\":4.50,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T21:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338172267102224\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Konsum - Vorgang 123401 - siehe cbReceiptReference"
+									},
+									"response": []
+								},
+								{
+									"name": "4. Zweite Übernachtung (info-order)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"N\",\r\n    \"cbReceiptReference\":\"123401\",\r\n    \"cbReceiptMoment\":\"2020-06-02T23:00:00.01Z\",\r\n    \"cbChargeItems\":[\r\n    \t{\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338172267102224\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Nachtlauf - Vorgang 123401 - siehe cbReceiptReference"
+									},
+									"response": []
+								},
+								{
+									"name": "5. Check-Out und Bezahlung Fr. Müller (pos-receipt)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"D\",\r\n    \"cbReceiptReference\":\"5671\",\r\n    \"cbPreviousReceiptReference\":\"123401\",\r\n    \"cbReceiptMoment\":\"2020-06-03T09:00:00.01Z\",\r\n    \"cbChargeItems\":[\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-01T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-01T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":0,\r\n            \"Description\":\"Start Vorbereitung\",\r\n            \"Amount\":0,\r\n            \"VATRate\":0,\r\n            \"ftChargeItemCase\":4919338167972134912,\r\n            \"Moment\":\"2020-06-01T17:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\":[\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"EC Karte\",\r\n            \"Amount\":200.00,      \r\n            \"ftPayItemCase\":4919338167972134916,\r\n            \"Moment\":\"2020-06-03T09:00:00.01Z\"\r\n        }\r\n    ], \r\n    \"ftReceiptCase\":4919338172267102209\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Split des Vorgangs 123401:\nRechnung 5671 - siehe cbReceiptReference\nZimmer 123401 - siehe cbPreviousReceiptReference"
+									},
+									"response": []
+								},
+								{
+									"name": "6. Check-Out und Bezahlung Hr. Müller (pos-receipt)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"D\",\r\n    \"cbReceiptReference\":\"5672\",\r\n    \"cbPreviousReceiptReference\":\"123401\",\r\n    \"cbReceiptMoment\":\"2020-06-03T09:00:00.01Z\",\r\n    \"cbChargeItems\":[\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-01T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-01T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"0.5 Becks\",\r\n            \"Amount\":5.50,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T21:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"0.3 Afri Cola\",\r\n            \"Amount\":4.50,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T21:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":0,\r\n            \"Description\":\"Start Vorbereitung\",\r\n            \"Amount\":0,\r\n            \"VATRate\":0,\r\n            \"ftChargeItemCase\":4919338167972134912,\r\n            \"Moment\":\"2020-06-01T17:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\":[\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"EC Karte\",\r\n            \"Amount\":210.00,      \r\n            \"ftPayItemCase\":4919338167972134916,\r\n            \"Moment\":\"2020-06-03T09:00:00.01Z\"\r\n        }\r\n    ], \r\n    \"ftReceiptCase\":4919338172267102209\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Split des Vorgangs 123401:\nRechnung 5672 - siehe cbReceiptReference\nZimmer 123401 - siehe cbPreviousReceiptReference"
+									},
+									"response": []
+								}
+							],
+							"description": "Frau und Herr Müller checken im Hotel ein, konsumieren über mehrere Tage hinweg und Zahlen dann getrennt. Bei der Bezahlung findet ein Split des Vorgangs über cbReceiptReference und cbPreviousReceiptReference statt.\n\n1. Frau u. Herr Müller reisen zusammen an (Zimmer 123401)​\n2. Erste Übernachtung​\n3. Konsum an der Hotelbar​\n4. Zweite Übernachtung​\nFrau u. Herr Müller bezahlen getrennt (split – Rechnung 5671 u. 5672)\n5. Rechnung 5671 (Frau Müller)\n6. Rechnung 5672 (Herr Müller)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "3eb41943-8d9d-4cdc-adb9-c5e10c7ab136",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/json/v1/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"v1",
-										"Sign"
-									]
+								{
+									"listen": "test",
+									"script": {
+										"id": "513026df-1fb3-479b-98c5-3fa92fcc98fb",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
 								}
-							},
-							"response": []
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
 						},
 						{
-							"name": "3. Info Order",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n   \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n   \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n   \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n   \"cbTerminalID\": \"T1\",\r\n   \"cbReceiptReference\": \"2020013017414513\",\r\n   \"cbReceiptMoment\": \"2020-02-01T19:35:41.133Z\",\r\n   \"cbChargeItems\": [\r\n      {\r\n         \"Position\": 1,\r\n         \"Quantity\": 1.0,\r\n         \"Description\": \"Bier 0,5 lt\",\r\n         \"Amount\": 3.80,\r\n         \"VATRate\": 19.00,\r\n         \"VATAmount\": 0.61,\r\n         \"ftChargeItemCase\": 4919338167972134937,\r\n         \"ftChargeItemCaseData\": \"\",\r\n         \"CostCenter\": \"827272\",\r\n         \"AccountNumber\": \"19829182\",\r\n         \"ProductGroup\": \"Bier\",\r\n         \"ProductNumber\": \"1\",\r\n         \"ProductBarcode\": \"\",\r\n         \"Unit\": \"Stk\",\r\n         \"UnitQuantity\": 1,\r\n         \"UnitPrice\": 3.80,\r\n         \"Moment\": \"2020-02-01T19:34:59.133Z\"\r\n      }\r\n   ],\r\n   \"cbPayItems\": [\r\n      {\r\n         \"Position\": 1,\r\n         \"Quantity\": 1.0,\r\n         \"Description\": \"Internal\",\r\n         \"Amount\": 84.0,\r\n         \"ftPayItemCase\": 4919338167972134922,\r\n         \"ftPayItemCaseData\": \"\",\r\n         \"AccountNumber\": \"19829182\",\r\n         \"CostCenter\": \"827272\",\r\n         \"Moment\": \"2020-02-01T19:34:59.133Z\"\r\n      }\r\n   ],\r\n   \"ftReceiptCase\": 4919338172267102224,\r\n   \"cbArea\": \"Bar Hotel Romantic\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
+							"name": "Merge",
+							"item": [
+								{
+									"name": "1. Check-In Fam. Müller (info-internal)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"R\",\r\n    \"cbReceiptReference\":\"234401\",\r\n    \"cbReceiptMoment\":\"2020-06-02T17:00:00.01Z\",\r\n    \"cbChargeItems\":[],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338172267102227\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Zimmer 234401 => Vorgang 234401 - siehe cbReceiptReference"
+									},
+									"response": []
+								},
+								{
+									"name": "2. Check-In Fam. Maier (info-internal)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"R\",\r\n    \"cbReceiptReference\":\"235501\",\r\n    \"cbReceiptMoment\":\"2020-06-02T18:00:00.01Z\",\r\n    \"cbChargeItems\":[],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338172267102227\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Zimmer 235501 => Vorgang 235501 - siehe cbReceiptReference"
+									},
+									"response": []
+								},
+								{
+									"name": "3. Müller - Konsum an der Hotelbar (info-order)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"C\",\r\n    \"cbReceiptReference\":\"234401\",\r\n    \"cbReceiptMoment\":\"2020-06-02T21:00:00.01Z\",\r\n    \"cbChargeItems\":[\r\n    \t{\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"0.5 Becks\",\r\n            \"Amount\":5.50,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T21:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"0.3 Afri Cola\",\r\n            \"Amount\":4.50,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T21:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338172267102224\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Konsum - Vorgang 234401 - siehe cbReceiptReference"
+									},
+									"response": []
+								},
+								{
+									"name": "4. Übernachtung  Fam. Müller (info-order)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"N\",\r\n    \"cbReceiptReference\":\"234401\",\r\n    \"cbReceiptMoment\":\"2020-06-02T23:00:00.01Z\",\r\n    \"cbChargeItems\":[\r\n    \t{\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338172267102224\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Nachtlauf - Vorgang 234401 - siehe cbReceiptReference"
+									},
+									"response": []
+								},
+								{
+									"name": "5. Übernachtung Fam. Maier (info-order)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"N\",\r\n    \"cbReceiptReference\":\"235501\",\r\n    \"cbReceiptMoment\":\"2020-06-02T23:00:00.01Z\",\r\n    \"cbChargeItems\":[\r\n    \t{\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338172267102224\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Nachtlauf - Vorgang 235501 - siehe cbReceiptReference"
+									},
+									"response": []
+								},
+								{
+									"name": "6. Merge Fam. Müller (info-internal)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"R\",\r\n    \"cbReceiptReference\":\"6781\",\r\n    \"cbPreviousReceiptReference\":\"234401\",\r\n    \"cbReceiptMoment\":\"2020-06-03T09:00:00.01Z\",\r\n    \"cbChargeItems\":[],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338172267102227\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Merge des Vorgangs 234401 (Zimmernummer) in den Vorgang 6781 (Rechnungsnummer) siehe cbReceiptReference und cbPreviousReceiptReference"
+									},
+									"response": []
+								},
+								{
+									"name": "7. Merge Fam. Maier (info-internal)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"R\",\r\n    \"cbReceiptReference\":\"6781\",\r\n    \"cbPreviousReceiptReference\":\"235501\",\r\n    \"cbReceiptMoment\":\"2020-06-03T09:00:00.01Z\",\r\n    \"cbChargeItems\":[],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338172267102227\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Merge des Vorgangs 235501 (Zimmernummer) in den Vorgang 6781 (Rechnungsnummer) siehe cbReceiptReference und cbPreviousReceiptReference"
+									},
+									"response": []
+								},
+								{
+									"name": "8. Bezahlung (pos-receipt)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"D\",\r\n    \"cbReceiptReference\":\"6781\",\r\n    \"cbReceiptMoment\":\"2020-06-03T09:00:00.01Z\",\r\n    \"cbChargeItems\":[\r\n    \t{\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"0.5 Becks\",\r\n            \"Amount\":5.50,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T21:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"0.3 Afri Cola\",\r\n            \"Amount\":4.50,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T21:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Übernachtung\",\r\n            \"Amount\":80.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Frühstück\",\r\n            \"Amount\":20.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-02T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\":0,\r\n            \"Description\":\"Start Vorbereitung\",\r\n            \"Amount\":0,\r\n            \"VATRate\":0,\r\n            \"ftChargeItemCase\":4919338167972134912,\r\n            \"Moment\":\"2020-06-02T17:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\":[\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"EC Karte\",\r\n            \"Amount\":210.00,      \r\n            \"ftPayItemCase\":4919338167972134916,\r\n            \"Moment\":\"2020-06-03T09:00:00.01Z\"\r\n        }\r\n    ], \r\n    \"ftReceiptCase\":4919338172267102209\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/v1/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"v1",
+												"Sign"
+											]
+										},
+										"description": "Bezahlung durch Fam Müller für sich selbst und für Fam. Maier - Rechnungsnr. 6781 - siehe cbReceiptReference "
+									},
+									"response": []
+								}
+							],
+							"description": "Fam. Müller und Fam. Maier checken getrennt im Hotel ein. Sie konsumieren getrennt über mehrere Tage hinweg und zum Schluß übernimmt Fam. Müller auch die Rechnung von Fam. Maier und bezahlt alles zusammen. Bei der Bezahlung findet ein merge (2x info-internal) über cbReceiptReference und cbPreviousReceiptReference statt.\n\n1. Fam. Müller reist an (Zimmer 234401)​\n2. Fam. Maier reist an (Zimmer 235501)​\n3. Übernachtung Fam. Müller​\n4. Übernachtung Fam. Maier​\n5. Fam. Müller konsumiert an der Hotelbar​\nFam. Müller bezahlt für sich selbst und für Fam. Maier (merge – Rechnung 6781)​\n6. Merge Zimmer 234401 in Rechnung 6781\n7. Merge Zimmer 235501 in Rechnung 6781\n8. Bezahlung Rechnung 6781",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "070adfac-1411-4213-8e79-bd1a88dc0de2",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/json/v1/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"v1",
-										"Sign"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "4. Pos Receipt",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020013017414513\",\r\n    \"cbReceiptMoment\": \"2020-02-02T10:35:45.133Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bier 0,5 lt\",\r\n            \"Amount\": 3.80,\r\n            \"VATRate\": 19.00,\r\n            \"VATAmount\": 0.61,\r\n            \"ftChargeItemCase\": 4919338167972134937,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"CostCenter\": \"827272\",\r\n            \"AccountNumber\": \"33829182\",\r\n            \"ProductGroup\": \"Bier\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1,\r\n            \"UnitPrice\": 3.80,\r\n            \"Moment\": \"2020-02-02T10:35:40.323Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1,\r\n            \"Description\": \"Debitorenkarte\",\r\n            \"Amount\": 3.80,\r\n            \"ftPayItemCase\": 4919338167972134916,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"33829182\",\r\n            \"CostCenter\": \"827272\",\r\n            \"MoneyGroup\": \"DEBITCARD\",\r\n            \"MoneyNumber\": \"1235\",\r\n            \"Moment\": \"2020-02-02T10:35:42.323Z\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338172267102209,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 3.80,\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\": \"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
+								{
+									"listen": "test",
+									"script": {
+										"id": "da24ca7e-a855-4a3b-bc0d-2a29fe03fcb8",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
 									}
-								},
-								"url": {
-									"raw": "{{base_url}}/json/v1/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"v1",
-										"Sign"
-									]
 								}
-							},
-							"response": []
-						},
-						{
-							"name": "5. Pos Receipt",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020013017414513\",\r\n    \"cbReceiptMoment\": \"2020-02-01T20:15:35.433Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Greeting Card\",\r\n            \"Amount\": 1.0,\r\n            \"VATRate\": 7.00,\r\n            \"VATAmount\": 0.07,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"CostCenter\": \"827272\",\r\n            \"AccountNumber\": \"19829182\",\r\n            \"ProductGroup\": \"Papitry\",\r\n            \"ProductNumber\": \"1872\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1,\r\n            \"UnitPrice\": 1.00,\r\n            \"Moment\": \"2020-02-01T20:15:29.123Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1,\r\n            \"Description\": \"Debitorenkarte\",\r\n            \"Amount\": 1.0,\r\n            \"ftPayItemCase\": 4919338167972134916,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"2229182\",\r\n            \"CostCenter\": \"127272\",\r\n            \"MoneyGroup\": \"DEBITCARD\",\r\n            \"MoneyNumber\": \"1235\",\r\n            \"Moment\": \"2020-02-01T20:15:33.123Z\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338172267102209,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 1.00,\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\": \"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/json/v1/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"v1",
-										"Sign"
-									]
-								}
-							},
-							"response": []
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
 						}
 					],
-					"description": "An implicit sequence example for a hotel booking transaction flow\r\n\r\n1. Reservation for 1 night (not cancellable) -> info-internal + info-order (1.1 Info internal, 1.2 Info order)\r\n2. Checkin -> FULL PAYMENT -> pos-receipt (2. Pos Receipt)\r\n3. Consumption 1 beer at the bar -> room charge -> info-order (3. Info Order)\r\n4. Purchase of a greeting card -> payed immediately -> pos-receipt (4. Pos Receipt)\r\n5. Checkout -> Payment of consumption from 3 -> pos-receipt (5. Pos Receipt)\r\n",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "2ee9094c-ed04-49e7-bec1-cf887b1ed4de",
+								"id": "4fc78ef7-6b41-4fe5-91bc-f5832eefbe32",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -365,7 +865,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6115d710-26c5-4b95-b778-854873c38989",
+								"id": "395483ff-447e-49f7-8f31-04f293199af5",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -377,16 +877,16 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Explicit Sequence",
+					"name": "Explicit Flow Sequenz",
 					"item": [
 						{
-							"name": "1.1.1 Info internal (Start transaction)",
+							"name": "1.1. Gast nimmt Platz (start transaction)",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020013017414413\",\r\n    \"cbReceiptMoment\": \"2020-01-30T17:41:44.133Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338167972134920,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbUser\": \"System\",\r\n    \"cbArea\": \"\",\r\n    \"cbSettlement\": \"\"\r\n}",
+									"raw": "{\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\n    \"cbTerminalID\": \"T1\",\n    \"cbReceiptReference\": \"ACC-124\",\n    \"cbReceiptMoment\": \"2020-06-29T17:41:44.133Z\",\n    \"cbChargeItems\": [],\n    \"cbPayItems\": [],\n    \"ftReceiptCaseData\": \"\",\n    \"cbUser\": \"Astrid\",\n    \"ftReceiptCase\": 4919338167972134920\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -403,18 +903,19 @@
 										"v1",
 										"Sign"
 									]
-								}
+								},
+								"description": "Gast setzt sich, der Vorgang ACC-124 beginnt. Siehe cbReceiptReference. Expliziter Flow wird verwendet. Start Transaction Receipt als erstes."
 							},
 							"response": []
 						},
 						{
-							"name": "1.1.2 Info internal (Finish transaction)",
+							"name": "1.2 Gast nimmt Platz (info-internal)",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n  \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n  \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n  \"cbTerminalID\": \"T1\",\r\n  \"cbReceiptReference\": \"2020013017414413\",\r\n  \"cbReceiptMoment\": \"2020-01-30T17:41:45.133Z\",\r\n  \"cbChargeItems\": [],\r\n  \"cbPayItems\": [],\r\n  \"ftReceiptCase\": 4919338167972134931,\r\n  \"ftReceiptCaseData\": \"\",\r\n  \"cbReceiptAmount\": 0,\r\n  \"cbUser\": \"System\",\r\n  \"cbArea\": \"\",\r\n  \"cbSettlement\": \"\"\r\n}",
+									"raw": "{\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\n    \"cbTerminalID\": \"T1\",\n    \"cbReceiptReference\": \"ACC-124\",\n    \"cbReceiptMoment\": \"2020-06-29T17:41:44.899Z\",\n    \"cbChargeItems\": [],\n    \"cbPayItems\": [],\n    \"ftReceiptCaseData\": \"\",\n    \"cbUser\": \"Astrid\",\n    \"ftReceiptCase\": 4919338167972134931\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -431,18 +932,19 @@
 										"v1",
 										"Sign"
 									]
-								}
+								},
+								"description": "Gast setzt sich, der Vorgang ACC-124 beginnt. Siehe cbReceiptReference. Expliziter Flow wird verwendet. Start Transaction Receipt wird mit info-internal geschossen."
 							},
 							"response": []
 						},
 						{
-							"name": "1.2.1 Info order (Start transaction)",
+							"name": "2.1 Gast bestellt Getränke (start transaction)",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020013017423934\",\r\n    \"cbReceiptMoment\": \"2020-01-30T17:42:39.342Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338167972134920,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbUser\": \"System\",\r\n    \"cbArea\": \"\",\r\n    \"cbSettlement\": \"\"\r\n}",
+									"raw": "{\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\n    \"cbTerminalID\": \"T1\",\n    \"cbReceiptReference\": \"ACC-124\",\n    \"cbReceiptMoment\": \"2020-06-29T17:45:40.005Z\",\n    \"cbChargeItems\": [],\n    \"cbPayItems\": [],\n    \"ftReceiptCaseData\": \"\",\n    \"cbUser\": \"Astrid\",\n    \"ftReceiptCase\": 4919338167972134920\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -459,18 +961,19 @@
 										"v1",
 										"Sign"
 									]
-								}
+								},
+								"description": "Gast bestellt zwei Getränke, der Vorgang ACC-124 wird fortgesetzt. Siehe cbReceiptReference. Expliziter Flow wird verwendet. Start Transaction Receipt als erstes für die Bestellung."
 							},
 							"response": []
 						},
 						{
-							"name": "1.2.2 Info order (Finish transaction)",
+							"name": "2.2 Gast bestellt Getränke (info-order)",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n   \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n   \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n   \"cbTerminalID\": \"T1\",\r\n   \"cbReceiptReference\": \"2020013017423934\",\r\n   \"cbReceiptMoment\": \"2020-01-30T17:42:45.222Z\",\r\n   \"cbChargeItems\": [\r\n      {\r\n         \"Position\": 1,\r\n         \"Quantity\": 1.0,\r\n         \"Description\": \"1 night stay\",\r\n         \"Amount\": 84.0,\r\n         \"VATRate\": 7.0000,\r\n         \"VATAmount\": 5.88,\r\n         \"ftChargeItemCase\": 4919338167972134914,\r\n         \"ftChargeItemCaseData\": \"\",\r\n         \"CostCenter\": \"1\",\r\n         \"AccountNumber\": \"19829182\",\r\n         \"ProductGroup\": \"Room\",\r\n         \"ProductNumber\": \"101\",\r\n         \"ProductBarcode\": \"\",\r\n         \"Unit\": \"Night\",\r\n         \"UnitQuantity\": 1,\r\n         \"UnitPrice\": 84,\r\n         \"Moment\": \"2020-01-30T17:42:40.342Z\"\r\n      }\r\n   ],\r\n   \"cbPayItems\": [\r\n      {\r\n         \"Position\": 1,\r\n         \"Quantity\": 1.0,\r\n         \"Description\": \"Internal\",\r\n         \"Amount\": 84.0,\r\n         \"ftPayItemCase\": 4919338167972134922,\r\n         \"ftPayItemCaseData\": \"\",\r\n         \"AccountNumber\": \"19829182\",\r\n         \"CostCenter\": \"827272\",\r\n         \"Moment\": \"2020-01-30T17:42:40.342Z\"\r\n      }\r\n   ],\r\n   \"ftReceiptCase\": 4919338167972134928,\r\n   \"cbArea\": \"Hotel Romantic\"\r\n}",
+									"raw": "{\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\n    \"cbTerminalID\": \"T1\",\n    \"cbReceiptReference\": \"ACC-124\",\n    \"cbReceiptMoment\": \"2020-06-29T17:45:40.505Z\",\n    \"cbChargeItems\": [{\n            \"Quantity\":1.0,\n            \"Description\":\"Lavazza Gusto Mokka\",\n            \"Amount\":4.00,\n            \"VATRate\":19.00,\n            \"ftChargeItemCase\":4919338167972134913,\n            \"Moment\":\"2020-06-29T17:45:40.505Z\"\n        },\n        {\n            \"Quantity\":1.0,\n            \"Description\":\"0,3 Fanta\",\n            \"Amount\":3.50,\n            \"VATRate\":19.00,\n            \"ftChargeItemCase\":4919338167972134913,\n            \"Moment\":\"2020-06-29T17:45:40.505Z\"\n        }],\n    \"cbPayItems\": [],\n    \"ftReceiptCaseData\": \"\",\n    \"cbUser\": \"Astrid\",\n    \"ftReceiptCase\": 4919338167972134928\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -487,18 +990,19 @@
 										"v1",
 										"Sign"
 									]
-								}
+								},
+								"description": "Gast bestellt zwei Getränke, der Vorgang ACC-124 wird fortgesetzt. Siehe cbReceiptReference. Expliziter Flow wird verwendet. Start Transaction Receipt wird mit info-order geschossen."
 							},
 							"response": []
 						},
 						{
-							"name": "2.1 Pos Receipt (Start transaction)",
+							"name": "3.1 Gast bestellt weiters Getränk (start transaction)",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020020112070916\",\r\n    \"cbReceiptMoment\": \"2020-02-01T12:07:09.166Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338167972134920,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\":\"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
+									"raw": "{\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\n    \"cbTerminalID\": \"T1\",\n    \"cbReceiptReference\": \"ACC-124\",\n    \"cbReceiptMoment\": \"2020-06-29T17:55:20.205Z\",\n    \"cbChargeItems\": [],\n    \"cbPayItems\": [],\n    \"ftReceiptCaseData\": \"\",\n    \"cbUser\": \"Astrid\",\n    \"ftReceiptCase\": 4919338167972134920\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -515,18 +1019,19 @@
 										"v1",
 										"Sign"
 									]
-								}
+								},
+								"description": "Gast bestellt weiteres Getränk, der Vorgang ACC-124 wird fortgesetzt. Siehe cbReceiptReference. Expliziter Flow wird verwendet. Start Transaction Receipt als erstes für die Bestellung."
 							},
 							"response": []
 						},
 						{
-							"name": "2.2 Pos Receipt (Finish transaction)",
+							"name": "3.2 Gast bestellt weiteres Getränk (info-order)",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020020112070916\",\r\n    \"cbReceiptMoment\": \"2020-02-01T12:09:22.233Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"1 night stay\",\r\n            \"Amount\": 84.0,\r\n            \"VATRate\": 7.0000,\r\n            \"VATAmount\": 5.88,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"CostCenter\": \"827272\",\r\n            \"AccountNumber\": \"19829182\",\r\n            \"ProductGroup\": \"Room\",\r\n            \"ProductNumber\": \"101\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Night\",\r\n            \"UnitQuantity\": 1,\r\n            \"UnitPrice\": 84,\r\n            \"Moment\": \"2020-02-01T12:07:10.166Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1,\r\n            \"Description\": \"Bar\",\r\n            \"Amount\": 84.0,\r\n            \"ftPayItemCase\": 4919338167972134913,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"19829182\",\r\n            \"CostCenter\": \"827272\",\r\n            \"MoneyGroup\": \"BAR\",\r\n            \"MoneyNumber\": \"1234\",\r\n            \"Moment\": \"2020-02-01T12:08:33.555Z\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\":4919338167972134913,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 84.00,\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\":\"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
+									"raw": "{\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\n    \"cbTerminalID\": \"T1\",\n    \"cbReceiptReference\": \"ACC-124\",\n    \"cbReceiptMoment\": \"2020-06-29T17:55:20.705Z\",\n    \"cbChargeItems\": [\n        {\n            \"Quantity\": 1,\n            \"Description\": \"0,3 Fanta\",\n            \"Amount\": 3.5,\n            \"VATRate\": 19,\n            \"ftChargeItemCase\": 4919338167972134913,\n            \"Moment\": \"2020-06-29T17:55:20.705Z\"\n        }],\n    \"cbPayItems\": [],\n    \"ftReceiptCaseData\": \"\",\n    \"cbUser\": \"Astrid\",\n    \"ftReceiptCase\": 4919338167972134928\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -543,18 +1048,19 @@
 										"v1",
 										"Sign"
 									]
-								}
+								},
+								"description": "Gast bestellt weiteres Getränk, der Vorgang ACC-124 wird fortgesetzt. Siehe cbReceiptReference. Expliziter Flow wird verwendet. Start Transaction Receipt wird mit info-order geschossen."
 							},
 							"response": []
 						},
 						{
-							"name": "3.1 Info Order (Start transaction)",
+							"name": "4.1 Gast bezahlt (start-transaction)",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020020119345813\",\r\n    \"cbReceiptMoment\":\"2020-02-01T19:34:58.133Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338167972134920,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbArea\":\"Bar Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"T2\",\r\n    \"cbReceiptReference\":\"ACC-124\",\r\n    \"cbReceiptMoment\":\"2020-06-29T18:05:33.112Z\",\r\n    \"cbChargeItems\":[],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338167972134920\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -571,18 +1077,19 @@
 										"v1",
 										"Sign"
 									]
-								}
+								},
+								"description": "Gast bezahlt, der Vorgang ACC-124 wird fortgesetzt. Siehe cbReceiptReference. Expliziter Flow wird verwendet. Start Transaction Receipt als erstes für die Bezahlung."
 							},
 							"response": []
 						},
 						{
-							"name": "3.2 Info Order (Finish transaction)",
+							"name": "4.2 Gast bezahlt (pos-receipt)",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n   \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n   \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n   \"cbTerminalID\": \"T1\",\r\n   \"cbReceiptReference\": \"2020020119345813\",\r\n   \"cbReceiptMoment\": \"2020-02-01T19:35:41.133Z\",\r\n   \"cbChargeItems\": [\r\n      {\r\n         \"Position\": 1,\r\n         \"Quantity\": 1.0,\r\n         \"Description\": \"Bier 0,5 lt\",\r\n         \"Amount\": 3.80,\r\n         \"VATRate\": 19.00,\r\n         \"VATAmount\": 0.61,\r\n         \"ftChargeItemCase\": 4919338167972134937,\r\n         \"ftChargeItemCaseData\": \"\",\r\n         \"CostCenter\": \"827272\",\r\n         \"AccountNumber\": \"19829182\",\r\n         \"ProductGroup\": \"Bier\",\r\n         \"ProductNumber\": \"1\",\r\n         \"ProductBarcode\": \"\",\r\n         \"Unit\": \"Stk\",\r\n         \"UnitQuantity\": 1,\r\n         \"UnitPrice\": 3.80,\r\n         \"Moment\": \"2020-02-01T19:34:59.133Z\"\r\n      }\r\n   ],\r\n   \"cbPayItems\": [\r\n      {\r\n         \"Position\": 1,\r\n         \"Quantity\": 1.0,\r\n         \"Description\": \"Internal\",\r\n         \"Amount\": 84.0,\r\n         \"ftPayItemCase\": 4919338167972134922,\r\n         \"ftPayItemCaseData\": \"\",\r\n         \"AccountNumber\": \"19829182\",\r\n         \"CostCenter\": \"827272\",\r\n         \"Moment\": \"2020-02-01T19:34:59.133Z\"\r\n      }\r\n   ],\r\n   \"ftReceiptCase\": 4919338167972134928,\r\n   \"cbArea\": \"Bar Hotel Romantic\",\r\n   \"cbSettlement\": \"\"\r\n}",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"T2\",\r\n    \"cbReceiptReference\":\"ACC-124\",\r\n    \"cbReceiptMoment\":\"2020-06-29T18:05:33.912Z\",\r\n    \"cbChargeItems\":[\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Lavazza Gusto Mokka\",\r\n            \"Amount\":4.00,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-29T17:45:40.505Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"0,3 Fanta\",\r\n            \"Amount\":3.50,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-29T17:45:40.505Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"0,3 Fanta\",\r\n            \"Amount\":3.50,\r\n            \"VATRate\":19.00,\r\n            \"ftChargeItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-29T17:55:20.705Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\":[\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Cash\",\r\n            \"Amount\":11.00,      \r\n            \"ftPayItemCase\":4919338167972134913,\r\n            \"Moment\":\"2020-06-29T18:05:33.912Z\"\r\n        }\r\n    ], \r\n    \"ftReceiptCase\":4919338167972134913\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -599,129 +1106,17 @@
 										"v1",
 										"Sign"
 									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "4.1 Pos Receipt (Start transaction)",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020020120152812\",\r\n    \"cbReceiptMoment\": \"2020-02-01T20:15:28.123Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338167972134920,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\": \"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n} ",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
 								},
-								"url": {
-									"raw": "{{base_url}}/json/v1/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"v1",
-										"Sign"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "4.2 Pos Receipt (Finish transaction)",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020020120152812\",\r\n    \"cbReceiptMoment\": \"2020-02-01T20:15:35.433Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Greeting Card\",\r\n            \"Amount\": 1.0,\r\n            \"VATRate\": 7.00,\r\n            \"VATAmount\": 0.07,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"CostCenter\": \"827272\",\r\n            \"AccountNumber\": \"19829182\",\r\n            \"ProductGroup\": \"Papitry\",\r\n            \"ProductNumber\": \"1872\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1,\r\n            \"UnitPrice\": 1.00,\r\n            \"Moment\": \"2020-02-01T20:15:29.123Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1,\r\n            \"Description\": \"Debitorenkarte\",\r\n            \"Amount\": 1.0,\r\n            \"ftPayItemCase\": 4919338167972134916,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"2229182\",\r\n            \"CostCenter\": \"127272\",\r\n            \"MoneyGroup\": \"DEBITCARD\",\r\n            \"MoneyNumber\": \"1235\",\r\n            \"Moment\": \"2020-02-01T20:15:29.123Z\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338167972134913,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 1.00,\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\": \"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/json/v1/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"v1",
-										"Sign"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "5.1 Pos Receipt (Start transaction)",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020020210353932\",\r\n    \"cbReceiptMoment\": \"2020-02-02T10:35:39.323Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338167972134920,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\": \"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/json/v1/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"v1",
-										"Sign"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "5.2 Pos Receipt (Finish transaction)",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n    \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"2020020210353932\",\r\n    \"cbReceiptMoment\": \"2020-02-02T10:35:45.133Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bier 0,5 lt\",\r\n            \"Amount\": 3.80,\r\n            \"VATRate\": 19.00,\r\n            \"VATAmount\": 0.61,\r\n            \"ftChargeItemCase\": 4919338167972134937,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"CostCenter\": \"827272\",\r\n            \"AccountNumber\": \"33829182\",\r\n            \"ProductGroup\": \"Bier\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1,\r\n            \"UnitPrice\": 3.80,\r\n            \"Moment\": \"2020-02-02T10:35:40.323Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Position\": 1,\r\n            \"Quantity\": 1,\r\n            \"Description\": \"Debitorenkarte\",\r\n            \"Amount\": 3.80,\r\n            \"ftPayItemCase\": 4919338167972134916,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"33829182\",\r\n            \"CostCenter\": \"827272\",\r\n            \"MoneyGroup\": \"DEBITCARD\",\r\n            \"MoneyNumber\": \"1235\",\r\n            \"Moment\": \"2020-02-02T10:35:42.323Z\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338167972134913,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 3.80,\r\n    \"cbUser\": \"Receptionist\",\r\n    \"cbArea\": \"Hotel Romantic\",\r\n    \"cbSettlement\": \"\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/json/v1/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"v1",
-										"Sign"
-									]
-								}
+								"description": "Gast bezahlt, der Vorgang ACC-124 wird fortgesetzt. Siehe cbReceiptReference. Expliziter Flow wird verwendet. Start Transaction Receipt wird mit pos-receipt geschossen."
 							},
 							"response": []
 						}
 					],
-					"description": "An explicit sequence example for a hotel booking transaction flow\r\n\r\n1. Reservation for 1 night (not cancellable) -> info-internal + info-order (1.1.1 Info internal (Start transaction), 1.1.2 Info internal (Finish transaction), 1.2.1 Info order (Start transaction), 1.2.2 Info order (Finish transaction))\r\n2. Checkin -> FULL PAYMENT -> pos-receipt (2.1 Pos Receipt (Start transaction), 2.2 Pos Receipt (Finish transaction))\r\n3. Consumption of 1 beer at the bar -> room charge -> info-order (3.1 Info Order (Start transaction), 3.2 Info Order (Finish transaction))\r\n4. Purchase of a greeting card -> payed immediately -> pos-receipt (4.1 Pos Receipt (Start transaction), 4.2 Pos Receipt (Finish transaction))\r\n5. Checkout -> Payment of consumption from 3 -> pos-receipt (5.1 Pos Receipt (Start transaction), 5.2 Pos Receipt (Finish transaction))",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "b2517468-a715-4eca-9357-513475bc7a4d",
+								"id": "e3c38e93-5309-4255-92b8-9371ba56d5a5",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -731,7 +1126,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5a0f0f7d-9bd8-4317-a085-76b548a8d3ef",
+								"id": "024c30bd-bde3-459d-9657-663d0f1fbff4",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -743,13 +1138,357 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Bonieren",
+					"name": "Gutscheine",
+					"item": [
+						{
+							"name": "1.1 Herausgabe Einzweckgutschein (in charge items)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\":\"RR223\",\r\n    \"cbReceiptMoment\":\"{{current_moment}}\",\r\n    \"cbChargeItems\":[\r\n        {\r\n         \"Quantity\":1.0,\r\n         \"Description\":\"Voucher for RX234 MP3 Player\",\r\n         \"Amount\":15.00,\r\n         \"VATRate\":19.00,\r\n         \"ftChargeItemCase\":4919338167972135009,\r\n         \"ftChargeItemCaseData\":\"{\\\"VoucherNr\\\":\\\"UAUA91829182HH\\\"}\",\r\n         \"Moment\":\"{{current_moment}}\"\r\n    \t}\r\n    ],\r\n    \"cbPayItems\":[\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Cash\",\r\n            \"Amount\":15.00,      \r\n            \"ftPayItemCase\":4919338167972134913,\r\n            \"Moment\":\"{{current_moment}}\"\r\n        }\r\n    ], \r\n    \"ftReceiptCase\":4919338172267102209\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1.2 Einlösung Einzweckgutschein (in charge items)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\":\"RR223\",\r\n    \"cbReceiptMoment\":\"{{current_moment}}\",\r\n    \"cbChargeItems\":[\r\n        {\r\n         \"Quantity\":1.0,\r\n         \"Description\":\"RX234 MP3 Player\",\r\n         \"Amount\":15.00,\r\n         \"VATRate\":19.00,\r\n         \"ftChargeItemCase\":4919338167972134929,\r\n         \"Moment\":\"{{current_moment}}\"\r\n      },\r\n      {\r\n         \"Quantity\":1.0,\r\n         \"Description\":\"Voucher for RX234 MP3 Player\",\r\n         \"Amount\":-15.00,\r\n         \"VATRate\":19.00,\r\n         \"ftChargeItemCase\":4919338167972135017,\r\n         \"ftChargeItemCaseData\":\"{\\\"VoucherNr\\\":\\\"UAUA91829182HH\\\"}\",\r\n         \"Moment\":\"{{current_moment}}\"\r\n      }\r\n    ],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338172267102209\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1.3 Einlösung Einzweckgutschein (in pay items)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"ftCashBoxID\":\"{{cashbox_id}}\",\n   \"cbTerminalID\":\"D\",\n   \"cbReceiptReference\":\"RR223\",\n   \"cbReceiptMoment\":\"{{current_moment}}\",\n   \"cbChargeItems\":[\n      {\n         \"Quantity\":1.0,\n         \"Description\":\"RX234 MP3 Player\",\n         \"Amount\":15.00,\n         \"VATRate\":19.00,\n         \"ftChargeItemCase\":4919338167972134929,\n         \"Moment\":\"{{current_moment}}\"\n      }\n   ],\n   \"cbPayItems\":[\n      {\n         \"Quantity\":1.0,\n         \"Description\":\"Voucher for RX234 MP3 Player\",\n         \"Amount\":15.00,\n         \"ftPayItemCase\":4919338167972134922,\n         \"ftPayItemCaseData\":\"{\\\"VoucherNr\\\":\\\"UAUA91829182HH\\\"}\",\n         \"Moment\":\"{{current_moment}}\"\n      }\n   ],\n   \"ftReceiptCase\":4919338172267102209\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2.1 Herausgabe Mehrzweckgutschein (in pay items)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"D\",\r\n    \"cbReceiptReference\":\"RR223\",\r\n    \"cbReceiptMoment\":\"{{current_moment}}\",\r\n    \"cbChargeItems\":[],\r\n    \"cbPayItems\":[\r\n    \t{\r\n         \"Quantity\":1.0,\r\n         \"Description\":\"Voucher for food and drinks\",\r\n         \"Amount\":-150.00,\r\n         \"ftPayItemCase\":4919338167972134925,\r\n         \"ftPayItemCaseData\":\"{\\\"VoucherNr\\\":\\\"UAUA91829182HH\\\"}\",\r\n         \"Moment\":\"{{current_moment}}\"\r\n      },\r\n      {\r\n         \"Quantity\":1.0,\r\n         \"Description\":\"Cash\",\r\n         \"Amount\":150.00,         \r\n         \"ftPayItemCase\":4919338167972134913,\r\n         \"Moment\":\"{{current_moment}}\"\r\n      }\r\n    ], \r\n    \"ftReceiptCase\":4919338172267102209\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2.2 Herausgabe Mehrzweckgutschein (in charge items)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"ftCashBoxID\":\"{{cashbox_id}}\",\n   \"cbTerminalID\":\"D\",\n   \"cbReceiptReference\":\"RR223\",\n   \"cbReceiptMoment\":\"{{current_moment}}\",\n   \"cbChargeItems\":[\n      {\n         \"Quantity\":1.0,\n         \"Description\":\"Voucher for food and drinks\",\n         \"Amount\":150.00,\n         \"VATRate\":0.0,\n         \"ftChargeItemCase\":4919338167972135008,\n         \"ftChargeItemCaseData\":\"{\\\"VoucherNr\\\":\\\"UAUA91829182HH\\\"}\",\n         \"Moment\":\"{{current_moment}}\"\n      }\n   ],\n   \"cbPayItems\":[\n      {\n         \"Quantity\":1.0,\n         \"Description\":\"Cash\",\n         \"Amount\":150.00,\n         \"ftPayItemCase\":4919338167972134913,\n         \"Moment\":\"{{current_moment}}\"\n      }\n   ],\n   \"ftReceiptCase\":4919338172267102209\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2.3 Einlösung Mehrzweckgutschein (in pay items)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"ftCashBoxID\":\"{{cashbox_id}}\",\n   \"cbTerminalID\":\"D\",\n   \"cbReceiptReference\":\"RR223\",\n   \"cbReceiptMoment\":\"{{current_moment}}\",\n   \"cbChargeItems\":[\n      {\n         \"Quantity\":2.0,\n         \"Description\":\"0,5 Soda Zitrone\",\n         \"Amount\":7.00,\n         \"VATRate\":19.00,\n         \"ftChargeItemCase\":4919338167972134913,\n         \"Moment\":\"{{current_moment}}\"\n      }\n   ],\n   \"cbPayItems\":[\n      {\n         \"Quantity\":1.0,\n         \"Description\":\"Voucher for food and drinks\",\n         \"Amount\":150.00,\n         \"ftPayItemCase\":4919338167972134925,\n         \"ftChargeItemCaseData\":\"{\\\"VoucherNr\\\":\\\"UAUA91829182HH\\\"}\",\n         \"Moment\":\"{{current_moment}}\"\n      },\n      {\n         \"Quantity\":1.0,\n         \"Description\":\"Cash\",\n         \"Amount\":-143.00,\n         \"ftPayItemCase\":4919338167972134913,\n         \"Moment\":\"{{current_moment}}\"\n      }\n   ],\n   \"ftReceiptCase\":4919338172267102209\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2.4 Einlösung Mehrzweckgutschein (in charge items)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"ftCashBoxID\":\"{{cashbox_id}}\",\n   \"cbTerminalID\":\"D\",\n   \"cbReceiptReference\":\"RR223\",\n   \"cbReceiptMoment\":\"{{current_moment}}\",\n   \"cbChargeItems\":[\n      {\n         \"Quantity\":2.0,\n         \"Description\":\"0,5 Soda Zitrone\",\n         \"Amount\":7.00,\n         \"VATRate\":19.00,\n         \"ftChargeItemCase\":4919338167972134913,\n         \"Moment\":\"{{current_moment}}\"\n      },\n      {\n         \"Quantity\":1.0,\n         \"Description\":\"Voucher for food and drinks\",\n         \"Amount\":-150.00,\n         \"VATRate\":0.0,\n         \"ftChargeItemCase\":4919338167972135016,\n         \"ftChargeItemCaseData\":\"{\\\"VoucherNr\\\":\\\"UAUA91829182HH\\\"}\",\n         \"Moment\":\"{{current_moment}}\"\n      }\n   ],\n   \"cbPayItems\":[\n      {\n         \"Quantity\":1.0,\n         \"Description\":\"Cash\",\n         \"Amount\":-143.00,\n         \"ftPayItemCase\":4919338167972134913,\n         \"Moment\":\"{{current_moment}}\"\n      }\n   ],\n   \"ftReceiptCase\":4919338172267102209\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Pfand",
+					"item": [
+						{
+							"name": "1.1 Herausgabe Europalette",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\":\"RR223\",\r\n    \"cbReceiptMoment\":\"{{current_moment}}\",\r\n    \"cbChargeItems\":[\r\n    \t{\r\n         \"Quantity\":200.0,\r\n         \"Description\":\"Toni Box\",\r\n         \"Amount\":3000.00,\r\n         \"VATRate\":19.00,\r\n         \"ftChargeItemCase\":4919338167972135009\r\n    \t},\r\n        {\r\n         \"Quantity\":1.0,\r\n         \"Description\":\"Euro Palette\",\r\n         \"Amount\":20.00,\r\n         \"VATRate\":7.00,\r\n         \"ftChargeItemCase\":4919338167972134946\r\n    \t}\r\n    ],\r\n    \"cbPayItems\":[\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Cash\",\r\n            \"Amount\":3020.00,      \r\n            \"ftPayItemCase\":4919338167972134913,\r\n            \"Moment\":\"{{current_moment}}\"\r\n        }\r\n    ], \r\n    \"ftReceiptCase\":4919338172267102209\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1.2 Rücknahme Europalette",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\":\"RR223\",\r\n    \"cbReceiptMoment\":\"{{current_moment}}\",\r\n    \"cbChargeItems\":[\r\n        {\r\n         \"Quantity\":1.0,\r\n         \"Description\":\"Euro Palette\",\r\n         \"Amount\":-20.00,\r\n         \"VATRate\":7.00,\r\n         \"ftChargeItemCase\":4919338167972134954\r\n    \t}\r\n    ],\r\n    \"cbPayItems\":[\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Cash\",\r\n            \"Amount\":-20.00,      \r\n            \"ftPayItemCase\":4919338167972134913,\r\n            \"Moment\":\"{{current_moment}}\"\r\n        }\r\n    ], \r\n    \"ftReceiptCase\":4919338172267102209\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2.1 Herausgabe Pfandflasche",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\":\"RR223\",\r\n    \"cbReceiptMoment\":\"{{current_moment}}\",\r\n    \"cbChargeItems\":[\r\n    \t{\r\n         \"Quantity\":1.0,\r\n         \"Description\":\"Bergbauern Milch\",\r\n         \"Amount\":2.00,\r\n         \"VATRate\":7.00,\r\n         \"ftChargeItemCase\":4919338167972135009\r\n    \t},\r\n        {\r\n         \"Quantity\":1.0,\r\n         \"Description\":\"Pfandflasche\",\r\n         \"Amount\":0.40,\r\n         \"VATRate\":7.00,\r\n         \"ftChargeItemCase\":4919338167972134946\r\n    \t}\r\n    ],\r\n    \"cbPayItems\":[\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Cash\",\r\n            \"Amount\":2.40,      \r\n            \"ftPayItemCase\":4919338167972134913,\r\n            \"Moment\":\"{{current_moment}}\"\r\n        }\r\n    ], \r\n    \"ftReceiptCase\":4919338172267102209\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2.2 Rücknahme Pfandflasche",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\":\"RR223\",\r\n    \"cbReceiptMoment\":\"{{current_moment}}\",\r\n    \"cbChargeItems\":[\r\n        {\r\n         \"Quantity\":1.0,\r\n         \"Description\":\"Pfandflasche\",\r\n         \"Amount\":-0.40,\r\n         \"VATRate\":7.00,\r\n         \"ftChargeItemCase\":4919338167972134954\r\n    \t}\r\n    ],\r\n    \"cbPayItems\":[\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Cash\",\r\n            \"Amount\":-0.40,      \r\n            \"ftPayItemCase\":4919338167972134913,\r\n            \"Moment\":\"{{current_moment}}\"\r\n        }\r\n    ], \r\n    \"ftReceiptCase\":4919338172267102209\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "36d387ed-3c4e-4d35-b190-9bc63edffbc9",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "77e71764-e504-4efe-88a2-ff2dad0b4a97",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Bonieren (info-order)",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"b3dc6573-96d9-e611-80f7-5065f38adae1\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"1\",\r\n    \"cbReceiptMoment\": \"2019-10-25T13:32:45.133Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bier 0,5 lt\",\r\n            \"Amount\": 3.80000000000000000000000000,\r\n            \"VATRate\": 19.0000,\r\n            \"ftChargeItemCase\": 4919338167972134913,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": 0.6067226890756302521008403361,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Bier\",\r\n            \"ProductNumber\": \"101\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Liter\",\r\n            \"UnitQuantity\": 1.0000\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Schnitzel\",\r\n            \"Amount\": 9.20000000000000000000000000,\r\n            \"VATRate\": 7.0000,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": 0.601869158878504672897196262,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Speisen\",\r\n            \"ProductNumber\": \"102\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1.0000\r\n        }\r\n    ],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338172267102224,\r\n    \"cbReceiptAmount\": 13.00,\r\n    \"cbUser\": \"Chef\"\r\n}",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"b3dc6573-96d9-e611-80f7-5065f38adae1\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"TR-2992\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bier 0,5 lt\",\r\n            \"Amount\": 3.80,\r\n            \"VATRate\": 19.00,\r\n            \"ftChargeItemCase\": 4919338167972134913,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": 0.6067226890756302521008403361,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Bier\",\r\n            \"ProductNumber\": \"101\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Liter\",\r\n            \"UnitQuantity\": 1.0,\r\n            \"Moment\":\"{{current_moment}}\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Schnitzel\",\r\n            \"Amount\": 9.20,\r\n            \"VATRate\": 7.00,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": 0.601869158878504672897196262,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Speisen\",\r\n            \"ProductNumber\": \"102\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1.0,\r\n            \"Moment\":\"{{current_moment}}\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338172267102224,\r\n    \"cbReceiptAmount\": 13.00,\r\n    \"cbUser\": \"Astrid\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -771,13 +1510,13 @@
 					"response": []
 				},
 				{
-					"name": "Abrechnen",
+					"name": "Abrechnen (pos-receipt)",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"b3dc6573-96d9-e611-80f7-5065f38adae1\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"2\",\r\n    \"cbReceiptMoment\": \"2019-10-25T13:32:46.74Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bier 0,5 lt\",\r\n            \"Amount\": 3.80000000000000000000000000,\r\n            \"VATRate\": 19.0000,\r\n            \"ftChargeItemCase\": 4919338167972134913,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": 0.6067226890756302521008403361,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Bier\",\r\n            \"ProductNumber\": \"101\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Liter\",\r\n            \"UnitQuantity\": 1.0000\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Schnitzel\",\r\n            \"Amount\": 9.20000000000000000000000000,\r\n            \"VATRate\": 7.0000,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": 0.601869158878504672897196262,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Speisen\",\r\n            \"ProductNumber\": \"102\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1.0000\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bar\",\r\n            \"Amount\": 13.0000,\r\n            \"ftPayItemCase\": 4919338167972134913,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"CostCenter\": \"1\",\r\n            \"MoneyGroup\": \"1\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338172267102209,\r\n    \"cbReceiptAmount\": 13.00,\r\n    \"cbUser\": \"Chef\"\r\n}",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"b3dc6573-96d9-e611-80f7-5065f38adae1\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"TR-2992\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bier 0,5 lt\",\r\n            \"Amount\": 3.80,\r\n            \"VATRate\": 19.00,\r\n            \"ftChargeItemCase\": 4919338167972134913,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": 0.6067226890756302521008403361,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Bier\",\r\n            \"ProductNumber\": \"101\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Liter\",\r\n            \"UnitQuantity\": 1.0,\r\n            \"Moment\":\"2020-06-29T11:00:10.138887Z\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Schnitzel\",\r\n            \"Amount\": 9.20,\r\n            \"VATRate\": 7.00,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": 0.601869158878504672897196262,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Speisen\",\r\n            \"ProductNumber\": \"102\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1.0,\r\n            \"Moment\":\"2020-06-29T11:00:10.138887Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bar\",\r\n            \"Amount\": 13.00,\r\n            \"ftPayItemCase\": 4919338167972134913,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"CostCenter\": \"1\",\r\n            \"MoneyGroup\": \"1\",\r\n            \"MoneyNumber\": \"\",\r\n            \"Moment\":\"{{current_moment}}\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338172267102209,\r\n    \"cbReceiptAmount\": 13.00,\r\n    \"cbUser\": \"Astrid\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -799,13 +1538,13 @@
 					"response": []
 				},
 				{
-					"name": "Rechnung zurueckholen",
+					"name": "Zurückgeben (pos-receipt)",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"b3dc6573-96d9-e611-80f7-5065f38adae1\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"3\",\r\n    \"cbReceiptMoment\": \"2019-10-25T13:33:03.013Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bier 0,5 lt\",\r\n            \"Amount\": -3.80000000000000000000000000,\r\n            \"VATRate\": 19.0000,\r\n            \"ftChargeItemCase\": 4919338167972134913,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": -0.6067226890756302521008403361,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Bier\",\r\n            \"ProductNumber\": \"101\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Liter\",\r\n            \"UnitQuantity\": 1.0000\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Schnitzel\",\r\n            \"Amount\": -9.20000000000000000000000000,\r\n            \"VATRate\": 7.0000,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": -0.601869158878504672897196262,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Speisen\",\r\n            \"ProductNumber\": \"102\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1.0000\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bar\",\r\n            \"Amount\": -13.0000,\r\n            \"ftPayItemCase\": 4919338167972134913,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"CostCenter\": \"1\",\r\n            \"MoneyGroup\": \"1\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338172267364353,\r\n    \"cbReceiptAmount\": -13.00,\r\n    \"cbUser\": \"Chef\"\r\n}",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"b3dc6573-96d9-e611-80f7-5065f38adae1\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"XX-2222\",\r\n    \"cbPreviousReceiptReference\": \"TR-2992\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bier 0,5 lt\",\r\n            \"Amount\": -3.80,\r\n            \"VATRate\": 19.00,\r\n            \"ftChargeItemCase\": 4919338167972134913,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": -0.6067226890756302521008403361,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Bier\",\r\n            \"ProductNumber\": \"101\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Liter\",\r\n            \"UnitQuantity\": 1.0,\r\n    \t\t\"Moment\":\"2020-06-29T11:00:10.138887Z\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Schnitzel\",\r\n            \"Amount\": -9.20,\r\n            \"VATRate\": 7.00,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": -0.601869158878504672897196262,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Speisen\",\r\n            \"ProductNumber\": \"102\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1.0,\r\n            \"Moment\":\"2020-06-29T11:00:10.138887Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bar\",\r\n            \"Amount\": -13.00,\r\n            \"ftPayItemCase\": 4919338167972134913,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"CostCenter\": \"1\",\r\n            \"MoneyGroup\": \"1\",\r\n            \"MoneyNumber\": \"\",\r\n            \"Moment\":\"{{current_moment}}\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338172267102209,\r\n    \"cbReceiptAmount\": -13.00,\r\n    \"cbUser\": \"Astrid\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -822,18 +1561,19 @@
 								"v1",
 								"Sign"
 							]
-						}
+						},
+						"description": "Kunde hat etwas zurückgegeben."
 					},
 					"response": []
 				},
 				{
-					"name": "Stornieren",
+					"name": "Stornieren (pos-receipt)",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"b3dc6573-96d9-e611-80f7-5065f38adae1\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"6\",\r\n    \"cbReceiptMoment\": \"2019-10-25T13:34:23.083Z\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bier 0,5 lt\",\r\n            \"Amount\": 3.80000000000000000000000000,\r\n            \"VATRate\": 19.0000,\r\n            \"ftChargeItemCase\": 4919338167972134913,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": 0.6067226890756302521008403361,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Bier\",\r\n            \"ProductNumber\": \"101\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Liter\",\r\n            \"UnitQuantity\": 1.0000\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Schnitzel\",\r\n            \"Amount\": 9.20000000000000000000000000,\r\n            \"VATRate\": 7.0000,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": 0.601869158878504672897196262,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Speisen\",\r\n            \"ProductNumber\": \"102\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1.0000\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Storno\",\r\n            \"Amount\": 13.0000,\r\n            \"ftPayItemCase\": 4919338167972134929,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"CostCenter\": \"1\",\r\n            \"MoneyGroup\": \"4\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338172267102208,\r\n    \"cbReceiptAmount\": 13.00,\r\n    \"cbUser\": \"Chef\"\r\n}",
+							"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"b3dc6573-96d9-e611-80f7-5065f38adae1\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"XX-3333\",\r\n    \"cbPreviousReceiptReference\": \"TR-2992\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bier 0,5 lt\",\r\n            \"Amount\": -3.80,\r\n            \"VATRate\": 19.00,\r\n            \"ftChargeItemCase\": 4919338167972134913,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": -0.6067226890756302521008403361,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Bier\",\r\n            \"ProductNumber\": \"101\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Liter\",\r\n            \"UnitQuantity\": 1.0,\r\n    \t\t\"Moment\":\"2020-06-29T11:00:10.138887Z\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Schnitzel\",\r\n            \"Amount\": -9.20,\r\n            \"VATRate\": 7.00,\r\n            \"ftChargeItemCase\": 4919338167972134914,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"VATAmount\": -0.601869158878504672897196262,\r\n            \"CostCenter\": \"1\",\r\n            \"ProductGroup\": \"Speisen\",\r\n            \"ProductNumber\": \"102\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"Stk\",\r\n            \"UnitQuantity\": 1.0,\r\n            \"Moment\":\"2020-06-29T11:00:10.138887Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Bar\",\r\n            \"Amount\": -13.00,\r\n            \"ftPayItemCase\": 4919338167972134913,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"CostCenter\": \"1\",\r\n            \"MoneyGroup\": \"1\",\r\n            \"MoneyNumber\": \"\",\r\n            \"Moment\":\"{{current_moment}}\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338172267364353,\r\n    \"cbReceiptAmount\": -13.00,\r\n    \"cbUser\": \"Astrid\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -850,7 +1590,8 @@
 								"v1",
 								"Sign"
 							]
-						}
+						},
+						"description": "Der Geschäftsvorfall ist nicht zu stande gekommen."
 					},
 					"response": []
 				},
@@ -861,7 +1602,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n  \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n  \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n  \"cbTerminalID\": \"T1\",\r\n  \"cbReceiptReference\": \"2020020120152812\",\r\n  \"cbReceiptMoment\": \"2020-02-01T20:15:28.123Z\",\r\n  \"cbChargeItems\": [],\r\n  \"cbPayItems\": [],\r\n  \"ftReceiptCase\": 4919338172267102211,\r\n  \"ftReceiptCaseData\": \"\",\r\n  \"cbUser\": \"Receptionist\",\r\n  \"cbArea\": \"System\",\r\n  \"cbSettlement\": \"\"\r\n}",
+							"raw": "{\r\n \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n \"cbTerminalID\": \"101\",\r\n \"cbReceiptReference\": \"INIT\",\r\n \"cbReceiptMoment\": \"{{current_moment}}\",\r\n \"cbChargeItems\": [],\r\n \"cbPayItems\": [],\r\n \"ftReceiptCase\": 4919338172267102211,\r\n \"cbUser\": \"Admin\"\r\n}\r\n\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -889,7 +1630,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n  \"ftQueueID\": \"c98c5357-cb89-49ef-9ee5-bf911db6d8cb\",\r\n  \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n  \"cbTerminalID\": \"T1\",\r\n  \"cbReceiptReference\": \"2020020120152812\",\r\n  \"cbReceiptMoment\": \"2020-02-01T20:15:28.123Z\",\r\n  \"cbChargeItems\": [],\r\n  \"cbPayItems\": [],\r\n  \"ftReceiptCase\": 4919338172267102212,\r\n  \"ftReceiptCaseData\": \"\",\r\n  \"cbUser\": \"Receptionist\",\r\n  \"cbArea\": \"System\",\r\n  \"cbSettlement\": \"\"\r\n}",
+							"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n  \"ftPosSystemId\": \"d4a62055-ca6c-4372-ae4d-f835a88e4a5d\",\r\n  \"cbTerminalID\": \"T1\",\r\n  \"cbReceiptReference\": \"OutOfOperation\",\r\n  \"cbReceiptMoment\": \"{{current_moment}}\",\r\n  \"cbChargeItems\": [],\r\n  \"cbPayItems\": [],\r\n  \"ftReceiptCase\": 4919338172267102212,\r\n  \"ftReceiptCaseData\": \"\",\r\n  \"cbUser\": \"Admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -917,7 +1658,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n  \"ftReceiptCase\": 4919338172267102210,\r\n  \"ftPosSystemId\": \"b3dc6573-96d9-e611-80f7-5065f38adae1\",\r\n  \"cbTerminalID\": \"CashDesk1\",\r\n  \"cbReceiptReference\": \"ZeroReceiptAfterFailure\",\r\n  \"cbReceiptMoment\": \"2020-03-25T13:32:45.133Z\",\r\n  \"cbChargeItems\": [],\r\n  \"cbPayItems\": []\r\n}",
+							"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n  \"ftPosSystemId\": \"b3dc6573-96d9-e611-80f7-5065f38adae1\",\r\n  \"cbTerminalID\": \"1\",\r\n  \"cbReceiptReference\": \"ZeroReceiptAfterFailure\",\r\n  \"cbReceiptMoment\": \"{{current_moment}}\",\r\n  \"cbChargeItems\": [],\r\n  \"cbPayItems\": [],\r\n  \"ftReceiptCase\": 4919338172267102210\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -935,6 +1676,35 @@
 								"Sign"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "Zero Receipt (+ TSE Info)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n  \"ftPosSystemId\": \"b3dc6573-96d9-e611-80f7-5065f38adae1\",\r\n  \"cbTerminalID\": \"1\",\r\n  \"cbReceiptReference\": \"ZeroReceiptAfterFailure\",\r\n  \"cbReceiptMoment\": \"{{current_moment}}\",\r\n  \"cbChargeItems\": [],\r\n  \"cbPayItems\": [],\r\n  \"ftReceiptCase\": 4919338172275490818\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/json/v1/Sign",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"v1",
+								"Sign"
+							]
+						},
+						"description": "Flagged with 0x0000000000800000\n\nRequests additional informations from used TSE device."
 					},
 					"response": []
 				}
@@ -1679,7 +2449,8 @@
 				"id": "9b0110e3-2f09-40d2-8191-fd8477a91065",
 				"type": "text/javascript",
 				"exec": [
-					""
+					"const dateNow= new Date();",
+					"pm.environment.set('current_moment', dateNow.toISOString());"
 				]
 			}
 		},
@@ -1696,19 +2467,19 @@
 	],
 	"variable": [
 		{
-			"id": "fbb68d82-ebb0-42fe-a1ed-5434c87d4d85",
+			"id": "3f7cd03d-46c2-47c1-8a56-546d629b465a",
 			"key": "base_url",
 			"value": "http://localhost:1500/00000000-0000-0000-0000-000000000000",
 			"type": "string"
 		},
 		{
-			"id": "d6b4b848-32d3-4233-800d-cc264f29de57",
+			"id": "fe279551-cb09-4cbe-8e44-4c2ca9cd9572",
 			"key": "data_format",
 			"value": "json",
 			"type": "string"
 		},
 		{
-			"id": "60eac590-6ac3-41bf-a072-a5b85a8ca099",
+			"id": "5dc9e665-be76-46cb-b85a-aa4c1d8d3c22",
 			"key": "cashbox_id",
 			"value": "00000000-0000-0000-0000-000000000000",
 			"type": "string"
