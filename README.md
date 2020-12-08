@@ -1,7 +1,7 @@
 # fiskaltrust.Middleware demo (Postman collection)
 A Postman collection containing examples that demonstrate how to call the fiskaltrust.Middleware via HTTP.
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/923f030e47c3528928b1)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://middleware-samples.docs.fiskaltrust.cloud/)
 
 ## Getting Started
 
