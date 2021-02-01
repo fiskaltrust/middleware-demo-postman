@@ -2,209 +2,10 @@
 	"info": {
 		"_postman_id": "635bb4ec-1da4-4898-b296-f93d175de3f8",
 		"name": "fiskaltrust.Middleware",
-		"description": "A Postman collection containing examples that demonstrate how to implement common business cases with the fiskaltrust.Middleware.\r\n\r\n## Getting Started\r\nThis Postman collection is meant as a quickstart guide for working with the Middleware. Please keep in mind that therefore these samples are not covering everything that can be done with the Middleware - for complete information, please refer to our [API documentation](https://docs.fiskaltrust.cloud/doc/interface-doc/doc/general/general.html).\r\n\r\nThese samples use REST, but the Middleware also supports gRPC and SOAP scenarios. Please refer to our sample repositories on [GitHub](https://github.com/fiskaltrust), and use our [NuGet client packages](https://github.com/fiskaltrust/middleware-interface-dotnet) in case you are working with .NET.\r\n\r\n### Prerequisites\r\nIn order to use this demo collection, the following prerequisites are required:\r\n- *The fiskaltrust.Middleware* running on your machine, which can be configured and downloaded via the fiskaltrust.Portal ([AT](https://portal.fiskaltrust.at), [DE](https://portal.fiskaltrust.de), [FR](https://portal.fiskaltrust.fr)). Start it (either by running it as a service, or with the `test.cmd` file), and let it run in the background to handle your requests.\r\n- *Your Cashbox Id* is visible in the portal. It is also displayed in the startup console log of the Middleware. \r\n\r\n### Executing the demo requests\r\nAfter importing the Postman collection, you first need to set the required variables:\r\n- Right-click on the collection and select _Edit_\r\n- Open the _Variables_ tab, and enter the values for `cashbox_id` and `base_url` \r\n   - **cashbox_id** is a GUID and shown either in the Portal or in the log of the Middleware itself\r\n   - **base_url** is the URL of the Middleware's HTTP endpoint, **without a trailing slash**. This could e.g. look like this: `http://localhost:1500/bda7742e-fb7e-4eb6-b3ee-27e0c48fc316`. Again, this URL is both displayed in the Portal and in the Middleware log.\r\n   - **possystem_id** is the GUID of a POS System configured in the Portal. It's not required to set this value to run the demo, but it's a mandatory field in German and French production scenarios.\r\n   - **access_token** is only required when working with the SignatureCloud (Austria/France only), and also shown in the Portal.\r\n\r\nAfter you configured these two variables, you can easily run the examples by double-clicking them in the \"Collections\" menu.\r\n\r\nFor more information about how to use Postman collections, please refer to [their extensive documentation](https://learning.postman.com/docs/postman/collections/intro-to-collections/).",
+		"description": "A Postman collection containing examples that demonstrate how to implement common business cases with the fiskaltrust.Middleware.\r\n\r\n## Getting Started\r\nThis Postman collection is meant as a quickstart guide for working with the Middleware. Please keep in mind that therefore these samples are not covering everything that can be done with the Middleware - for complete information, please refer to our [API documentation](https://link.fiskaltrust.cloud/middleware-doc).\r\n\r\nThese samples use REST, but the Middleware also supports gRPC and SOAP scenarios. Please refer to our sample repositories on [GitHub](https://github.com/fiskaltrust), and use our [NuGet client packages](https://github.com/fiskaltrust/middleware-interface-dotnet) in case you are working with .NET.\r\n\r\n### Prerequisites\r\nIn order to use this demo collection, the following prerequisites are required:\r\n- *The fiskaltrust.Middleware* running on your machine, which can be configured and downloaded via the fiskaltrust.Portal ([AT](https://portal.fiskaltrust.at), [DE](https://portal.fiskaltrust.de), [FR](https://portal.fiskaltrust.fr)). Start it (either by running it as a service, or with the `test.cmd` file), and let it run in the background to handle your requests.\r\n- *Your Cashbox Id* is visible in the portal. It is also displayed in the startup console log of the Middleware. \r\n\r\n### Executing the demo requests\r\nAfter importing the Postman collection, you first need to set the required variables:\r\n- Right-click on the collection and select _Edit_\r\n- Open the _Variables_ tab, and enter the values for `cashbox_id` and `base_url` \r\n   - **cashbox_id** is a GUID and shown either in the Portal or in the log of the Middleware itself\r\n   - **base_url** is the URL of the Middleware's HTTP endpoint, **without a trailing slash**. This could e.g. look like this: `http://localhost:1500/bda7742e-fb7e-4eb6-b3ee-27e0c48fc316`. Again, this URL is both displayed in the Portal and in the Middleware log.\r\n   - **possystem_id** is the GUID of a POS System configured in the Portal. It's not required to set this value to run the demo, but it's a mandatory field in German and French production scenarios.\r\n   - **access_token** is only required when working with the SignatureCloud (Austria/France only), and also shown in the Portal.\r\n\r\nAfter you configured these two variables, you can easily run the examples by double-clicking them in the \"Collections\" menu.\r\n\r\nFor more information about how to use Postman collections, please refer to [their extensive documentation](https://learning.postman.com/docs/postman/collections/intro-to-collections/).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
-		{
-			"name": "General",
-			"item": [
-				{
-					"name": "Journal",
-					"item": [
-						{
-							"name": "Version information",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/json/v0/Journal?ftJournalType=0",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"v0",
-										"Journal"
-									],
-									"query": [
-										{
-											"key": "ftJournalType",
-											"value": "0"
-										}
-									]
-								},
-								"description": "ftJournalType: `0x0000000000000000`\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/general/reference-tables/reference-tables.html#type-of-journal-ftjournaltype"
-							},
-							"response": []
-						},
-						{
-							"name": "ActionJournal in internal format",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/json/v0/Journal?type=1",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"v0",
-										"Journal"
-									],
-									"query": [
-										{
-											"key": "type",
-											"value": "1"
-										},
-										{
-											"key": "from",
-											"value": "637417728000000000",
-											"description": "The timestamp determining where to start the export, in Ticks (optional)",
-											"disabled": true
-										},
-										{
-											"key": "to",
-											"value": "637418591990000000",
-											"description": "The timestamp determining where to end the export, in Ticks  (optional)",
-											"disabled": true
-										}
-									]
-								},
-								"description": "ftJournalType: `0x0000000000000001`\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/general/reference-tables/reference-tables.html#type-of-journal-ftjournaltype"
-							},
-							"response": []
-						},
-						{
-							"name": "ReceiptJournal in internal format",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/json/v0/Journal?type=2",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"v0",
-										"Journal"
-									],
-									"query": [
-										{
-											"key": "type",
-											"value": "2"
-										},
-										{
-											"key": "from",
-											"value": "637417728000000000",
-											"description": "The timestamp determining where to start the export, in Ticks (optional)",
-											"disabled": true
-										},
-										{
-											"key": "to",
-											"value": "637418591990000000",
-											"description": "The timestamp determining where to end the export, in Ticks  (optional)",
-											"disabled": true
-										}
-									]
-								},
-								"description": "ftJournalType: `0x0000000000000002`\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/general/reference-tables/reference-tables.html#type-of-journal-ftjournaltype"
-							},
-							"response": []
-						},
-						{
-							"name": "QueueItemJournal in internal format (INT)",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/json/v0/Journal?Type=3",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"v0",
-										"Journal"
-									],
-									"query": [
-										{
-											"key": "Type",
-											"value": "3"
-										},
-										{
-											"key": "from",
-											"value": "637417728000000000",
-											"description": "The timestamp determining where to start the export, in Ticks (optional)",
-											"disabled": true
-										},
-										{
-											"key": "to",
-											"value": "637418591990000000",
-											"description": "The timestamp determining where to end the export, in Ticks  (optional)",
-											"disabled": true
-										}
-									]
-								},
-								"description": "ftJournalType: `0x0000000000000003`\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/general/reference-tables/reference-tables.html#type-of-journal-ftjournaltype"
-							},
-							"response": []
-						}
-					],
-					"description": "# Journal\r\nThe _journal_ endpoint allows users to get data from a running Middleware instance, either in a \"raw\" JSON format, or specifically for the market (e.g. DSFinV-K in Germany). Market-specific journal calls are documented in the respective sections.",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "7a0039db-c1bc-4770-8932-3b9024c2bc2d",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "6b91a5bc-1fb0-43f2-9e8c-f9d2a1159ae5",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				}
-			],
-			"description": "Requests that can be used over all markets.",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "1ae8e7c8-a5a3-4f7a-981d-5d489ebcf460",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "0ec6c349-0fba-45cb-88ae-5e384304c024",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
 		{
 			"name": "Austria",
 			"item": [
@@ -241,17 +42,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4154000000000002`\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThis can be used to test operability in order to be able to collect a service status notification, for example a out of service notification for FinanzOnline.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-at-rksv/reference-tables/reference-tables.html#type-of-receipt-ftreceiptcase"
+								"description": "ftReceiptCase: `0x4154000000000002`\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThis can be used to test operability in order to be able to collect a service status notification, for example a out of service notification for FinanzOnline.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/at/ftreceiptcase"
 							},
 							"response": []
 						},
@@ -294,7 +94,7 @@
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4154000000000003`\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThe request is only valid as a zero receipt. The initial operation procedure is started. When using fiskaltrust.SecuritymMechansimsPlus, the receipt will also be checked for correctness.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-at-rksv/reference-tables/reference-tables.html#type-of-receipt-ftreceiptcase"
+								"description": "ftReceiptCase: `0x4154000000000003`\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThe request is only valid as a zero receipt. The initial operation procedure is started. When using fiskaltrust.SecuritymMechansimsPlus, the receipt will also be checked for correctness.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/at/ftreceiptcase"
 							},
 							"response": []
 						},
@@ -328,17 +128,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4154000000000004`\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThe procedure to take the service out of operation is started.\r\nThe request is only valid as a zero receipt. When using the fiskaltrust.Carefree package, the receipt will also be checked for correctness and the notification to the \"FinanzOnLine\" will be performed automatically in background.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-at-rksv/reference-tables/reference-tables.html#type-of-receipt-ftreceiptcase"
+								"description": "ftReceiptCase: `0x4154000000000004`\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThe procedure to take the service out of operation is started.\r\nThe request is only valid as a zero receipt. When using the fiskaltrust.Carefree package, the receipt will also be checked for correctness and the notification to the \"FinanzOnLine\" will be performed automatically in background.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/at/ftreceiptcase"
 							},
 							"response": []
 						},
@@ -381,7 +180,7 @@
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4154000000000005`\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThe procedure for the creation of the monthly receipt is started. \r\nThe request is only valid as a zero receipt.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-at-rksv/reference-tables/reference-tables.html#type-of-receipt-ftreceiptcase"
+								"description": "ftReceiptCase: `0x4154000000000005`\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThe procedure for the creation of the monthly receipt is started. \r\nThe request is only valid as a zero receipt.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/at/ftreceiptcase"
 							},
 							"response": []
 						},
@@ -415,27 +214,25 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4154000000000006`\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThe procedure for the creation of the annual receipt is started.\r\nThe request is only valid as a zero receipt. When using the fiskaltrust.Carefree package, the receipt will also be checked for correctness and the notification to the \"FinanzOnLine\" will be performed automatically in background.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-at-rksv/reference-tables/reference-tables.html#type-of-receipt-ftreceiptcase"
+								"description": "ftReceiptCase: `0x4154000000000006`\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThe procedure for the creation of the annual receipt is started.\r\nThe request is only valid as a zero receipt. When using the fiskaltrust.Carefree package, the receipt will also be checked for correctness and the notification to the \"FinanzOnLine\" will be performed automatically in background.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/at/ftreceiptcase"
 							},
 							"response": []
 						}
 					],
-					"description": "# Special receipt cases\r\nRequests with these `ftReceiptCase` values are used to control the fiskaltrust.Middleware. These requests must contain empty arrays for the values of `ftChargeItems` and `ftPayItems`.\r\n\r\n_See also (general information):_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/general/cash-register-integration/cash-register-integration.html#zero-receipt\r\n\r\n_See also (information specific for Austria):_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-at-rksv/cash-register-integration/cash-register-integration.html#receipt-for-special-functions\r\n",
+					"description": "# Special receipt cases\r\nRequests with these `ftReceiptCase` values are used to control the fiskaltrust.Middleware. These requests must contain empty arrays for the values of `ftChargeItems` and `ftPayItems`.\r\n\r\n_See also (general information):_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/zero-receipt\r\n\r\n_See also (information specific for Austria):_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/at/zero-receipt\r\n",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "fdf08e39-a5a9-467c-85a0-811e7010bb21",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -445,16 +242,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a01b40ce-a4f0-4c59-93eb-961fd6dea722",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Single business cases",
@@ -498,7 +292,7 @@
 										"Sign"
 									]
 								},
-								"description": "**Cash transaction with RKSV requirement**\r\n\r\nftReceiptCase: `0x4154000000000001`\r\n\r\nThe fiskaltrust decision tree is being run through, and, if needed, the signature process is started and the cumulative counter adjusted respectively.\r\n\r\nAn example for a signature being needed, is an \"other service\" which is paid for with a \"credit card\".\r\n\r\nAn example for a case where no signature is needed, is a receipt with only \"no own sales\" on it which has been paid for by \"credit card\".\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-at-rksv/reference-tables/reference-tables.html#type-of-receipt-ftreceiptcase"
+								"description": "**Cash transaction with RKSV requirement**\r\n\r\nftReceiptCase: `0x4154000000000001`\r\n\r\nThe fiskaltrust decision tree is being run through, and, if needed, the signature process is started and the cumulative counter adjusted respectively.\r\n\r\nAn example for a signature being needed, is an \"other service\" which is paid for with a \"credit card\".\r\n\r\nAn example for a case where no signature is needed, is a receipt with only \"no own sales\" on it which has been paid for by \"credit card\".\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/at/ftreceiptcase"
 							},
 							"response": []
 						},
@@ -541,7 +335,7 @@
 										"Sign"
 									]
 								},
-								"description": "**Not own sales**\r\n\r\nftReceiptCase: `0x4154000000000007`\r\n\r\nFor tax purposes, a document with exclusively third-party sales is not subject to signature.\r\n\r\nIn the data, a VAT-rate can be indicated, whereby the gross amount according to the RKSV always has to be recorded in the signature field.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-at-rksv/reference-tables/reference-tables.html#type-of-service-ftchargeitemcase"
+								"description": "**Not own sales**\r\n\r\nftReceiptCase: `0x4154000000000007`\r\n\r\nFor tax purposes, a document with exclusively third-party sales is not subject to signature.\r\n\r\nIn the data, a VAT-rate can be indicated, whereby the gross amount according to the RKSV always has to be recorded in the signature field.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/at/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/at/ftchargeitemcase"
 							},
 							"response": []
 						},
@@ -584,7 +378,7 @@
 										"Sign"
 									]
 								},
-								"description": "**Not own sales**\r\n\r\nftReceiptCase: `0x4154000000000001`\r\n\r\nFor tax purposes, a document with exclusively third-party sales is not subject to signature. But with cash sale it has to be signed.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-at-rksv/reference-tables/reference-tables.html#type-of-service-ftchargeitemcase"
+								"description": "**Not own sales**\r\n\r\nftReceiptCase: `0x4154000000000001`\r\n\r\nFor tax purposes, a document with exclusively third-party sales is not subject to signature. But with cash sale it has to be signed.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/at/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/at/ftchargeitemcase"
 							},
 							"response": []
 						},
@@ -627,7 +421,7 @@
 										"Sign"
 									]
 								},
-								"description": "**Delivery note / settlement in foreign currency**\r\n\r\nftReceiptCase: `0x4154000000000001`\r\n\r\nftPayItemCase: `0x415400000000000B`\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-at-rksv/reference-tables/reference-tables.html#type-of-payment-ftpayitemcase"
+								"description": "**Delivery note / settlement in foreign currency**\r\n\r\nftReceiptCase: `0x4154000000000001`\r\n\r\nftPayItemCase: `0x415400000000000B`\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/at/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/at/ftpayitemcase"
 							},
 							"response": []
 						},
@@ -670,7 +464,7 @@
 										"Sign"
 									]
 								},
-								"description": "**Down payment (normal)**\r\n\r\nftReceiptCase: `0x4154000000000001`\r\nftChargeItemCase: `0x415400000000001E`\r\n\r\nHandled like undefined type of service for AT, normal ((as of 1.7.2016, this is 20%).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-at-rksv/reference-tables/reference-tables.html#type-of-service-ftchargeitemcase"
+								"description": "**Down payment (normal)**\r\n\r\nftReceiptCase: `0x4154000000000001`\r\nftChargeItemCase: `0x415400000000001E`\r\n\r\nHandled like undefined type of service for AT, normal ((as of 1.7.2016, this is 20%).\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/at/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/at/ftchargeitemcase"
 							},
 							"response": []
 						},
@@ -713,7 +507,7 @@
 										"Sign"
 									]
 								},
-								"description": "**Other services (normal)**\r\n\r\nftReceiptCase: `0x4154000000000001`\r\n\r\nftChargeItemCase: `0x415400000000000F`\r\n\r\nRefund of an already rendered service, charge back to the credit card.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-at-rksv/reference-tables/reference-tables.html#type-of-service-ftchargeitemcase"
+								"description": "**Other services (normal)**\r\n\r\nftReceiptCase: `0x4154000000000001`\r\n\r\nftChargeItemCase: `0x415400000000000F`\r\n\r\nRefund of an already rendered service, charge back to the credit card.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/at/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/at/ftchargeitemcase"
 							},
 							"response": []
 						},
@@ -756,7 +550,7 @@
 										"Sign"
 									]
 								},
-								"description": "**Unknown type of receipt**\r\n\r\nftReceiptCase: `0x4154000000000000`\r\n\r\nCash payment and no ftChargeItems lead to \"no signature\". \r\n\r\nThis receipt is processed like a cash transaction with RKSV requirement.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-at-rksv/reference-tables/reference-tables.html#type-of-receipt-ftreceiptcase"
+								"description": "**Unknown type of receipt**\r\n\r\nftReceiptCase: `0x4154000000000000`\r\n\r\nCash payment and no ftChargeItems lead to \"no signature\". \r\n\r\nThis receipt is processed like a cash transaction with RKSV requirement.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/at/ftreceiptcase"
 							},
 							"response": []
 						}
@@ -766,7 +560,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "c78dab58-fa2b-4675-8684-ed28aa99f97d",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -776,19 +569,182 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e04622e8-ec38-4df6-bf29-81858aef2676",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
-					"name": "Echo (v0)",
+					"name": "Journal",
+					"item": [
+						{
+							"name": "Version information",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/json/Journal?type=0&from=0&to=0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"Journal"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "0"
+										},
+										{
+											"key": "from",
+											"value": "0",
+											"description": "The timestamp determining where to start the export, in Ticks"
+										},
+										{
+											"key": "to",
+											"value": "0",
+											"description": "The timestamp determining where to end the export, in Ticks"
+										}
+									]
+								},
+								"description": "ftJournalType: `0x0000000000000000`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
+							},
+							"response": []
+						},
+						{
+							"name": "ActionJournal in internal format",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/json/Journal?type=1&from=0&to=0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"Journal"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "1"
+										},
+										{
+											"key": "from",
+											"value": "0",
+											"description": "The timestamp determining where to start the export, in Ticks"
+										},
+										{
+											"key": "to",
+											"value": "0",
+											"description": "The timestamp determining where to end the export, in Ticks"
+										}
+									]
+								},
+								"description": "ftJournalType: `0x0000000000000001`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
+							},
+							"response": []
+						},
+						{
+							"name": "ReceiptJournal in internal format",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/json/Journal?type=2&from=0&to=0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"Journal"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "2"
+										},
+										{
+											"key": "from",
+											"value": "0",
+											"description": "The timestamp determining where to start the export, in Ticks"
+										},
+										{
+											"key": "to",
+											"value": "0",
+											"description": "The timestamp determining where to end the export, in Ticks"
+										}
+									]
+								},
+								"description": "ftJournalType: `0x0000000000000002`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
+							},
+							"response": []
+						},
+						{
+							"name": "QueueItemJournal in internal format",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/json/Journal?type=3&from=0&to=0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"Journal"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "3"
+										},
+										{
+											"key": "from",
+											"value": "0",
+											"description": "The timestamp determining where to start the export, in Ticks"
+										},
+										{
+											"key": "to",
+											"value": "0",
+											"description": "The timestamp determining where to end the export, in Ticks"
+										}
+									]
+								},
+								"description": "ftJournalType: `0x0000000000000003`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
+							},
+							"response": []
+						}
+					],
+					"description": "# Journal\r\nThe _journal_ endpoint allows users to get data from a running Middleware instance, either in a \"raw\" JSON format, or specifically for the market (e.g. DSFinV-K in Germany).\r\n\r\nPlease note that the _ticks_ that need to be passed for the `from` and `to` parameters are .NET Ticks, **not** Unix timestamps. More details about this representation can be found [here](https://docs.microsoft.com/en-us/dotnet/api/system.datetime.ticks?view=net-5.0#remarks).",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Echo",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -817,17 +773,16 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/json/v0/Echo",
+							"raw": "{{base_url}}/json/Echo",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"json",
-								"v0",
 								"Echo"
 							]
 						},
-						"description": "This function can be used for fast and easy communication checks. The request body is sent back directly.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/general/function-structures/function-structures.html#echo-function"
+						"description": "This function can be used for fast and easy communication checks. The request body is sent back directly.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/echo-function"
 					},
 					"response": []
 				}
@@ -837,7 +792,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "b7b3a5c9-b115-476b-af25-41b9ced24ae9",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -847,15 +801,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f1cffeec-6b78-4750-be19-cfdb40cf6e82",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Germany",
@@ -888,7 +840,7 @@
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4445000100000003`\r\n\r\nInitializes a new fiskaltrust.Middleware instance including the initialization of the used TSE in the background. Depending on the TSE-Type used, this includes different actions (but at least a client will be registered).\r\n\r\nOn successful initialization, a notification is created which includes Queue ID, SCU ID, and the TSE's certificate and serial number. When the respective governmental regulations are introduced, it will be required to report this notification to the tax administration.\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+								"description": "ftReceiptCase: `0x4445000100000003`\r\n\r\nInitializes a new fiskaltrust.Middleware instance including the initialization of the used TSE in the background. Depending on the TSE-Type used, this includes different actions (but at least a client will be registered).\r\n\r\nOn successful initialization, a notification is created which includes Queue ID, SCU ID, and the TSE's certificate and serial number. When the respective governmental regulations are introduced, it will be required to report this notification to the tax administration.\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 							},
 							"response": []
 						},
@@ -917,7 +869,7 @@
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4445000100000004`\r\n\r\nPermanently disables the fiskaltrust.Middleware and the TSE. **This request should only be executed when a POS system is put out of operations, as it's not possible to revert it.** In scenarios where the TSE should not be disabled (e.g. because it is still used by other queues), please add the flag `0x0000000001000000`.\r\n\r\nOn successful deactivation, a notification is created which includes Queue ID, SCU ID, and the TSE's certificate and serial number. When the respective governmental regulations are introduced, it will be required to report this notification to the tax administration.\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+								"description": "ftReceiptCase: `0x4445000100000004`\r\n\r\nPermanently disables the fiskaltrust.Middleware and the TSE. **This request should only be executed when a POS system is put out of operations, as it's not possible to revert it.** In scenarios where the TSE should not be disabled (e.g. because it is still used by other queues), please add the flag `0x0000000001000000`.\r\n\r\nOn successful deactivation, a notification is created which includes Queue ID, SCU ID, and the TSE's certificate and serial number. When the respective governmental regulations are introduced, it will be required to report this notification to the tax administration.\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 							},
 							"response": []
 						},
@@ -946,7 +898,7 @@
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4445000100000002`\r\n\r\nProcesses a communication and functional test of the fiskaltrust.Middleware. Additionally, this operation must be used to end the \"failure mode\" of the Middleware.\r\n\r\nIf you want to end an ongoing transaction without turnover (e.g. all items on a receipt are voided) then please use a regular ftReceiptCase.\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+								"description": "ftReceiptCase: `0x4445000100000002`\r\n\r\nProcesses a communication and functional test of the fiskaltrust.Middleware. Additionally, this operation must be used to end the \"failure mode\" of the Middleware.\r\n\r\nIf you want to end an ongoing transaction without turnover (e.g. all items on a receipt are voided) then please use a regular ftReceiptCase.\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 							},
 							"response": []
 						},
@@ -975,7 +927,7 @@
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4445000100800002`\n\nProcesses a communication and functional test of the fiskaltrust.Middleware. Additionally, this operation must be used to end the \"failure mode\" of the Middleware. Additionally to the normal zero receipt processing, adding the flag `` will query detailed information from the connected TSE device.\n\nThe following data will be returned in `ftState` (JSON-serialized):\n- PublicKeyBase64\n- SerialNumberOctet\n- LogTimeFormat\n- SignatureAlgorithm\n- CertificationIdentification\n- FirmwareIdentification\n- CurrentState\n- CurrentLogMemorySize\n- MaxLogMemorySize\n- CurrentNumberOfSignatures\n- MaxNumberOfSignatures\n- CurrentStartedTransactionNumbers\n- CurrentNumberOfStartedTransactions\n- MaxNumberOfStartedTransactions\n- CurrentClientIds\n- CurrentNumberOfClients\n- MaxNumberOfClients\n- CertificatesBase64\n\n`ftChargeItems` and `ftPayItems` must be empty.\n\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\n\n_See also:_\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+								"description": "ftReceiptCase: `0x4445000100800002`\n\nProcesses a communication and functional test of the fiskaltrust.Middleware. Additionally, this operation must be used to end the \"failure mode\" of the Middleware. Additionally to the normal zero receipt processing, adding the flag `` will query detailed information from the connected TSE device.\n\nThe following data will be returned in `ftState` (JSON-serialized):\n- PublicKeyBase64\n- SerialNumberOctet\n- LogTimeFormat\n- SignatureAlgorithm\n- CertificationIdentification\n- FirmwareIdentification\n- CurrentState\n- CurrentLogMemorySize\n- MaxLogMemorySize\n- CurrentNumberOfSignatures\n- MaxNumberOfSignatures\n- CurrentStartedTransactionNumbers\n- CurrentNumberOfStartedTransactions\n- MaxNumberOfStartedTransactions\n- CurrentClientIds\n- CurrentNumberOfClients\n- MaxNumberOfClients\n- CertificatesBase64\n\n`ftChargeItems` and `ftPayItems` must be empty.\n\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\n\n_See also:_\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 							},
 							"response": []
 						},
@@ -1004,7 +956,7 @@
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4445000100000007`\r\n\r\nMust be sent at the end of the day to be able to be able to perform the DSFinV-K export. \r\n- If the flag `0x0000000004000000` is not set, this request exports the TSE's logs to the database, both to save memory on the device and to increase the export performance\r\n- If the flag `0x0000000010000000` is not set, this request will close any open transactions. If the flag is set, an exception is raised in case there are open transactions, which should enable the user to handle this case in their own software. \r\n- If the flag `0x0000000008000000` is set, this request will also update the masterdata after it was changed in the Portal and a CashBox rebuild was triggered. The new masterdata will be effective starting from this moment.\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+								"description": "ftReceiptCase: `0x4445000100000007`\r\n\r\nMust be sent at the end of the day to be able to be able to perform the DSFinV-K export. \r\n- If the flag `0x0000000004000000` is not set, this request exports the TSE's logs to the database, both to save memory on the device and to increase the export performance\r\n- If the flag `0x0000000010000000` is not set, this request will close any open transactions. If the flag is set, an exception is raised in case there are open transactions, which should enable the user to handle this case in their own software. \r\n- If the flag `0x0000000008000000` is set, this request will also update the masterdata after it was changed in the Portal and a CashBox rebuild was triggered. The new masterdata will be effective starting from this moment.\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 							},
 							"response": []
 						},
@@ -1033,7 +985,7 @@
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4445000100000005`\r\n\r\nCan be sent at the end of the month to logically separate them, e.g. for easier bookkeeping.\r\n- If the flag `0x0000000004000000` is not set, this request exports the TSE's logs to the database, both to save memory on the device and to increase the export performance\r\n- If the flag `0x0000000010000000` is not set, this request will close any open transactions. If the flag is set, an exception is raised in case there are open transactions, which should enable the user to handle this case in their own software. \r\n- If the flag `0x0000000008000000` is set, this request will also update the masterdata after it was changed in the Portal and a CashBox rebuild was triggered. The new masterdata will be effective starting from this moment.\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+								"description": "ftReceiptCase: `0x4445000100000005`\r\n\r\nCan be sent at the end of the month to logically separate them, e.g. for easier bookkeeping.\r\n- If the flag `0x0000000004000000` is not set, this request exports the TSE's logs to the database, both to save memory on the device and to increase the export performance\r\n- If the flag `0x0000000010000000` is not set, this request will close any open transactions. If the flag is set, an exception is raised in case there are open transactions, which should enable the user to handle this case in their own software. \r\n- If the flag `0x0000000008000000` is set, this request will also update the masterdata after it was changed in the Portal and a CashBox rebuild was triggered. The new masterdata will be effective starting from this moment.\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 							},
 							"response": []
 						},
@@ -1062,17 +1014,16 @@
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4445000100000006`\r\n\r\nCan be sent at the end of the year to logically separate them, e.g. for easier bookkeeping.\r\n- If the flag `0x0000000004000000` is not set, this request exports the TSE's logs to the database, both to save memory on the device and to increase the export performance\r\n- If the flag `0x0000000010000000` is not set, this request will close any open transactions. If the flag is set, an exception is raised in case there are open transactions, which should enable the user to handle this case in their own software. \r\n- If the flag `0x0000000008000000` is set, this request will also update the masterdata after it was changed in the Portal and a CashBox rebuild was triggered. The new masterdata will be effective starting from this moment.\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+								"description": "ftReceiptCase: `0x4445000100000006`\r\n\r\nCan be sent at the end of the year to logically separate them, e.g. for easier bookkeeping.\r\n- If the flag `0x0000000004000000` is not set, this request exports the TSE's logs to the database, both to save memory on the device and to increase the export performance\r\n- If the flag `0x0000000010000000` is not set, this request will close any open transactions. If the flag is set, an exception is raised in case there are open transactions, which should enable the user to handle this case in their own software. \r\n- If the flag `0x0000000008000000` is set, this request will also update the masterdata after it was changed in the Portal and a CashBox rebuild was triggered. The new masterdata will be effective starting from this moment.\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 							},
 							"response": []
 						}
 					],
-					"description": "# Special receipt cases\r\nRequests with these `ftReceiptCase` values are used to control the fiskaltrust.Middleware. These requests must contain empty arrays for the values of `ftChargeItems` and `ftPayItems`.\r\n\r\n_See also (general information):_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/general/cash-register-integration/cash-register-integration.html#zero-receipt\r\n\r\n_See also (information specific for Germany):_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html",
+					"description": "# Special receipt cases\r\nRequests with these `ftReceiptCase` values are used to control the fiskaltrust.Middleware. These requests must contain empty arrays for the values of `ftChargeItems` and `ftPayItems`.\r\n\r\n_See also (general information):_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/zero-receipt\r\n\r\n_See also (information specific for Germany):_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "3b6a0777-355f-4431-958d-0aaed2cbfe7a",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1082,16 +1033,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0733c1bb-e7aa-405e-9830-d289f44d354e",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Implicit transactions",
@@ -1124,7 +1072,7 @@
 												"Sign"
 											]
 										},
-										"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nPurchase with cash payment.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+										"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nPurchase with cash payment.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 									},
 									"response": []
 								},
@@ -1153,7 +1101,7 @@
 												"Sign"
 											]
 										},
-										"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nPurchase at different moments with different VAT rates and cash payment.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+										"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nPurchase at different moments with different VAT rates and cash payment.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 									},
 									"response": []
 								},
@@ -1182,7 +1130,7 @@
 												"Sign"
 											]
 										},
-										"description": "ftReceiptCase: `0x4445000100000012`\r\n\r\nOwn consumtion with internal material consumtion.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+										"description": "ftReceiptCase: `0x4445000100000012`\r\n\r\nOwn consumtion with internal material consumtion.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 									},
 									"response": []
 								},
@@ -1211,7 +1159,7 @@
 												"Sign"
 											]
 										},
-										"description": "ftReceiptCase: `0x4445000100000012`\r\n\r\nConsumption by an employee with internal material consumption.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+										"description": "ftReceiptCase: `0x4445000100000012`\r\n\r\nConsumption by an employee with internal material consumption.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 									},
 									"response": []
 								},
@@ -1240,7 +1188,7 @@
 												"Sign"
 											]
 										},
-										"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCase: `0x4445000000000031`\r\n\r\nA customer purchases a product with loyalty points and receives 50%. This corresponds to a discount. If it is not a discount, it can be e.g. a multi-purpose voucher.\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-service-ftchargeitemcase.html#type-of-service-ftchargeitemcase"
+										"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCase: `0x4445000000000031`\r\n\r\nA customer purchases a product with loyalty points and receives 50%. This corresponds to a discount. If it is not a discount, it can be e.g. a multi-purpose voucher.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftchargeitemcase"
 									},
 									"response": []
 								},
@@ -1269,7 +1217,7 @@
 												"Sign"
 											]
 										},
-										"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftPayItemCase: `0x444500000000000E`\r\n\r\nThis case can be handled both by using pay items only (where one of them will be converted to a business case in the DSFinV-K), or regularly with a charge item (see example below).\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-payment-ftpayitemcase.html#type-of-payment-ftpayitemcase"
+										"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftPayItemCase: `0x444500000000000E`\r\n\r\nThis case can be handled both by using pay items only (where one of them will be converted to a business case in the DSFinV-K), or regularly with a charge item (see example below).\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftpayitemcase"
 									},
 									"response": []
 								},
@@ -1298,7 +1246,7 @@
 												"Sign"
 											]
 										},
-										"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCase: `0x4445000000000075`\r\n\r\nThis case can be handled both by using pay items only (where one of them will be converted to a business case in the DSFinV-K, see example above), or regularly with a charge item.\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-service-ftchargeitemcase.html#type-of-service-ftchargeitemcase"
+										"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCase: `0x4445000000000075`\r\n\r\nThis case can be handled both by using pay items only (where one of them will be converted to a business case in the DSFinV-K, see example above), or regularly with a charge item.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftchargeitemcase"
 									},
 									"response": []
 								},
@@ -1309,7 +1257,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n   \"ftCashBoxID\":\"{{cashbox_id}}\",\n   \"ftPosSystemId\": \"{{possystem_id}}\",\n   \"cbTerminalID\":\"D\",\n   \"cbReceiptReference\":\"kfz123\",\n   \"cbReceiptMoment\":\"{{current_moment}}\",\n   \"cbChargeItems\":[\n      {\n         \"Quantity\":1.0,\n         \"Description\":\"Rumpf-Motor\",\n         \"Amount\":2726.00,\n         \"VATRate\":16.00,\n         \"VATAmount\":376.00,\n         \"ftChargeItemCase\":4919338167972134929,\n         \"Moment\":\"{{current_moment}}\"\n      },\n      {\n         \"Quantity\":1.0,\n         \"Description\":\"AT-Anteil - Rumpf-Motor\",\n         \"Amount\":37.60,\n         \"VATRate\":16.00,\n         \"VATAmount\":37.60,\n         \"ftChargeItemCase\":4919338167972134935,\n         \"Moment\":\"{{current_moment}}\"\n      }\n   ],\n   \"cbPayItems\":[\n      {\n         \"Quantity\":1.0,\n         \"Description\":\"Cash\",\n         \"Amount\":2763.60,\n         \"ftPayItemCase\":4919338167972134913,\n         \"Moment\":\"{{current_moment}}\"\n      }\n   ],\n   \"ftReceiptCase\":4919338172267102209\n}",
+											"raw": "{\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\n    \"ftPosSystemId\": \"{{possystem_id}}\",\n    \"cbTerminalID\": \"D\",\n    \"cbReceiptReference\": \"kfz123\",\n    \"cbReceiptMoment\": \"{{current_moment}}\",\n    \"cbChargeItems\": [\n        {\n            \"Quantity\": 1.0,\n            \"Description\": \"Rumpf-Motor\",\n            \"Amount\": 2726.00,\n            \"VATRate\": 16.00,\n            \"VATAmount\": 376.00,\n            \"ftChargeItemCase\": 4919338167972134929,\n            \"Moment\": \"{{current_moment}}\"\n        },\n        {\n            \"Quantity\": 1.0,\n            \"Description\": \"AT-Anteil - Rumpf-Motor\",\n            \"Amount\": 37.60,\n            \"VATRate\": 16.00,\n            \"VATAmount\": 37.60,\n            \"ftChargeItemCase\": 4919338167972134935,\n            \"Moment\": \"{{current_moment}}\"\n        }\n    ],\n    \"cbPayItems\": [\n        {\n            \"Quantity\": 1.0,\n            \"Description\": \"Cash\",\n            \"Amount\": 2763.60,\n            \"ftPayItemCase\": 4919338167972134913,\n            \"Moment\": \"{{current_moment}}\"\n        }\n    ],\n    \"ftReceiptCase\": 4919338172267102209\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1327,7 +1275,7 @@
 												"Sign"
 											]
 										},
-										"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases: `0x4445000000000011`, `0x4445000000000017`\r\n\r\nA car repair shop uses a replacement engine (Rumpf-Motor) during a repair. The tax base is determined according to the rule for old parts taxation and taxed at 19% VAT (https://de.wikipedia.org/wiki/Altteilsteuer).\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-service-ftchargeitemcase.html#type-of-service-ftchargeitemcase"
+										"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases: `0x4445000000000011`, `0x4445000000000017`\r\n\r\nA car repair shop uses a replacement engine (Rumpf-Motor) during a repair. The tax base is determined according to the rule for old parts taxation and taxed at 19% VAT (https://de.wikipedia.org/wiki/Altteilsteuer).\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftchargeitemcase"
 									},
 									"response": []
 								},
@@ -1356,7 +1304,7 @@
 												"Sign"
 											]
 										},
-										"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nAgency businesses are not own sales, but sales made on behalf of a 3rd party. According to the DSFinV-K, this business has to be linked to this 3rd party (called 'agency'). To do so, please create the agency in the Portal and reference it's ID with the `AgencyId` property in ftChargeItemCaseData.\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/procedural-documentation/dsfinv-k-generation.html#single-recordings-module-de-einzelaufzeichnungsmodul"
+										"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nAgency businesses are not own sales, but sales made on behalf of a 3rd party. According to the DSFinV-K, this business has to be linked to this 3rd party (called 'agency'). To do so, please create the agency in the Portal and reference it's ID with the `AgencyId` property in ftChargeItemCaseData.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/single-recordings-module"
 									},
 									"response": []
 								}
@@ -1366,7 +1314,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "e2dd4f40-e828-41d0-baf1-26748ffa9529",
 										"type": "text/javascript",
 										"exec": [
 											""
@@ -1376,16 +1323,13 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "41b2a183-01fa-47f7-86b2-16876a8a039f",
 										"type": "text/javascript",
 										"exec": [
 											""
 										]
 									}
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Sequence business cases",
@@ -1418,7 +1362,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases:\r\n- `0x4445000000000081` (normal, 19%)\r\n- `0x4445000000000082` (discounted, 7%)\r\n- `0x4445000000000083` (special, 10.70%)\r\n- `0x4445000000000084` (special, 5.50%)\r\n- `0x4445000000000085` (not taxable)\r\n- `0x4445000000000086` (tax free)\r\n- `0x4445000000000087` (unknown VAT)\r\n\r\nCash payment of a down payment for a bike.\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-service-ftchargeitemcase.html#type-of-service-ftchargeitemcase"
+												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases:\r\n- `0x4445000000000081` (normal, 19%)\r\n- `0x4445000000000082` (discounted, 7%)\r\n- `0x4445000000000083` (special, 10.70%)\r\n- `0x4445000000000084` (special, 5.50%)\r\n- `0x4445000000000085` (not taxable)\r\n- `0x4445000000000086` (tax free)\r\n- `0x4445000000000087` (unknown VAT)\r\n\r\nCash payment of a down payment for a bike.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftchargeitemcase"
 											},
 											"response": []
 										},
@@ -1447,7 +1391,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases:\r\n- `0x4445000000000089` (normal, 19%)\r\n- `0x444500000000008A` (discounted, 7%)\r\n- `0x444500000000008B` (special, 10.70%)\r\n- `0x444500000000008C` (special, 5.50%)\r\n- `0x444500000000008D` (not taxable)\r\n- `0x444500000000008E` (tax free)\r\n- `0x444500000000008F` (unknown VAT)\r\n\r\nPurchase of a bike with cash payment minus a deposit.\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-service-ftchargeitemcase.html#type-of-service-ftchargeitemcase"
+												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases:\r\n- `0x4445000000000089` (normal, 19%)\r\n- `0x444500000000008A` (discounted, 7%)\r\n- `0x444500000000008B` (special, 10.70%)\r\n- `0x444500000000008C` (special, 5.50%)\r\n- `0x444500000000008D` (not taxable)\r\n- `0x444500000000008E` (tax free)\r\n- `0x444500000000008F` (unknown VAT)\r\n\r\nPurchase of a bike with cash payment minus a deposit.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftchargeitemcase"
 											},
 											"response": []
 										}
@@ -1456,7 +1400,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "3d618cee-cc06-43f0-a93c-20d72578ed61",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -1466,16 +1409,13 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "04ee9c35-0e96-475d-8a5a-801ade83fa99",
 												"type": "text/javascript",
 												"exec": [
 													""
 												]
 											}
 										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
+									]
 								},
 								{
 									"name": "Returnable",
@@ -1505,7 +1445,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases:\r\n- `0x4445000000000021` (normal, 19%)\r\n- `0x4445000000000022` (discounted, 7%)\r\n- `0x4445000000000023` (special, 10.70%)\r\n- `0x4445000000000024` (special, 5.50%)\r\n- `0x4445000000000025` (not taxable)\r\n- `0x4445000000000026` (tax free)\r\n- `0x4445000000000027` (unknown VAT)\r\n\r\nGiving out an EUR-palett and charging the pawn.\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-service-ftchargeitemcase.html#type-of-service-ftchargeitemcase"
+												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases:\r\n- `0x4445000000000021` (normal, 19%)\r\n- `0x4445000000000022` (discounted, 7%)\r\n- `0x4445000000000023` (special, 10.70%)\r\n- `0x4445000000000024` (special, 5.50%)\r\n- `0x4445000000000025` (not taxable)\r\n- `0x4445000000000026` (tax free)\r\n- `0x4445000000000027` (unknown VAT)\r\n\r\nGiving out an EUR-palett and charging the pawn.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftchargeitemcase"
 											},
 											"response": []
 										},
@@ -1534,7 +1474,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases:\r\n- `0x4445000000000029` (normal, 19%)\r\n- `0x444500000000002A` (discounted, 7%)\r\n- `0x444500000000002B` (special, 10.70%)\r\n- `0x444500000000002C` (special, 5.50%)\r\n- `0x444500000000002D` (not taxable)\r\n- `0x444500000000002E` (tax free)\r\n- `0x444500000000002F` (unknown VAT)\r\n\r\nTaking back an EUR-palett and returning the pawn.\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-service-ftchargeitemcase.html#type-of-service-ftchargeitemcase"
+												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases:\r\n- `0x4445000000000029` (normal, 19%)\r\n- `0x444500000000002A` (discounted, 7%)\r\n- `0x444500000000002B` (special, 10.70%)\r\n- `0x444500000000002C` (special, 5.50%)\r\n- `0x444500000000002D` (not taxable)\r\n- `0x444500000000002E` (tax free)\r\n- `0x444500000000002F` (unknown VAT)\r\n\r\nTaking back an EUR-palett and returning the pawn.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftchargeitemcase"
 											},
 											"response": []
 										},
@@ -1563,7 +1503,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases:\r\n- `0x4445000000000021` (normal, 19%)\r\n- `0x4445000000000022` (discounted, 7%)\r\n- `0x4445000000000023` (special, 10.70%)\r\n- `0x4445000000000024` (special, 5.50%)\r\n- `0x4445000000000025` (not taxable)\r\n- `0x4445000000000026` (tax free)\r\n- `0x4445000000000027` (unknown VAT)\r\n\r\nSelling a bottle of milk in a returnable bottle and charging the pawn.\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-service-ftchargeitemcase.html#type-of-service-ftchargeitemcase"
+												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases:\r\n- `0x4445000000000021` (normal, 19%)\r\n- `0x4445000000000022` (discounted, 7%)\r\n- `0x4445000000000023` (special, 10.70%)\r\n- `0x4445000000000024` (special, 5.50%)\r\n- `0x4445000000000025` (not taxable)\r\n- `0x4445000000000026` (tax free)\r\n- `0x4445000000000027` (unknown VAT)\r\n\r\nSelling a bottle of milk in a returnable bottle and charging the pawn.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftchargeitemcase"
 											},
 											"response": []
 										},
@@ -1592,7 +1532,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases:\r\n- `0x4445000000000029` (normal, 19%)\r\n- `0x444500000000002A` (discounted, 7%)\r\n- `0x444500000000002B` (special, 10.70%)\r\n- `0x444500000000002C` (special, 5.50%)\r\n- `0x444500000000002D` (not taxable)\r\n- `0x444500000000002E` (tax free)\r\n- `0x444500000000002F` (unknown VAT)\r\n\r\nTaking back a returnable bottle and returning the pawn.\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-service-ftchargeitemcase.html#type-of-service-ftchargeitemcase"
+												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases:\r\n- `0x4445000000000029` (normal, 19%)\r\n- `0x444500000000002A` (discounted, 7%)\r\n- `0x444500000000002B` (special, 10.70%)\r\n- `0x444500000000002C` (special, 5.50%)\r\n- `0x444500000000002D` (not taxable)\r\n- `0x444500000000002E` (tax free)\r\n- `0x444500000000002F` (unknown VAT)\r\n\r\nTaking back a returnable bottle and returning the pawn.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftchargeitemcase"
 											},
 											"response": []
 										}
@@ -1601,7 +1541,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "dcaf7e2f-adee-4302-a523-0d9498d1e21b",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -1611,16 +1550,13 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "4ecb6b8e-30c1-457a-8efa-a2b5e7ca45be",
 												"type": "text/javascript",
 												"exec": [
 													""
 												]
 											}
 										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
+									]
 								},
 								{
 									"name": "Voucher",
@@ -1650,7 +1586,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases:\r\n- `0x4445000000000061` (normal, 19%)\r\n- `0x4445000000000062` (discounted, 7%)\r\n- `0x4445000000000063` (special, 10.70%)\r\n- `0x4445000000000064` (special, 5.50%)\r\n- `0x4445000000000065` (not taxable)\r\n- `0x4445000000000066` (tax free)\r\n- `0x4445000000000067` (unknown VAT)\r\n\r\nIssuing a single purpose voucher for a MP3 player.\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-service-ftchargeitemcase.html#type-of-service-ftchargeitemcase"
+												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases:\r\n- `0x4445000000000061` (normal, 19%)\r\n- `0x4445000000000062` (discounted, 7%)\r\n- `0x4445000000000063` (special, 10.70%)\r\n- `0x4445000000000064` (special, 5.50%)\r\n- `0x4445000000000065` (not taxable)\r\n- `0x4445000000000066` (tax free)\r\n- `0x4445000000000067` (unknown VAT)\r\n\r\nIssuing a single purpose voucher for a MP3 player.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftchargeitemcase"
 											},
 											"response": []
 										},
@@ -1679,7 +1615,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases:\r\n- `0x4445000000000069` (normal, 19%)\r\n- `0x444500000000006A` (discounted, 7%)\r\n- `0x444500000000006B` (special, 10.70%)\r\n- `0x444500000000006C` (special, 5.50%)\r\n- `0x444500000000006D` (not taxable)\r\n- `0x444500000000006E` (tax free)\r\n- `0x444500000000006F` (unknown VAT)\r\n\r\nRedeeminga single purpose voucher for a MP3 player. This operation can either be done via charge items (as shown here), or via pay items (see next example). If pay items are used, they are converted to a business case during DSFinV-K creation.\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-service-ftchargeitemcase.html#type-of-service-ftchargeitemcase"
+												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCases:\r\n- `0x4445000000000069` (normal, 19%)\r\n- `0x444500000000006A` (discounted, 7%)\r\n- `0x444500000000006B` (special, 10.70%)\r\n- `0x444500000000006C` (special, 5.50%)\r\n- `0x444500000000006D` (not taxable)\r\n- `0x444500000000006E` (tax free)\r\n- `0x444500000000006F` (unknown VAT)\r\n\r\nRedeeminga single purpose voucher for a MP3 player. This operation can either be done via charge items (as shown here), or via pay items (see next example). If pay items are used, they are converted to a business case during DSFinV-K creation.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftchargeitemcase"
 											},
 											"response": []
 										},
@@ -1708,7 +1644,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftPayItemCase:`0x444500000000000D`\r\n\r\nIssuing a multi-purpose voucher, not taxable. This can either be done via pay items (as shown here), or via charge items.\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-payment-ftpayitemcase.html#type-of-payment-ftpayitemcase"
+												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftPayItemCase:`0x444500000000000D`\r\n\r\nIssuing a multi-purpose voucher, not taxable. This can either be done via pay items (as shown here), or via charge items.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftpayitemcase"
 											},
 											"response": []
 										},
@@ -1737,7 +1673,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCase:`0x4445000000000060`\r\n\r\nIssuing a multi-purpose voucher, not taxable. This can either be done via pay items, or via charge items (as shown here).\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-service-ftchargeitemcase.html#type-of-service-ftchargeitemcase"
+												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftChargeItemCase:`0x4445000000000060`\r\n\r\nIssuing a multi-purpose voucher, not taxable. This can either be done via pay items, or via charge items (as shown here).\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftchargeitemcase"
 											},
 											"response": []
 										},
@@ -1766,7 +1702,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftPayItemCase:`0x444500000000000D`\r\n\r\nRedeeming a multi-purpose voucher, not taxable. This can either be done via pay items (as shown here), or via charge items.\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-payment-ftpayitemcase.html#type-of-payment-ftpayitemcase"
+												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftPayItemCase:`0x444500000000000D`\r\n\r\nRedeeming a multi-purpose voucher, not taxable. This can either be done via pay items (as shown here), or via charge items.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftpayitemcase"
 											},
 											"response": []
 										},
@@ -1795,7 +1731,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftPayItemCase:`0x4445000000000068`\r\n\r\nRedeeming a multi-purpose voucher, not taxable. This can either be done via pay items, or via charge items (as shown here).\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-service-ftchargeitemcase.html#type-of-service-ftchargeitemcase"
+												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nftPayItemCase:`0x4445000000000068`\r\n\r\nRedeeming a multi-purpose voucher, not taxable. This can either be done via pay items, or via charge items (as shown here).\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftchargeitemcase"
 											},
 											"response": []
 										}
@@ -1804,7 +1740,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "0cd741ee-d5a1-48ee-abf8-d4bd5c1eaf56",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -1814,16 +1749,13 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "f832fce8-d250-4c4a-b229-6ba1452d1709",
 												"type": "text/javascript",
 												"exec": [
 													""
 												]
 											}
 										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
+									]
 								},
 								{
 									"name": "Hotel stay & bar consumption",
@@ -1856,7 +1788,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000013`\r\n\r\nLog information about the check-in. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000013`\r\n\r\nLog information about the check-in. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												},
@@ -1885,7 +1817,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about the first night. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about the first night. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												},
@@ -1914,7 +1846,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about a consumption at the hotel bar. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about a consumption at the hotel bar. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												},
@@ -1943,7 +1875,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about the second night. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about the second night. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												},
@@ -1972,7 +1904,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nOverall payment of the stay and the bar consumptions. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nOverall payment of the stay and the bar consumptions. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												}
@@ -1982,7 +1914,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "eca8166f-0a33-4466-a71b-1f790150e7b5",
 														"type": "text/javascript",
 														"exec": [
 															""
@@ -1992,16 +1923,13 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2dcc1024-3c4f-4807-96d7-c13f9b6efde3",
 														"type": "text/javascript",
 														"exec": [
 															""
 														]
 													}
 												}
-											],
-											"protocolProfileBehavior": {},
-											"_postman_isSubFolder": true
+											]
 										},
 										{
 											"name": "Hotel - Split at checkout",
@@ -2031,7 +1959,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000013`\r\n\r\nLog information about the check-in. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000013`\r\n\r\nLog information about the check-in. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												},
@@ -2060,7 +1988,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about the first night. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about the first night. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												},
@@ -2089,7 +2017,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about a consumption at the hotel bar. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about a consumption at the hotel bar. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												},
@@ -2118,7 +2046,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about the second night. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about the second night. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												},
@@ -2147,7 +2075,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000001`\n\nSplit payment of the stay and the bar consumptions. _cbReceiptReference_ is now refering to a (new) invoice number, _cbPreviousReceiptReference_ is used to link to the previous process (1234-000001).\n\n_See also:_\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000001`\n\nSplit payment of the stay and the bar consumptions. _cbReceiptReference_ is now refering to a (new) invoice number, _cbPreviousReceiptReference_ is used to link to the previous process (1234-000001).\n\n_See also:_\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												},
@@ -2176,7 +2104,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000001`\n\nSplit payment of the stay and the bar consumptions. _cbReceiptReference_ is now refering to a (new) invoice number, _cbPreviousReceiptReference_ is used to link to the previous process (1234-000001).\n\n_See also:_\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000001`\n\nSplit payment of the stay and the bar consumptions. _cbReceiptReference_ is now refering to a (new) invoice number, _cbPreviousReceiptReference_ is used to link to the previous process (1234-000001).\n\n_See also:_\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												}
@@ -2186,7 +2114,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "4b22b9de-d259-45ae-ac16-07f0d5f1e1e0",
 														"type": "text/javascript",
 														"exec": [
 															""
@@ -2196,16 +2123,13 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "84548448-40e1-4a9a-97ba-061c731b5b78",
 														"type": "text/javascript",
 														"exec": [
 															""
 														]
 													}
 												}
-											],
-											"protocolProfileBehavior": {},
-											"_postman_isSubFolder": true
+											]
 										},
 										{
 											"name": "Hotel - Merge at checkout",
@@ -2235,7 +2159,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000013`\r\n\r\nLog information about the check-in of Fam. Müller. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000013`\r\n\r\nLog information about the check-in of Fam. Müller. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												},
@@ -2264,7 +2188,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000013`\r\n\r\nLog information about the check-in of Fam. Maier. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (4321-000001).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000013`\r\n\r\nLog information about the check-in of Fam. Maier. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (4321-000001).\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												},
@@ -2293,7 +2217,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about a consumption at the hotel bar by Fam. Müller. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about a consumption at the hotel bar by Fam. Müller. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												},
@@ -2322,7 +2246,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about the overnight stay of Fam. Müller. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about the overnight stay of Fam. Müller. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (1234-000001).\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												},
@@ -2351,7 +2275,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about the overnight stay of Fam. Maier. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (4321-000001).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nInformation about the overnight stay of Fam. Maier. _cbReceiptReference_ is used to track the room number, and contains an upcounting unique identifier (4321-000001).\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												},
@@ -2380,7 +2304,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000013`\r\n\r\nMerge the process of Fam. Müller (1234-000001) into the new process 6781. _cbReceiptReference_ is set to the new invoice process number, and _cbPreviousReceiptReference_ represents the previous process/room number.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000013`\r\n\r\nMerge the process of Fam. Müller (1234-000001) into the new process 6781. _cbReceiptReference_ is set to the new invoice process number, and _cbPreviousReceiptReference_ represents the previous process/room number.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												},
@@ -2409,7 +2333,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000013`\r\n\r\nMerge the process of Fam. Maier (4321-000001) into the new process 6781. _cbReceiptReference_ is set to the new invoice process number, and _cbPreviousReceiptReference_ represents the previous process/room number.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000013`\r\n\r\nMerge the process of Fam. Maier (4321-000001) into the new process 6781. _cbReceiptReference_ is set to the new invoice process number, and _cbPreviousReceiptReference_ represents the previous process/room number.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												},
@@ -2438,7 +2362,7 @@
 																"Sign"
 															]
 														},
-														"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nPayment of the merged processes by Fam. Müller. _cbReceiptReference_ is set to the merged invoice process (6781).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+														"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nPayment of the merged processes by Fam. Müller. _cbReceiptReference_ is set to the merged invoice process (6781).\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 													},
 													"response": []
 												}
@@ -2448,7 +2372,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "20d52141-be4a-4e3e-bb10-aeb7cc3f5653",
 														"type": "text/javascript",
 														"exec": [
 															""
@@ -2458,23 +2381,19 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "9c08d14a-c7e8-4aa4-9b2f-63d3ce361188",
 														"type": "text/javascript",
 														"exec": [
 															""
 														]
 													}
 												}
-											],
-											"protocolProfileBehavior": {},
-											"_postman_isSubFolder": true
+											]
 										}
 									],
 									"event": [
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "3ae286be-c2dd-4062-86a5-48e88880e683",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -2484,16 +2403,13 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "601d1ed6-4b68-4c2b-a911-9188d37742ee",
 												"type": "text/javascript",
 												"exec": [
 													""
 												]
 											}
 										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
+									]
 								},
 								{
 									"name": "Restaurant",
@@ -2523,7 +2439,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nTo be used when recording an ongoing order without pay items.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000100000010`\r\n\r\nTo be used when recording an ongoing order without pay items.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -2552,7 +2468,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nFinishes an order and creates a turnover-relevant operation, referencing the previously created _info order_. Should be called when the guest is paying.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nFinishes an order and creates a turnover-relevant operation, referencing the previously created _info order_. Should be called when the guest is paying.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -2581,7 +2497,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nTo be used when a guest is returning goods.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nTo be used when a guest is returning goods.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -2610,7 +2526,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000100040001`\r\n\r\nThe business transaction did not take place.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000100040001`\r\n\r\nThe business transaction did not take place.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										}
@@ -2619,7 +2535,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "f8bd0217-3bc3-4899-8e5d-680072d82021",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -2629,16 +2544,97 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "7f93c94e-1c3d-4a46-8cca-2b585927b180",
 												"type": "text/javascript",
 												"exec": [
 													""
 												]
 											}
 										}
+									]
+								},
+								{
+									"name": "Retail",
+									"item": [
+										{
+											"name": "1. First item scanned (info internal)",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"R12345\",\r\n    \"cbReceiptMoment\": \"2021-01-18T17:45:40.505Z\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338172267102227\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/json/v1/Sign",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"json",
+														"v1",
+														"Sign"
+													]
+												},
+												"description": "ftReceiptCase: `0x4445000100000013`\r\n\r\nCreates a _SonstigerVorgang_ to make sure that the start time of the business case is logged and signed by the TSE. This method should be called when the first item is scanned. _cbReceiptReference_ is used to connect this receipt to the POS receipt that represents the actual business transaction.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
+											},
+											"response": []
+										},
+										{
+											"name": "2. POS receipt - Cash payment [Barverkauf]",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"R12345\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 2.0,\r\n            \"Description\": \"Brötchen\",\r\n            \"Amount\": 2,\r\n            \"VATRate\": 19.00,\r\n            \"ftChargeItemCase\": 4919338167972134929,\r\n            \"Moment\": \"2021-01-18T17:45:40.505Z\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Coffee to Go\",\r\n            \"Amount\": 2.50,\r\n            \"VATRate\": 7.00,\r\n            \"ftChargeItemCase\": 4919338167972200466,\r\n            \"Moment\": \"2021-01-18T17:48:10.000Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 4.50,\r\n            \"ftPayItemCase\": 4919338167972134913,\r\n            \"Moment\": \"2021-01-18T17:48:52.000Z\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338172267102209\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/json/v1/Sign",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"json",
+														"v1",
+														"Sign"
+													]
+												},
+												"description": "ftReceiptCase: `0x4445000100000001`\r\n\r\nPurchase with cash payment, connected to the previous info-internal receipt via the `cbReceiptReference`. The `Moment` property of the first ChargeItem should set to the value of the _LogTime_ signature in the info-internal's response, which ensures that the _VorgangsBeginn_ signature (i.e. the business transaction start time) is set correctly to this value.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
+											},
+											"response": []
+										}
 									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
+									"description": "Alternatively to just using a simple POS receipt for a retail transactions, it's also possible to sign the start moment of the business process (German: _VorgangsBeginn_) via an _info-internal_ receipt. This creates a _SonstigerVorgang_ in the TSE.\r\n\r\nThe value returned in the info-internal's signature item _LogTime_ should be used as the `Moment` of the first _cbChargeItem_. This ensures that that POS receipt returns the correct business transaction start time (German: _Vorgangsbeginn_), which must be printed on the receipt.",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
 								}
 							],
 							"description": "# Sequence business cases\r\nThe requests listed in this section demonstrate \"multi-step\" business cases, i.e. long running cases that require multiple sign calls and transactions.",
@@ -2646,7 +2642,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "51245abe-45a4-4986-b0ad-e2a55d44ef6e",
 										"type": "text/javascript",
 										"exec": [
 											""
@@ -2656,24 +2651,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "59509345-1df5-44e5-a466-47e53ad3ca46",
 										"type": "text/javascript",
 										"exec": [
 											""
 										]
 									}
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						}
 					],
-					"description": "# Implicit transaction samples\r\nImplicit transactions automatically create a start- and a finish transaction (based on the regulations for simplified usage (Durchbedienen)). This avoids common problems with long running transactions, and completely abstracts the user of the fiskaltrust.Middleware from handling those cases.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/cash-register-integration/cash-register-integration.html?q=implicit#the-fiskaltrustsecuritymechanism-implicit-transaction",
+					"description": "# Implicit transaction samples\r\nImplicit transactions automatically create a start- and a finish transaction (based on the regulations for simplified usage (Durchbedienen)). This avoids common problems with long running transactions, and completely abstracts the user of the fiskaltrust.Middleware from handling those cases.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/implicit-flow",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "987268c1-64bf-4376-97f2-5c4c1cd0aa3b",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2683,16 +2674,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e92b7e1c-7723-4270-b24e-c6c386fc6ece",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Explicit transactions",
@@ -2728,7 +2716,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -2757,7 +2745,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and purchase with cash payment. Using subitems a ftChargeItemCase and an embedded json in ftChargeItemCaseData to define a recipt (for illustration purposes only; this can also be achieved with implicit transactions).\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/general/data-structures/data-structures.html#charge-items-entry\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/procedural-documentation/dsfinv-k-generation.html#single-recordings-module-de-einzelaufzeichnungsmodul"
+												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and purchase with cash payment. Using subitems a ftChargeItemCase and an embedded json in ftChargeItemCaseData to define a recipt (for illustration purposes only; this can also be achieved with implicit transactions).\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftchargeitemcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/single-recordings-module"
 											},
 											"response": []
 										}
@@ -2766,7 +2754,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "e6e42d53-194f-4213-90ad-e4b50cafd9f5",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -2776,16 +2763,13 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "023f565b-3644-4f78-adb1-1702dc60a3ad",
 												"type": "text/javascript",
 												"exec": [
 													""
 												]
 											}
 										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
+									]
 								},
 								{
 									"name": "Cancelling a transaction",
@@ -2815,7 +2799,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -2844,7 +2828,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000009`\r\n\r\nUpdates an open transaction and adds a new article to it. Connected with the ongoind transactions by the _cbReceiptReference_ field. In this case (_update_-transaction), the charge and pay items must contain all the elements that represent the current state of this receipt.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000009`\r\n\r\nUpdates an open transaction and adds a new article to it. Connected with the ongoind transactions by the _cbReceiptReference_ field. In this case (_update_-transaction), the charge and pay items must contain all the elements that represent the current state of this receipt.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -2873,7 +2857,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x444500000000000B`\r\n\r\nCancel the already opened transaction.\r\n\r\nIn this example, a transaction that has been opened with start-transaction is cancelled. It is identified with the cbReceiptReference.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x444500000000000B`\r\n\r\nCancel the already opened transaction.\r\n\r\nIn this example, a transaction that has been opened with start-transaction is cancelled. It is identified with the cbReceiptReference.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										}
@@ -2883,7 +2867,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "08bf0f34-2432-4193-9670-e6ddd02ddb26",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -2893,16 +2876,13 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "3b640d4d-3e9e-4899-8753-e959a27e4dd7",
 												"type": "text/javascript",
 												"exec": [
 													""
 												]
 											}
 										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
+									]
 								},
 								{
 									"name": "Wage payment with cash",
@@ -2932,7 +2912,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -2961,7 +2941,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and pay the wage with cash.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and pay the wage with cash.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										}
@@ -2970,7 +2950,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "9fb44c1d-cf48-4828-a711-e43861cd25a5",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -2980,16 +2959,13 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "9ba644fa-e297-48e2-8b59-eb78b32398aa",
 												"type": "text/javascript",
 												"exec": [
 													""
 												]
 											}
 										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
+									]
 								},
 								{
 									"name": "Creation of a receivable",
@@ -3019,7 +2995,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3048,7 +3024,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and create the receivable. For more infos, please refer to the following example in the DSFinV-K: `V_2_1_01 a Beispiele_Behandlung von Forderungen_processing flag_true.xlsx`\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and create the receivable. For more infos, please refer to the following example in the DSFinV-K: `V_2_1_01 a Beispiele_Behandlung von Forderungen_processing flag_true.xlsx`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3077,7 +3053,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and create the receivable. For more infos, please refer to the following example in the DSFinV-K: `V_2_1_01 b Beispiele_Behandlung von Forderungen_processing flag_false_Bil-IST.....xlsx`\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and create the receivable. For more infos, please refer to the following example in the DSFinV-K: `V_2_1_01 b Beispiele_Behandlung von Forderungen_processing flag_false_Bil-IST.....xlsx`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3106,7 +3082,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and create the receivable. For more infos, please refer to the following example in the DSFinV-K: `V_2_1_01 c Beispiele_Behandlung von Forderungen_processing flag_false_Bil-SOLL....xlsx`\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and create the receivable. For more infos, please refer to the following example in the DSFinV-K: `V_2_1_01 c Beispiele_Behandlung von Forderungen_processing flag_false_Bil-SOLL....xlsx`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										}
@@ -3115,7 +3091,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "925bd455-f509-4de6-b7b8-4906b3e04751",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -3125,16 +3100,13 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "eb33c45c-7a1d-4760-bfcc-132174919e22",
 												"type": "text/javascript",
 												"exec": [
 													""
 												]
 											}
 										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
+									]
 								},
 								{
 									"name": "Payment of an outstanding receivable",
@@ -3164,7 +3136,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3193,7 +3165,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and pay the receivable. For more infos, please refer to the following example in the DSFinV-K: `V_2_1_01 a Beispiele_Behandlung von Forderungen_processing flag_true.xlsx`\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and pay the receivable. For more infos, please refer to the following example in the DSFinV-K: `V_2_1_01 a Beispiele_Behandlung von Forderungen_processing flag_true.xlsx`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3222,7 +3194,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and pay the receivable. For more infos, please refer to the following example in the DSFinV-K: `V_2_1_01 b Beispiele_Behandlung von Forderungen_processing flag_false_Bil-IST.....xlsx`\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and pay the receivable. For more infos, please refer to the following example in the DSFinV-K: `V_2_1_01 b Beispiele_Behandlung von Forderungen_processing flag_false_Bil-IST.....xlsx`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3251,7 +3223,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and pay the receivable. For more infos, please refer to the following example in the DSFinV-K: `V_2_1_01 c Beispiele_Behandlung von Forderungen_processing flag_false_Bil-SOLL....xlsx`\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and pay the receivable. For more infos, please refer to the following example in the DSFinV-K: `V_2_1_01 c Beispiele_Behandlung von Forderungen_processing flag_false_Bil-SOLL....xlsx`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										}
@@ -3260,7 +3232,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "8f9ea8d5-6b2b-4f02-a541-b29baf84d395",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -3270,16 +3241,13 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "d907a6c9-ff46-4b05-8cc2-74886dde0206",
 												"type": "text/javascript",
 												"exec": [
 													""
 												]
 											}
 										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
+									]
 								}
 							],
 							"description": "# Single business cases\r\nThe requests listed in this section demonstrate \"single-step\" business cases, i.e. cases that can be handled with a single transaction (which requires two sign calls to start and finish transactions when using the explicit flow)",
@@ -3287,7 +3255,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "ea629677-a053-4405-91e6-27a4e7b8a15c",
 										"type": "text/javascript",
 										"exec": [
 											""
@@ -3297,16 +3264,13 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a53e9ff2-b125-4957-8445-c1df0637bf87",
 										"type": "text/javascript",
 										"exec": [
 											""
 										]
 									}
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Sequence business cases",
@@ -3339,7 +3303,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3368,7 +3332,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000009`\r\n\r\nUpdates an open transaction and adds a new article to it. Connected with the ongoind transactions by the _cbReceiptReference_ field. In this case (_update_-transaction), the charge and pay items must contain all the elements that represent the current state of this receipt.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000009`\r\n\r\nUpdates an open transaction and adds a new article to it. Connected with the ongoind transactions by the _cbReceiptReference_ field. In this case (_update_-transaction), the charge and pay items must contain all the elements that represent the current state of this receipt.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3397,7 +3361,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x444500000000000A`\r\n\r\nUpdates an open transaction and adds a new article to it. Connected with the ongoind transactions by the _cbReceiptReference_ field. In this case (_delta_-transaction), the charge and pay items must only contain changes to the already existing receipt.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x444500000000000A`\r\n\r\nUpdates an open transaction and adds a new article to it. Connected with the ongoind transactions by the _cbReceiptReference_ field. In this case (_delta_-transaction), the charge and pay items must only contain changes to the already existing receipt.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3426,7 +3390,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and purchase with cash payment. \r\n\r\nIn this example, an additional item (a second coffee to go) is added in this receipt to demonstrate that no additional update or delta transaction is needed in this case. However, these transactions _could_ be performed beforehand. In this case, the total of the previous orders does not match the total amount (as the second coffee to go was not \"ordered\" separately).\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the transaction and purchase with cash payment. \r\n\r\nIn this example, an additional item (a second coffee to go) is added in this receipt to demonstrate that no additional update or delta transaction is needed in this case. However, these transactions _could_ be performed beforehand. In this case, the total of the previous orders does not match the total amount (as the second coffee to go was not \"ordered\" separately).\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										}
@@ -3436,7 +3400,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "df7d3e27-cb6c-462b-837c-f5b58b055aa5",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -3446,16 +3409,13 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "b4e7d288-ebf1-45d7-aa0a-323e674d57c8",
 												"type": "text/javascript",
 												"exec": [
 													""
 												]
 											}
 										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
+									]
 								},
 								{
 									"name": "Restaurant",
@@ -3485,7 +3445,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3514,7 +3474,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000013`\r\n\r\nInformational log about a guest taking a seat at a table.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000013`\r\n\r\nInformational log about a guest taking a seat at a table.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3543,7 +3503,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3572,7 +3532,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000010`\r\n\r\nThe uest is ordering two drinks at the restaurant.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000010`\r\n\r\nThe uest is ordering two drinks at the restaurant.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3601,7 +3561,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3630,7 +3590,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000010`\r\n\r\nThe guest is ordering another drink at the restaurant.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000010`\r\n\r\nThe guest is ordering another drink at the restaurant.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3659,7 +3619,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3688,7 +3648,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the process and pay with cash.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000001`\r\n\r\nFinish the process and pay with cash.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										}
@@ -3697,7 +3657,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "1360b4ff-91a2-4a96-888f-037fbb9e5ed1",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -3707,16 +3666,13 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "e2ed7ee5-039d-4ba4-9b50-f55e0a2eaea3",
 												"type": "text/javascript",
 												"exec": [
 													""
 												]
 											}
 										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
+									]
 								},
 								{
 									"name": "Shift",
@@ -3746,7 +3702,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3775,7 +3731,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000014`\r\n\r\nProtocol a login operation to the POS system. The `UserId` property in _ftReceiptCaseData_ is optional and will be automatically generated from the _cbUser_ if not sent.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000014`\r\n\r\nProtocol a login operation to the POS system. The `UserId` property in _ftReceiptCaseData_ is optional and will be automatically generated from the _cbUser_ if not sent.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3804,7 +3760,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3833,7 +3789,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000011`\r\n\r\nftChargeItemCase: `0x4445000000000090`\r\n\r\nSets the initial cash amount of the POS system. In this example, a charge item is used for this operation. Alternatively, the same operation can be processed by using a pay item with a negative amount.\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-service-ftchargeitemcase.html#type-of-service-ftchargeitemcase"
+												"description": "ftReceiptCase: `0x4445000000000011`\r\n\r\nftChargeItemCase: `0x4445000000000090`\r\n\r\nSets the initial cash amount of the POS system. In this example, a charge item is used for this operation. Alternatively, the same operation can be processed by using a pay item with a negative amount.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftchargeitemcase"
 											},
 											"response": []
 										},
@@ -3862,7 +3818,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3891,7 +3847,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000011`\r\n\r\nftPayItemCase: `0x4445000000000014`\r\n\r\nCash pay into the POS system. In this example, a pay item with negative amount is used for this operation. Alternatively, the same operation can be processed by using a charge item with a positive amount.\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-payment-ftpayitemcase.html#type-of-payment-ftpayitemcase"
+												"description": "ftReceiptCase: `0x4445000000000011`\r\n\r\nftPayItemCase: `0x4445000000000014`\r\n\r\nCash pay into the POS system. In this example, a pay item with negative amount is used for this operation. Alternatively, the same operation can be processed by using a charge item with a positive amount.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftpayitemcase"
 											},
 											"response": []
 										},
@@ -3920,7 +3876,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+												"description": "ftReceiptCase: `0x4445000000000008`\r\n\r\nStarts a new, unfinished action. Use ftChargeItems and ftPayItems to hand over already known details for final receipt. Using the same _cbReceiptReferece_ in following calls connects the action items.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 											},
 											"response": []
 										},
@@ -3949,7 +3905,7 @@
 														"Sign"
 													]
 												},
-												"description": "ftReceiptCase: `0x4445000000000011`\r\n\r\nftPayItemCase: `0x4445000000000014`\r\n\r\nCash pay-out from the POS system. In this example, a pay item with positive amount is used for this operation. Alternatively, the same operation can be processed by using a charge item with a negative amount.\r\n\r\n_See also:_\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase\r\n- https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-payment-ftpayitemcase.html#type-of-payment-ftpayitemcase"
+												"description": "ftReceiptCase: `0x4445000000000011`\r\n\r\nftPayItemCase: `0x4445000000000014`\r\n\r\nCash pay-out from the POS system. In this example, a pay item with positive amount is used for this operation. Alternatively, the same operation can be processed by using a charge item with a negative amount.\r\n\r\n_See also:_\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\r\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftpayitemcase"
 											},
 											"response": []
 										}
@@ -3958,7 +3914,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "ec4601d9-138b-47b1-ad7a-7ce0b59d8a8f",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -3968,16 +3923,13 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "647b47fe-fb89-431f-bd9c-31342b1389da",
 												"type": "text/javascript",
 												"exec": [
 													""
 												]
 											}
 										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
+									]
 								}
 							],
 							"description": "# Sequence business cases\r\nThe requests listed in this section demonstrate \"multi-step\" business cases, i.e. long running cases that require multiple sign calls and transactions.",
@@ -3985,7 +3937,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "d534a6df-2df9-4adf-b9be-55c60c04f347",
 										"type": "text/javascript",
 										"exec": [
 											""
@@ -3995,24 +3946,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "746fd518-6eca-4537-b73d-7578adef4492",
 										"type": "text/javascript",
 										"exec": [
 											""
 										]
 									}
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						}
 					],
-					"description": "# Explicit transaction samples\r\nExplicit transactions do not automatically create a start- and a finish transaction, and hence can be utilized in scenarios where users of the fiskaltrust.Middleware need more control about the exact commands that will be sent to the TSE.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/cash-register-integration/cash-register-integration.html?q=implicit#the-fiskaltrustsecuritymechanism-explicit-transaction ",
+					"description": "# Explicit transaction samples\r\nExplicit transactions do not automatically create a start- and a finish transaction, and hence can be utilized in scenarios where users of the fiskaltrust.Middleware need more control about the exact commands that will be sent to the TSE.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/explicit-flow",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "96492f86-255a-4add-95e6-64facda0c678",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -4022,16 +3969,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "aa096f88-5523-4a5e-8a3d-47a3cf905aa4",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Journal",
@@ -4070,7 +4014,7 @@
 										}
 									]
 								},
-								"description": "ftJournalType: `0x4445000000000002`\r\n\r\nThis method returns a DSFinV-K .zip file. If the `from` and `to` parameters are not defined, all data will be returned.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-journal-ftjournaltype.html"
+								"description": "ftJournalType: `0x4445000000000002`\r\n\r\nThis method returns a DSFinV-K .zip file. If the `from` and `to` parameters are not defined, all data will be returned.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftjournaltype"
 							},
 							"response": []
 						},
@@ -4108,7 +4052,7 @@
 										}
 									]
 								},
-								"description": "ftJournalType: `0x4445000000000003`\r\n\r\nThis export will read the TAR files from the database. Therefore, the TSE will not be used during this time, and exports will be much faster in most cases. Also, `from` and `to` parameters are supported. If they are not specified, all data will be returned.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-journal-ftjournaltype.html"
+								"description": "ftJournalType: `0x4445000000000003`\r\n\r\nThis export will read the TAR files from the database. Therefore, the TSE will not be used during this time, and exports will be much faster in most cases. Also, `from` and `to` parameters are supported. If they are not specified, all data will be returned.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftjournaltype"
 							},
 							"response": []
 						},
@@ -4134,17 +4078,156 @@
 										}
 									]
 								},
-								"description": "ftJournalType: `0x4445000000000001`\r\n\r\nThis export will read the TAR files directly from the TSE. Therefore, the TSE will be used during this time and might be locked. Depending on the type of the TSE, this export might take very long.\r\nDue to limitations of some TSEs, `from` and `to` are not supported. Please use the database-based `Journal` call for these cases.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-journal-ftjournaltype.html"
+								"description": "ftJournalType: `0x4445000000000001`\r\n\r\nThis export will read the TAR files directly from the TSE. Therefore, the TSE will be used during this time and might be locked. Depending on the type of the TSE, this export might take very long.\r\nDue to limitations of some TSEs, `from` and `to` are not supported. Please use the database-based `Journal` call for these cases.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftjournaltype"
+							},
+							"response": []
+						},
+						{
+							"name": "Version information",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/json/v0/Journal?type=0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v0",
+										"Journal"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "0"
+										}
+									]
+								},
+								"description": "ftJournalType: `0x0000000000000000`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
+							},
+							"response": []
+						},
+						{
+							"name": "ActionJournal in internal format",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/json/v0/Journal?type=1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v0",
+										"Journal"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "1"
+										},
+										{
+											"key": "from",
+											"value": "637417728000000000",
+											"description": "The timestamp determining where to start the export, in Ticks (optional)",
+											"disabled": true
+										},
+										{
+											"key": "to",
+											"value": "637418591990000000",
+											"description": "The timestamp determining where to end the export, in Ticks  (optional)",
+											"disabled": true
+										}
+									]
+								},
+								"description": "ftJournalType: `0x0000000000000001`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
+							},
+							"response": []
+						},
+						{
+							"name": "ReceiptJournal in internal format",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/json/v0/Journal?type=2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v0",
+										"Journal"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "2"
+										},
+										{
+											"key": "from",
+											"value": "637417728000000000",
+											"description": "The timestamp determining where to start the export, in Ticks (optional)",
+											"disabled": true
+										},
+										{
+											"key": "to",
+											"value": "637418591990000000",
+											"description": "The timestamp determining where to end the export, in Ticks  (optional)",
+											"disabled": true
+										}
+									]
+								},
+								"description": "ftJournalType: `0x0000000000000002`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
+							},
+							"response": []
+						},
+						{
+							"name": "QueueItemJournal in internal format",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/json/v0/Journal?type=3",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v0",
+										"Journal"
+									],
+									"query": [
+										{
+											"key": "from",
+											"value": "637417728000000000",
+											"description": "The timestamp determining where to start the export, in Ticks (optional)",
+											"disabled": true
+										},
+										{
+											"key": "to",
+											"value": "637418591990000000",
+											"description": "The timestamp determining where to end the export, in Ticks  (optional)",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "3"
+										}
+									]
+								},
+								"description": "ftJournalType: `0x0000000000000003`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
 							},
 							"response": []
 						}
 					],
-					"description": "# Journal\r\nThe _journal_ endpoint allows users to get data from a running Middleware instance, either in a \"raw\" JSON format, or specifically for the market (e.g. DSFinV-K in Germany).",
+					"description": "# Journal\r\nThe _journal_ endpoint allows users to get data from a running Middleware instance, either in a \"raw\" JSON format, or specifically for the market (e.g. DSFinV-K in Germany).\r\n\r\nPlease note that the _ticks_ that need to be passed for the `from` and `to` parameters are .NET Ticks, **not** Unix timestamps. More details about this representation can be found [here](https://docs.microsoft.com/en-us/dotnet/api/system.datetime.ticks?view=net-5.0#remarks).",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "c58c77fc-f5e5-450e-961d-c6be0bdd4fef",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -4154,16 +4237,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c8e3a4ed-00bd-42f7-9575-c3a4c5d51b0f",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Echo (v1)",
@@ -4190,7 +4270,7 @@
 								"Echo"
 							]
 						},
-						"description": "This function can be used for fast and easy communication checks. The body must contain a `Message` property, which is sent back directly.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/general/function-structures/function-structures.html#echo-function"
+						"description": "This function can be used for fast and easy communication checks. The body must contain a `Message` property, which is sent back directly.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/echo-function"
 					},
 					"response": []
 				}
@@ -4200,7 +4280,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "23dfa20a-ca88-4087-8e80-678627c80662",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -4210,15 +4289,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7af0c97b-b698-44ae-8d54-ce237d0b24fa",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "France",
@@ -4256,17 +4333,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4652000000000010`\r\n\r\nMust be sent once when the Queue is put into operation.\r\n\r\n**Signing & chaining:**\r\n- Signed: Yes\r\n- Chain and national numbering: _G_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x4652000000000010`\r\n\r\nMust be sent once when the Queue is put into operation.\r\n\r\n**Signing & chaining:**\r\n- Signed: Yes\r\n- Chain and national numbering: _G_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -4300,17 +4376,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4652000000000011`\r\n\r\nMust be sent once when the Queue is put out of operation.\r\n\r\n**Signing & chaining:**\r\n- Signed: Yes\r\n- Chain and national numbering: _G_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x4652000000000011`\r\n\r\nMust be sent once when the Queue is put out of operation.\r\n\r\n**Signing & chaining:**\r\n- Signed: Yes\r\n- Chain and national numbering: _G_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -4344,17 +4419,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4652000000000004`\r\n\r\nResets shift counter, keeps all other counters\r\n\r\n**Signing & chaining:**\r\n- Signed: Yes\r\n- Chain and national numbering: _G_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x4652000000000004`\r\n\r\nResets shift counter, keeps all other counters\r\n\r\n**Signing & chaining:**\r\n- Signed: Yes\r\n- Chain and national numbering: _G_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -4388,17 +4462,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4652000000000005`\r\n\r\n- Adds daily counter to monthly counter an then resets daily counter\r\n- Keeps shift counter\r\n\r\n**Signing & chaining:**\r\n- Signed: Yes\r\n- Chain and national numbering: _G_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x4652000000000005`\r\n\r\n- Adds daily counter to monthly counter an then resets daily counter\r\n- Keeps shift counter\r\n\r\n**Signing & chaining:**\r\n- Signed: Yes\r\n- Chain and national numbering: _G_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -4432,17 +4505,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4652000000000006`\r\n\r\n- Adds daily counter to monthly counter an then resets daily counter\r\n- Adds monthly counter to yearly counter and then resets monthly counter\r\n- Keeps shift counter\r\n\r\n**Signing & chaining:**\r\n- Signed: Yes\r\n- Chain and national numbering: _G_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x4652000000000006`\r\n\r\n- Adds daily counter to monthly counter an then resets daily counter\r\n- Adds monthly counter to yearly counter and then resets monthly counter\r\n- Keeps shift counter\r\n\r\n**Signing & chaining:**\r\n- Signed: Yes\r\n- Chain and national numbering: _G_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -4476,17 +4548,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4652000000000007`\r\n\r\n- Adds daily counter to monthly counter an then resets daily counter\r\n- Adds monthly counter to yearly counter and then resets monthly counter\r\n- Resets yearly counter\r\n- Keeps shift counter\r\n\r\n**Signing & chaining:**\r\n- Signed: Yes\r\n- Chain and national numbering: _G_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x4652000000000007`\r\n\r\n- Adds daily counter to monthly counter an then resets daily counter\r\n- Adds monthly counter to yearly counter and then resets monthly counter\r\n- Resets yearly counter\r\n- Keeps shift counter\r\n\r\n**Signing & chaining:**\r\n- Signed: Yes\r\n- Chain and national numbering: _G_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -4520,17 +4591,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x465200000000000F`\r\n\r\nProcesses a communication and functional test of the fiskaltrust.Middleware. Additionally, this operation must be used to end the \"failure mode\" of the Middleware.\r\n\r\n**Signing & chaining:**\r\n- Signed: Yes\r\n- Chain and national numbering: _G_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x465200000000000F`\r\n\r\nProcesses a communication and functional test of the fiskaltrust.Middleware. Additionally, this operation must be used to end the \"failure mode\" of the Middleware.\r\n\r\n**Signing & chaining:**\r\n- Signed: Yes\r\n- Chain and national numbering: _G_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -4564,27 +4634,25 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4652000000000015`\r\n\r\nTriggers an archive operation and a daily closing.\r\n\r\n**Signing & chaining:**\r\n- Signed: Yes\r\n- Chain and national numbering: _G_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x4652000000000015`\r\n\r\nTriggers an archive operation and a daily closing.\r\n\r\n**Signing & chaining:**\r\n- Signed: Yes\r\n- Chain and national numbering: _G_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						}
 					],
-					"description": "# Special receipt cases\r\nRequests with these `ftReceiptCase` values are used to control the fiskaltrust.Middleware. These requests must contain empty arrays for the values of `ftChargeItems` and `ftPayItems`.\r\n\r\n_See also (general information):_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/general/cash-register-integration/cash-register-integration.html#zero-receipt\r\n\r\n_See also (information specific for Germany):_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html#type-of-receipt-ftreceiptcase",
+					"description": "# Special receipt cases\r\nRequests with these `ftReceiptCase` values are used to control the fiskaltrust.Middleware. These requests must contain empty arrays for the values of `ftChargeItems` and `ftPayItems`.\r\n\r\n_See also (general information):_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/zero-receipt\r\n\r\n_See also (information specific for France):_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/ftreceiptcase",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "927acc0e-d35f-43b0-8a1d-d5dafda664ca",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -4594,16 +4662,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f9822369-65e5-4828-bbf3-e5ff8c365973",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Single business cases",
@@ -4638,17 +4703,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4652000000000001`\r\n\r\nLegal document; has to be signed. GT counters are raised.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _T_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x4652000000000001`\r\n\r\nLegal document; has to be signed. GT counters are raised.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _T_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -4682,17 +4746,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4652000000000002`\r\n\r\nPayment without knowledge what was paid. Legal document; has to be signed. GT counters are raised.\r\n\r\nNo charge items must be included, but the total amount must always be zero. A pay item with negative amount and the ftPayItemCase `0x4652000000000011` has to be used therefore.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _P_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x4652000000000002`\r\n\r\nPayment without knowledge what was paid. Legal document; has to be signed. GT counters are raised.\r\n\r\nNo charge items must be included, but the total amount must always be zero. A pay item with negative amount and the ftPayItemCase `0x4652000000000011` has to be used therefore.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _P_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -4726,17 +4789,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4652000000000003`\r\n\r\nA reference to a ticket for which the invoice is created can be made by using the `cbPreviousReceiptNumber` field in the request.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _I_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x4652000000000003`\r\n\r\nA reference to a ticket for which the invoice is created can be made by using the `cbPreviousReceiptNumber` field in the request.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _I_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -4770,17 +4832,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4652000000000008`\r\n\r\nList of charge items to be payed. This can be used to inform customers about open items. ftPayitemtype `0x4652000000000011` must be used.\r\n\r\nGT counters are not raised. When this receipt case is used, the phrase \"document provisoire\" is returned within the ftSignatureItems and must be printed on the bill. Every time the bill is reprinted, an upcounting number denoting how may times the bill has been printed is returned and must be printed on the bill. This is then also recorded in the journal. \r\n\r\nCreating a bill and a payment prove does not replace creating a ticket. A ticket or an invoice has to be issued to raise turnover and raise the GT counters as well.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _B_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x4652000000000008`\r\n\r\nList of charge items to be payed. This can be used to inform customers about open items. ftPayitemtype `0x4652000000000011` must be used.\r\n\r\nGT counters are not raised. When this receipt case is used, the phrase \"document provisoire\" is returned within the ftSignatureItems and must be printed on the bill. Every time the bill is reprinted, an upcounting number denoting how may times the bill has been printed is returned and must be printed on the bill. This is then also recorded in the journal. \r\n\r\nCreating a bill and a payment prove does not replace creating a ticket. A ticket or an invoice has to be issued to raise turnover and raise the GT counters as well.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _B_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -4814,17 +4875,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4652000000000009`\r\n\r\n**Signing & chaining:**\r\n- Signed: no\r\n- Chain and national numbering: none\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x4652000000000009`\r\n\r\n**Signing & chaining:**\r\n- Signed: no\r\n- Chain and national numbering: none\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -4858,17 +4918,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x465200000000000A`\r\n\r\nSame requirements as _Payment prove_.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _P_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x465200000000000A`\r\n\r\nSame requirements as _Payment prove_.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _P_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -4902,17 +4961,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x465200000000000B`\r\n\r\nSame requirements as _Payment prove_.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _P_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x465200000000000B`\r\n\r\nSame requirements as _Payment prove_.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _P_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -4946,17 +5004,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x465200000000000C`\r\n\r\nSwitch between payment method, e.g. from cash to credit card.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _P_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x465200000000000C`\r\n\r\nSwitch between payment method, e.g. from cash to credit card.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _P_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -4990,17 +5047,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x465200000000000D`\r\n\r\n**Signing & chaining:**\r\n- Signed: no\r\n- Chain and national numbering: none\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x465200000000000D`\r\n\r\n**Signing & chaining:**\r\n- Signed: no\r\n- Chain and national numbering: none\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -5034,17 +5090,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x465200000000000E`\r\n\r\nSame handling as bill\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _B_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x465200000000000E`\r\n\r\nSame handling as bill\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _B_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -5078,17 +5133,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4652000000000012`\r\n\r\nCan be used by the POS system to log custom data\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _L_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x4652000000000012`\r\n\r\nCan be used by the POS system to log custom data\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _L_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -5122,17 +5176,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4652000000000013`\r\n\r\nCan be used by the POS system to log custom data\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _L_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x4652000000000013`\r\n\r\nCan be used by the POS system to log custom data\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _L_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						},
@@ -5166,17 +5219,16 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/json/v0/Sign",
+									"raw": "{{base_url}}/json/Sign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"json",
-										"v0",
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4652000000000014`\r\n\r\nCan be used by the POS system to log custom data\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _L_\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-fr-boi-tva-decl-30-10-30/reference-tables/reference-tables.html"
+								"description": "ftReceiptCase: `0x4652000000000014`\r\n\r\nCan be used by the POS system to log custom data\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _L_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 							},
 							"response": []
 						}
@@ -5186,7 +5238,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "46180c87-c19c-4404-9eb0-46b580a5303f",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -5196,16 +5247,179 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e1b4ade1-316a-4b0b-90c4-a346e01956db",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
+					]
+				},
+				{
+					"name": "Journal",
+					"item": [
+						{
+							"name": "Version information",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/json/Journal?type=0&from=0&to=0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"Journal"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "0"
+										},
+										{
+											"key": "from",
+											"value": "0",
+											"description": "The timestamp determining where to start the export, in Ticks"
+										},
+										{
+											"key": "to",
+											"value": "0",
+											"description": "The timestamp determining where to end the export, in Ticks"
+										}
+									]
+								},
+								"description": "ftJournalType: `0x0000000000000000`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
+							},
+							"response": []
+						},
+						{
+							"name": "ActionJournal in internal format",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/json/Journal?type=1&from=0&to=0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"Journal"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "1"
+										},
+										{
+											"key": "from",
+											"value": "0",
+											"description": "The timestamp determining where to start the export, in Ticks"
+										},
+										{
+											"key": "to",
+											"value": "0",
+											"description": "The timestamp determining where to end the export, in Ticks"
+										}
+									]
+								},
+								"description": "ftJournalType: `0x0000000000000001`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
+							},
+							"response": []
+						},
+						{
+							"name": "ReceiptJournal in internal format",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/json/Journal?type=2&from=0&to=0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"Journal"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "2"
+										},
+										{
+											"key": "from",
+											"value": "0",
+											"description": "The timestamp determining where to start the export, in Ticks"
+										},
+										{
+											"key": "to",
+											"value": "0",
+											"description": "The timestamp determining where to end the export, in Ticks"
+										}
+									]
+								},
+								"description": "ftJournalType: `0x0000000000000002`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
+							},
+							"response": []
+						},
+						{
+							"name": "QueueItemJournal in internal format",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/json/Journal?type=3&from=0&to=0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"Journal"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "3"
+										},
+										{
+											"key": "from",
+											"value": "0",
+											"description": "The timestamp determining where to start the export, in Ticks"
+										},
+										{
+											"key": "to",
+											"value": "0",
+											"description": "The timestamp determining where to end the export, in Ticks"
+										}
+									]
+								},
+								"description": "ftJournalType: `0x0000000000000003`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
+							},
+							"response": []
+						}
 					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					"description": "# Journal\r\nThe _journal_ endpoint allows users to get data from a running Middleware instance, either in a \"raw\" JSON format, or specifically for the market (e.g. DSFinV-K in Germany).\r\n\r\nPlease note that the _ticks_ that need to be passed for the `from` and `to` parameters are .NET Ticks, **not** Unix timestamps. More details about this representation can be found [here](https://docs.microsoft.com/en-us/dotnet/api/system.datetime.ticks?view=net-5.0#remarks).",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
 				},
 				{
 					"name": "Echo (v0)",
@@ -5247,7 +5461,7 @@
 								"Echo"
 							]
 						},
-						"description": "This function can be used for fast and easy communication checks. The request body is sent back directly.\r\n\r\n_See also:_\r\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/general/function-structures/function-structures.html#echo-function"
+						"description": "This function can be used for fast and easy communication checks. The request body is sent back directly.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/echo-function"
 					},
 					"response": []
 				}
@@ -5257,7 +5471,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "1bcc450e-0313-4bc0-b16a-0cba54f384af",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -5267,22 +5480,19 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3ebd6677-4502-431a-958f-fa916a170bd2",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "879aeb3e-3db8-43c0-828b-93814000cce7",
 				"type": "text/javascript",
 				"exec": [
 					"const dateNow = new Date();",
@@ -5293,7 +5503,6 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "bd1d6456-0ce7-4101-bab3-ef9ab5c909cf",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -5303,25 +5512,20 @@
 	],
 	"variable": [
 		{
-			"id": "b49f04e8-b83e-4d85-b096-adbe0a5415ec",
 			"key": "base_url",
 			"value": "http://localhost:1500/ftrest"
 		},
 		{
-			"id": "7fd7976a-72a5-4e07-9951-0313b2798893",
 			"key": "cashbox_id",
 			"value": "00000000-0000-0000-0000-000000000000"
 		},
 		{
-			"id": "27507b81-861b-4b78-8fcc-1d8ffece9f56",
 			"key": "possystem_id",
 			"value": "00000000-0000-0000-0000-000000000000"
 		},
 		{
-			"id": "a4a2b568-ba06-4da8-9e0f-66f4700c9594",
 			"key": "access_token",
 			"value": "SIGNATURCLOUD_ONLY"
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
