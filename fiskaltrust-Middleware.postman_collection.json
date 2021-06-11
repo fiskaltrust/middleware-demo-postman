@@ -584,7 +584,17 @@
 							"name": "Version information",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
 								"url": {
 									"raw": "{{base_url}}/json/Journal?type=0&from=0&to=0",
 									"host": [
@@ -619,7 +629,13 @@
 							"name": "ActionJournal in internal format",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "{{base_url}}/json/Journal?type=1&from=0&to=0",
 									"host": [
@@ -654,7 +670,13 @@
 							"name": "ReceiptJournal in internal format",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "{{base_url}}/json/Journal?type=2&from=0&to=0",
 									"host": [
@@ -689,7 +711,13 @@
 							"name": "QueueItemJournal in internal format",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "{{base_url}}/json/Journal?type=3&from=0&to=0",
 									"host": [
@@ -851,7 +879,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"OutOfOperation\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338172267102212,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbUser\": \"Admin\"\r\n}",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"T1\",\r\n    \"cbReceiptReference\": \"OutOfOperation\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338172283879428,\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbUser\": \"Admin\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -869,7 +897,7 @@
 										"Sign"
 									]
 								},
-								"description": "ftReceiptCase: `0x4445000100000004`\r\n\r\nPermanently disables the fiskaltrust.Middleware and the TSE. **This request should only be executed when a POS system is put out of operations, as it's not possible to revert it.** In scenarios where the TSE should not be disabled (e.g. because it is still used by other queues), please add the flag `0x0000000001000000`.\r\n\r\nOn successful deactivation, a notification is created which includes Queue ID, SCU ID, and the TSE's certificate and serial number. When the respective governmental regulations are introduced, it will be required to report this notification to the tax administration.\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
+								"description": "ftReceiptCase: `0x4445000100000004`\n\nPermanently disables the fiskaltrust.Middleware and the TSE. **This request should only be executed when a POS system is put out of operations, as it's not possible to revert it.** \n\nIn scenarios where the TSE should not be disabled (e.g. because it is still used by other queues), please add the flag `0x0000000001000000`. **This flag is included into this example to prevent the accidental deactivation of TSEs during testing.**\n\nOn successful deactivation, a notification is created which includes Queue ID, SCU ID, and the TSE's certificate and serial number. When the respective governmental regulations are introduced, it will be required to report this notification to the tax administration.\n\n`ftChargeItems` and `ftPayItems` must be empty.\n\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\n\n_See also:_\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 							},
 							"response": []
 						},
@@ -1015,6 +1043,64 @@
 									]
 								},
 								"description": "ftReceiptCase: `0x4445000100000006`\r\n\r\nCan be sent at the end of the year to logically separate them, e.g. for easier bookkeeping.\r\n- If the flag `0x0000000004000000` is not set, this request exports the TSE's logs to the database, both to save memory on the device and to increase the export performance\r\n- If the flag `0x0000000010000000` is not set, this request will close any open transactions. If the flag is set, an exception is raised in case there are open transactions, which should enable the user to handle this case in their own software. \r\n- If the flag `0x0000000008000000` is set, this request will also update the masterdata after it was changed in the Portal and a CashBox rebuild was triggered. The new masterdata will be effective starting from this moment.\r\n\r\n`ftChargeItems` and `ftPayItems` must be empty.\r\n\r\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
+							},
+							"response": []
+						},
+						{
+							"name": "Initiate SCU switch",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n  \"ftPosSystemId\": \"{{possystem_id}}\",\r\n  \"cbTerminalID\": \"1\",\r\n  \"cbReceiptReference\": \"ZeroReceiptAfterFailure\",\r\n  \"cbReceiptMoment\": \"{{current_moment}}\",\r\n  \"cbChargeItems\": [],\r\n  \"cbPayItems\": [],\r\n  \"ftReceiptCase\": 4919338172283879447\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								},
+								"description": "ftReceiptCase: `0x4445000101000017`\n\nInitiates the process of switching the connected SCU. This receipt disconnects the Queue from the currently assigned SCU (_Signature Creation Unit_). To finalize this process, a \"finish SCU switch\" receipt must be executed (see next sample).\n\nBefore executing this receipt, the process must be prepared in the Portal by specifying the target SCU of the switch. \n\n`ftChargeItems` and `ftPayItems` must be empty.\n\nThis example includes the _ftReceiptCaseFlag_ `0x0000000001000000`, which disconnects the SCU without deactivating the TSE. If this flag is omitted, the TSE will be permanently deactivated.\n\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\n\n_See also:_\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\n- https://link.fiskaltrust.cloud/market-de/scu-switch"
+							},
+							"response": []
+						},
+						{
+							"name": "Finish SCU switch",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n  \"ftPosSystemId\": \"{{possystem_id}}\",\r\n  \"cbTerminalID\": \"1\",\r\n  \"cbReceiptReference\": \"ZeroReceiptAfterFailure\",\r\n  \"cbReceiptMoment\": \"{{current_moment}}\",\r\n  \"cbChargeItems\": [],\r\n  \"cbPayItems\": [],\r\n  \"ftReceiptCase\": 4919338172267102232\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								},
+								"description": "ftReceiptCase: `0x4445000100000018`\n\nFinishes the process of switching the connected SCU. This receipt connects the Queue to the target SCU (_Signature Creation Unit_) that has to be specified in the Portal beforehand. Can only be executed after a _initiate SCU switch_ receipt.\n\n`ftChargeItems` and `ftPayItems` must be empty.\n\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\n\n_See also:_\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\n- https://link.fiskaltrust.cloud/market-de/scu-switch"
 							},
 							"response": []
 						}
@@ -2635,6 +2721,186 @@
 											}
 										}
 									]
+								},
+								{
+									"name": "References to other queues or external systems",
+									"item": [
+										{
+											"name": "1. Check-in (info internal) [Registierung]",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"Reception\",\r\n    \"cbReceiptReference\": \"100\",\r\n    \"cbArea\": \"Room 234\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338172267102227\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/json/v1/Sign",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"json",
+														"v1",
+														"Sign"
+													]
+												},
+												"description": "ftReceiptCase: `0x4445000100000013`\n\nLog information about the check-in. The room number is used for _cbArea_ to provide information if business actions across the different POS systems are connected.  \n\n_See also:_\nhttps://docs.fiskaltrust.cloud/docs/poscreators/middleware-doc/general/data-structures#receipt-request"
+											},
+											"response": []
+										},
+										{
+											"name": "2. First overnight stay (info-order) [Nächtigung]",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"Reception\",\r\n    \"cbReceiptReference\": \"100\",\r\n    \"cbArea\": \"Room 234\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Übernachtung\",\r\n            \"Amount\": 80.00,\r\n            \"VATRate\": 19.00,\r\n            \"ftChargeItemCase\": 4919338167972134913,\r\n            \"Moment\": \"2020-06-01T23:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338172267102224\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/json/v1/Sign",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"json",
+														"v1",
+														"Sign"
+													]
+												},
+												"description": "ftReceiptCase: `0x4445000100000010`\n\nInformation about the first night. \n\n_See also:_\nhttps://docs.fiskaltrust.cloud/docs/poscreators/middleware-doc/germany/reference-tables/ftreceiptcase"
+											},
+											"response": []
+										},
+										{
+											"name": "3. Consumption at the hotel bar (external POS system, info-internal) [Konsum]",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"SOME-EXTERNAL-POS-SYSTEM\",\r\n    \"cbTerminalID\": \"Bar\",\r\n    \"cbReceiptReference\": \"2021-03-30-1234\",\r\n    \"cbArea\": \"Room 234\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 2.0,\r\n            \"Description\": \"0.5 Becks\",\r\n            \"Amount\": 11.00,\r\n            \"VATRate\": 19.00,\r\n            \"ftChargeItemCase\": 4919338167972134937,\r\n            \"Moment\": \"2020-06-02T21:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338172267102227\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/json/v1/Sign",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"json",
+														"v1",
+														"Sign"
+													]
+												},
+												"description": "ftReceiptCase: `0x4445000100000010`\n\nConsumption at the hotel bar, which uses a different POS system. We added a fiskaltrust-based code example for better understanding, but in this example workflow the request happens at the external POS system. This could be just another fiskaltrust based queue as well. \nBecause the couple wants to pay the consumption together with the invoice of the overnight stay, an info-internal has been created to document the consumption. _cbArea_ is used to track the room number. \n\n_See also:_\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+											},
+											"response": []
+										},
+										{
+											"name": "4. Merge - external POS system",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"Reception\",\r\n    \"cbReceiptReference\": \"101\",\r\n    \"ftReceiptCaseData\": \"{\\\"RefType\\\": \\\"Transaktion\\\", \\\"RefMoment\\\": \\\"2020-06-02T21:00:00.01Z\\\", \\\"RefCashBoxIdentification\\\": \\\"External-Hotel-Bar-Cashbox-01\\\", \\\"RefClosingNr\\\": \\\"2021-03-30-1234\\\",\\\"RefReceiptId\\\": \\\"2021-03-30-1234\\\"}\",\r\n    \"cbArea\": \"Room 234\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338172267102227\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/json/v1/Sign",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"json",
+														"v1",
+														"Sign"
+													]
+												},
+												"description": "ftReceiptCase: `0x4445000100000013`\n\nInfo internal, which merges the process of consumption of the external POS system (hotel-bar) into the new process 101. _cbReceiptReference_ is set to the new invoice process number, and _ftReceiptCaseData_ is used to provide the information of the external receipt according to DSFinV-K.\n\nSee also: https://docs.fiskaltrust.cloud/docs/poscreators/middleware-doc/germany/dsfinv-k#file-bon_referenzen-referencescsv"
+											},
+											"response": []
+										},
+										{
+											"name": "5. Merge - internal POS system",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"Reception\",\r\n    \"cbReceiptReference\": \"101\",\r\n    \"cbPreviousReceiptReference\": \"100\",\r\n    \"cbArea\": \"Room 234\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338172267102227\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/json/v1/Sign",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"json",
+														"v1",
+														"Sign"
+													]
+												},
+												"description": "ftReceiptCase: `0x4445000100000013`\n\nMerges the process for the overnight-stay (100) into the new process 101. _cbReceiptReference_ is set to the new invoice process number, and _cbPreviousReceiptReference_ is used to reference to the internal previous process.\n\nSee also:https://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+											},
+											"response": []
+										},
+										{
+											"name": "6. Check-out and payment (POS receipt) [Bezahlung bei Abreise]",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"Reception\",\r\n    \"cbReceiptReference\": \"101\",\r\n    \"cbArea\": \"Room 234\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Nächtigung\",\r\n            \"Amount\": 80.00,\r\n            \"VATRate\": 19.00,\r\n            \"ftChargeItemCase\": 4919338167972134937,\r\n            \"Moment\": \"2020-06-01T23:00:00.01Z\"\r\n        },\r\n        {\r\n            \"Quantity\": 2.0,\r\n            \"Description\": \"0.5 Becks\",\r\n            \"Amount\": 5.50,\r\n            \"VATRate\": 19.00,\r\n            \"ftChargeItemCase\": 4919338167972134937,\r\n            \"Moment\": \"2020-06-02T21:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"EC Karte\",\r\n            \"Amount\": 410.00,\r\n            \"ftPayItemCase\": 4919338167972134916,\r\n            \"Moment\": \"2020-06-03T09:00:00.01Z\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 4919338172267102209\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/json/v1/Sign",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"json",
+														"v1",
+														"Sign"
+													]
+												},
+												"description": "ftReceiptCase: `0x4445000100000001`\n\nPayment of the merged processes. _cbReceiptReference_ is set to the merged invoice process (101). The cbChargeItems contain both the data of the consumption at the hotel-bar documented by the external POS system, as well as the overnight stay of the internal POS system.\n\n_See also:_\nhttps://docs.fiskaltrust.cloud/doc/interface-doc/doc/appendix-de-kassensichv/reference-tables/type-of-receipt-ftreceiptcase.html#type-of-receipt-ftreceiptcase"
+											},
+											"response": []
+										}
+									],
+									"description": "Use 'info-internal' with ['ftReceiptCaseData' according to the requirements of the DSFinV-K-specification](https://docs.fiskaltrust.cloud/docs/poscreators/middleware-doc/germany/dsfinv-k#file-bon_referenzen-referencescsv) to reference to an business-action recorded by an external queue or POS system which needs to be merged with your ongoing internal business-action. By creating a new 'cbReceiptReference', you create the precondition to merge the receipt the external system with your internal receipts of the ongoing business-action. Repeat this step to collect and reference to multiple external POS systems with related business-actions to be charged. The obligation to issue receipts arises at the POS system where the POS receipt is being created.\n\n##### Prerequisites\n\nFor this workflow, the combination of following receipt-sequences is needed:\n\n- Referencing previous receipts within a queue, using 'cbReceiptReference',\n- Merging receipts, using 'cbReceiptreference' and 'cbPreviousReceiptReference',\n- Providing additional information about how the business actions are connected to each other, using 'cbArea',\n- Providing information about the external POS receipt, using 'ftReceiptCaseData'\n\n#### Workflow example\n\n![chargeitem-external-payment-internal](https://docs.fiskaltrust.cloud/docs/poscreators/middleware-doc/germany/receipt-sequences-creation/media/chargeitem-external-payment-internal.png) \n\n1. A couple performs a check-in at the reception of a hotel for one night.\n2. An info-order for the overnight-stay is created.\n3. After the check-in, it decides to have a beer at the hotel-bar, which uses a different POS system (or fiskaltrust.queue). The consumption of the hotel-bar shall be paid with the final invoice of the overnight-stay. The room number is for 'cbArea' to provide information why the business actions across the different POS systems are connected. \n4. For the check-out, the receipt of the consumption of the hotel-bar and the receipt of the overnight stay need to be merged. Therefore, 'info-internal' receipts with a new, common 'cbReceiptReference' are created. One 'info-internal' receipt is used to reference to the external POS receipt using 'ftReceiptCaseData'. \n5. The other 'info-internal' receipt is used to reference to the internal 'info-order' of the overnight-stay using 'cbPreviousReceiptReference'. \n6. A 'POS receipt' is created, including all collected charge-items from external and internal POS system(s), and the pay-items of the internal POS system. The receipt is printed and handed over to the couple."
 								}
 							],
 							"description": "# Sequence business cases\r\nThe requests listed in this section demonstrate \"multi-step\" business cases, i.e. long running cases that require multiple sign calls and transactions.",
@@ -3035,7 +3301,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"T2\",\r\n    \"cbReceiptReference\":\"dsfinv-k-p105-01\",\r\n    \"cbReceiptMoment\":\"{{current_moment}}\",\r\n    \"cbChargeItems\":[\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Schnitzel\",\r\n            \"Amount\":10.00,\r\n            \"VATRate\":0.00,\r\n            \"ftChargeItemCase\":4919338167972134941,\r\n            \"Moment\":\"2020-06-29T17:45:40.505Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Cola\",\r\n            \"Amount\":3.00,\r\n            \"VATRate\":0.00,\r\n            \"ftChargeItemCase\":4919338167972134941,\r\n            \"Moment\":\"2020-06-29T17:45:40.505Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Schnitzel to go\",\r\n            \"Amount\":10.00,\r\n            \"VATRate\":0.00,\r\n            \"ftChargeItemCase\":4919338167972200477,\r\n            \"Moment\":\"2020-06-29T17:55:40.505Z\"\r\n        },\r\n        {\r\n            \"Quantity\":1.0,\r\n            \"Description\":\"Creation of receivable\",\r\n            \"Amount\":-23.00,\r\n            \"VATRate\":0.00,\r\n            \"ftChargeItemCase\":4919338167972135029,\r\n            \"Moment\":\"2020-06-29T17:45:40.505Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\":[], \r\n    \"ftReceiptCase\":4919338167972134913\r\n}",
+													"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"T2\",\r\n    \"cbReceiptReference\": \"dsfinv-k-p105-01\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Schnitzel\",\r\n            \"Amount\": 10.00,\r\n            \"VATRate\": 0.00,\r\n            \"ftChargeItemCase\": 4919338167972134941,\r\n            \"Moment\": \"2020-06-29T17:45:40.505Z\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cola\",\r\n            \"Amount\": 3.00,\r\n            \"VATRate\": 0.00,\r\n            \"ftChargeItemCase\": 4919338167972134941,\r\n            \"Moment\": \"2020-06-29T17:45:40.505Z\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Schnitzel to go\",\r\n            \"Amount\": 10.00,\r\n            \"VATRate\": 0.00,\r\n            \"ftChargeItemCase\": 4919338167972200477,\r\n            \"Moment\": \"2020-06-29T17:55:40.505Z\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Creation of receivable\",\r\n            \"Amount\": -23.00,\r\n            \"VATRate\": 0.00,\r\n            \"ftChargeItemCase\": 4919338167972135029,\r\n            \"Moment\": \"2020-06-29T17:45:40.505Z\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 4919338167972134913\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -4695,7 +4961,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"1\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 64.72,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 10.79,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 53.93}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"Unitprice\": 64.72\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 16.21,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 2.70,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 13.51}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"kg\",\r\n            \"Unitprice\": 16.21\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 80.93,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229313\r\n}",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"1\",\r\n    \"cbReceiptAmount\": 80.93,\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 64.72,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 10.79,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 53.93}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"Unitprice\": 64.72\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 16.21,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 2.70,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 13.51}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"kg\",\r\n            \"Unitprice\": 16.21\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 80.93,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229313\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4781,7 +5047,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"3\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 2.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 27.98,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 4.66,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 23.32}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"colis\",\r\n            \"UnitPrice\": 13.99\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 50.72,\r\n            \"VATRate\": 5.5,\r\n            \"VATAmount\": 2.64,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 48.08}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 50.72\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 78.69,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229315\r\n}",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"3\",\r\n    \"cbReceiptAmount\": 78.70,\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 2.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 27.98,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 4.66,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 23.32}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"colis\",\r\n            \"UnitPrice\": 13.99\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 50.72,\r\n            \"VATRate\": 5.5,\r\n            \"VATAmount\": 2.64,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 48.08}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 50.72\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 78.70,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229315\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4824,7 +5090,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"9\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 0.5,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 60.83,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 10.14,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 50.60}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"litre\",\r\n            \"UnitPrice\": 121.66\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 99.41,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 16.57,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 82,84}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 99.41\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": 160.24,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229320\r\n}",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"9\",\r\n    \"cbReceiptAmount\": 160.24,\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 0.5,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 60.83,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 10.14,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 50.60}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"litre\",\r\n            \"UnitPrice\": 121.66\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 99.41,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 16.57,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 82,84}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 99.41\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": 160.24,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229320\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4867,7 +5133,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"10\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 10.79,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 26.17,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 36.96,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229321\r\n}",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"10\",\r\n    \"cbReceiptAmount\": 36.96,\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 10.79,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"VATAmount\": 1.8,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 8.99}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 26.17,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 4.36,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 21.81}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 36.96,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229321\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5039,7 +5305,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"14\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 83.28,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 79.77,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 163.05,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229325\r\n}",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"14\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n\t\"cbReceiptAmount\": 163.05,\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 83.28,\r\n            \"VATRate\": 20.0,\r\n\t\t\t\"VATAmount\": 13.88,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 69.4}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n\t\t\t\"UnitPrice\": 83.28\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 79.77,\r\n            \"VATRate\": 20.0,\r\n\t\t\t\"VATAmount\": 13.3,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 66.47}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 79.77,\t\t\t\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 163.05,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229325\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5082,7 +5348,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"15\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 44.86,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 57.52,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": 102.38,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229326\r\n}",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"15\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n\t\"cbReceiptAmount\": 102.38,\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 44.86,\r\n            \"VATRate\": 20.0,\r\n\t\t\t\"VATAmount\": 7.48,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 37.38}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 44.86\r\n        },\r\n        {\r\n            \"Quantity\": 2.5,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 57.52,\r\n            \"VATRate\": 5.5,\r\n\t\t\t\"VATAmount\": 3.0,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 54.52}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"kg\",\r\n            \"UnitPrice\": 23.01\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": 102.38,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229326\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5125,7 +5391,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"19\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229330\r\n}",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"19\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbReceiptAmount\": 0,\r\n    \"ftReceiptCaseData\": \"{\\\"Code\\\": \\\"80\\\", \\\"Message\\\": \\\"Démarrage du terminal, connexion, ouverture de session\\\", \\\"information\\\"; \\\"\\\"}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229330\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5168,7 +5434,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"20\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229331\r\n}",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"20\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbReceiptAmount\": 0,\r\n    \"ftReceiptCaseData\": \"{\\\"Code\\\": \\\"280\\\", \\\"Message\\\": \\\"Début d'opération de contrôle fiscal\\\", \\\"information\\\"; \\\"\\\"}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229331\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5211,7 +5477,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"21\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229332\r\n}",
+									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"21\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbReceiptAmount\": 0,\r\n    \"ftReceiptCaseData\": \"{\\\"Code\\\": \\\"910\\\", \\\"Message\\\": \\\"Coupure de courant de 10h13 à 12h37\\\", \\\"information\\\"; \\\"\\\" \",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229332\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5262,7 +5528,13 @@
 							"name": "Version information",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "{{base_url}}/json/Journal?type=0&from=0&to=0",
 									"host": [
@@ -5297,7 +5569,13 @@
 							"name": "ActionJournal in internal format",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "{{base_url}}/json/Journal?type=1&from=0&to=0",
 									"host": [
@@ -5332,7 +5610,13 @@
 							"name": "ReceiptJournal in internal format",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "{{base_url}}/json/Journal?type=2&from=0&to=0",
 									"host": [
@@ -5367,7 +5651,22 @@
 							"name": "QueueItemJournal in internal format",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\"\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
 									"raw": "{{base_url}}/json/Journal?type=3&from=0&to=0",
 									"host": [
@@ -5384,13 +5683,11 @@
 										},
 										{
 											"key": "from",
-											"value": "0",
-											"description": "The timestamp determining where to start the export, in Ticks"
+											"value": "0"
 										},
 										{
 											"key": "to",
-											"value": "0",
-											"description": "The timestamp determining where to end the export, in Ticks"
+											"value": "0"
 										}
 									]
 								},
@@ -5427,17 +5724,17 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "cashboxid",
-								"value": "{{cashbox_id}}",
 								"description": "Only required when targeting the SignatureCloud",
+								"key": "cashboxid",
 								"type": "text",
+								"value": "{{cashbox_id}}",
 								"disabled": true
 							},
 							{
-								"key": "accesstoken",
-								"value": "{{access_token}}",
 								"description": "Only required when targeting the SignatureCloud",
+								"key": "accesstoken",
 								"type": "text",
+								"value": "{{access_token}}",
 								"disabled": true
 							}
 						],
@@ -5451,13 +5748,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/json/v0/Echo",
+							"raw": "{{base_url}}/json/Echo",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"json",
-								"v0",
 								"Echo"
 							]
 						},
