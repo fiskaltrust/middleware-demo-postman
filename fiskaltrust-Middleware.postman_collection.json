@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "635bb4ec-1da4-4898-b296-f93d175de3f8",
-		"name": "fiskaltrust.Middleware",
+		"_postman_id": "84fc4f9f-be27-4def-b281-a477106f0bca",
+		"name": "fiskaltrust.Middleware to Git",
 		"description": "A Postman collection containing examples that demonstrate how to implement common business cases with the fiskaltrust.Middleware.\r\n\r\n## Getting Started\r\nThis Postman collection is meant as a quickstart guide for working with the Middleware. Please keep in mind that therefore these samples are not covering everything that can be done with the Middleware - for complete information, please refer to our [API documentation](https://link.fiskaltrust.cloud/middleware-doc).\r\n\r\nThese samples use REST, but the Middleware also supports gRPC and SOAP scenarios. Please refer to our sample repositories on [GitHub](https://github.com/fiskaltrust), and use our [NuGet client packages](https://github.com/fiskaltrust/middleware-interface-dotnet) in case you are working with .NET.\r\n\r\n### Prerequisites\r\nIn order to use this demo collection, the following prerequisites are required:\r\n- *The fiskaltrust.Middleware* running on your machine, which can be configured and downloaded via the fiskaltrust.Portal ([AT](https://portal.fiskaltrust.at), [DE](https://portal.fiskaltrust.de), [FR](https://portal.fiskaltrust.fr)). Start it (either by running it as a service, or with the `test.cmd` file), and let it run in the background to handle your requests.\r\n- *Your Cashbox Id* is visible in the portal. It is also displayed in the startup console log of the Middleware. \r\n\r\n### Executing the demo requests\r\nAfter importing the Postman collection, you first need to set the required variables:\r\n- Right-click on the collection and select _Edit_\r\n- Open the _Variables_ tab, and enter the values for `cashbox_id` and `base_url` \r\n   - **cashbox_id** is a GUID and shown either in the Portal or in the log of the Middleware itself\r\n   - **base_url** is the URL of the Middleware's HTTP endpoint, **without a trailing slash**. This could e.g. look like this: `http://localhost:1500/bda7742e-fb7e-4eb6-b3ee-27e0c48fc316`. Again, this URL is both displayed in the Portal and in the Middleware log.\r\n   - **possystem_id** is the GUID of a POS System configured in the Portal. It's not required to set this value to run the demo, but it's a mandatory field in German and French production scenarios.\r\n   - **access_token** is only required when working with the SignatureCloud (Austria/France only), and also shown in the Portal.\r\n\r\nAfter you configured these two variables, you can easily run the examples by double-clicking them in the \"Collections\" menu.\r\n\r\nFor more information about how to use Postman collections, please refer to [their extensive documentation](https://learning.postman.com/docs/postman/collections/intro-to-collections/).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -4940,563 +4940,949 @@
 					"name": "Single business cases",
 					"item": [
 						{
-							"name": "Ticket",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "cashboxid",
-										"value": "{{cashbox_id}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
+							"name": "Standard",
+							"item": [
+								{
+									"name": "Ticket",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"1\",\r\n    \"cbReceiptAmount\": 80.93,\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 64.72,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 10.79,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 53.93}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"Unitprice\": 64.72\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 16.21,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 2.70,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 13.51}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"kg\",\r\n            \"Unitprice\": 16.21\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 80.93,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229313\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x4652000000000001`\r\n\r\nLegal document; has to be signed. GT counters are raised.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _T_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 									},
-									{
-										"key": "accesstoken",
-										"value": "{{access_token}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"1\",\r\n    \"cbReceiptAmount\": 80.93,\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 64.72,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 10.79,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 53.93}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"Unitprice\": 64.72\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 16.21,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 2.70,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 13.51}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"kg\",\r\n            \"Unitprice\": 16.21\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 80.93,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229313\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									"response": []
 								},
-								"url": {
-									"raw": "{{base_url}}/json/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Sign"
-									]
+								{
+									"name": "Payment prove",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"2\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 81.56,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": -81.56,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229314\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x4652000000000002`\r\n\r\nPayment without knowledge what was paid. Legal document; has to be signed. GT counters are raised.\r\n\r\nNo charge items must be included, but the total amount must always be zero. A pay item with negative amount and the ftPayItemCase `0x4652000000000011` has to be used therefore.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _P_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
+									},
+									"response": []
 								},
-								"description": "ftReceiptCase: `0x4652000000000001`\r\n\r\nLegal document; has to be signed. GT counters are raised.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _T_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
-							},
-							"response": []
+								{
+									"name": "Invoice",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"3\",\r\n    \"cbReceiptAmount\": 78.70,\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 2.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 27.98,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 4.66,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 23.32}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"colis\",\r\n            \"UnitPrice\": 13.99\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 50.72,\r\n            \"VATRate\": 5.5,\r\n            \"VATAmount\": 2.64,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 48.08}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 50.72\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 78.70,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229315\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x4652000000000003`\r\n\r\nA reference to a ticket for which the invoice is created can be made by using the `cbPreviousReceiptNumber` field in the request.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _I_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
+									},
+									"response": []
+								},
+								{
+									"name": "Bill",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"9\",\r\n    \"cbReceiptAmount\": 160.24,\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 0.5,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 60.83,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 10.14,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 50.60}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"litre\",\r\n            \"UnitPrice\": 121.66\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 99.41,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 16.57,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 82,84}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 99.41\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": 160.24,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229320\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x4652000000000008`\r\n\r\nList of charge items to be payed. This can be used to inform customers about open items. ftPayitemtype `0x4652000000000011` must be used.\r\n\r\nGT counters are not raised. When this receipt case is used, the phrase \"document provisoire\" is returned within the ftSignatureItems and must be printed on the bill. Every time the bill is reprinted, an upcounting number denoting how may times the bill has been printed is returned and must be printed on the bill. This is then also recorded in the journal. \r\n\r\nCreating a bill and a payment prove does not replace creating a ticket. A ticket or an invoice has to be issued to raise turnover and raise the GT counters as well.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _B_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
+									},
+									"response": []
+								},
+								{
+									"name": "Delivery note",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"10\",\r\n    \"cbReceiptAmount\": 36.96,\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 10.79,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"VATAmount\": 1.8,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 8.99}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 26.17,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 4.36,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 21.81}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 36.96,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229321\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x4652000000000009`\r\n\r\n**Signing & chaining:**\r\n- Signed: no\r\n- Chain and national numbering: none\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
+									},
+									"response": []
+								},
+								{
+									"name": "Cash deposit",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"11\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 85.35,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": -85.35,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229322\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x465200000000000A`\r\n\r\nSame requirements as _Payment prove_.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _P_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
+									},
+									"response": []
+								},
+								{
+									"name": "Payout",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"12\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 58.16,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": -58.16,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229323\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x465200000000000B`\r\n\r\nSame requirements as _Payment prove_.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _P_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
+									},
+									"response": []
+								},
+								{
+									"name": "Payment transfer",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"13\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 109.42,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": -109.42,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229324\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x465200000000000C`\r\n\r\nSwitch between payment method, e.g. from cash to credit card.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _P_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
+									},
+									"response": []
+								},
+								{
+									"name": "Internal / material",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"14\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n\t\"cbReceiptAmount\": 163.05,\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 83.28,\r\n            \"VATRate\": 20.0,\r\n\t\t\t\"VATAmount\": 13.88,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 69.4}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n\t\t\t\"UnitPrice\": 83.28\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 79.77,\r\n            \"VATRate\": 20.0,\r\n\t\t\t\"VATAmount\": 13.3,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 66.47}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 79.77,\t\t\t\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 163.05,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229325\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x465200000000000D`\r\n\r\n**Signing & chaining:**\r\n- Signed: no\r\n- Chain and national numbering: none\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
+									},
+									"response": []
+								},
+								{
+									"name": "Foreign sales",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"15\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n\t\"cbReceiptAmount\": 102.38,\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 44.86,\r\n            \"VATRate\": 20.0,\r\n\t\t\t\"VATAmount\": 7.48,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 37.38}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 44.86\r\n        },\r\n        {\r\n            \"Quantity\": 2.5,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 57.52,\r\n            \"VATRate\": 5.5,\r\n\t\t\t\"VATAmount\": 3.0,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 54.52}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"kg\",\r\n            \"UnitPrice\": 23.01\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": 102.38,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229326\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x465200000000000E`\r\n\r\nSame handling as bill\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _B_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
+									},
+									"response": []
+								},
+								{
+									"name": "Protocol / Technical Event Log",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"19\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbReceiptAmount\": 0,\r\n    \"ftReceiptCaseData\": \"{\\\"Code\\\": \\\"80\\\", \\\"Message\\\": \\\"Démarrage du terminal, connexion, ouverture de session\\\", \\\"information\\\"; \\\"\\\"}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229330\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x4652000000000012`\r\n\r\nCan be used by the POS system to log custom data\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _L_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
+									},
+									"response": []
+								},
+								{
+									"name": "Protocol / Accounting / Audit",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"20\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbReceiptAmount\": 0,\r\n    \"ftReceiptCaseData\": \"{\\\"Code\\\": \\\"280\\\", \\\"Message\\\": \\\"Début d'opération de contrôle fiscal\\\", \\\"information\\\"; \\\"\\\"}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229331\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x4652000000000013`\r\n\r\nCan be used by the POS system to log custom data\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _L_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
+									},
+									"response": []
+								},
+								{
+									"name": "Protocol / custom",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"21\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbReceiptAmount\": 0,\r\n    \"ftReceiptCaseData\": \"{\\\"Code\\\": \\\"910\\\", \\\"Message\\\": \\\"Coupure de courant de 10h13 à 12h37\\\", \\\"information\\\"; \\\"\\\" \",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229332\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x4652000000000014`\r\n\r\nCan be used by the POS system to log custom data\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _L_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
+									},
+									"response": []
+								}
+							],
+							"description": "Here you will find all the simple ReceiptCases that can be implemented with the fiskaltrust.Middleware. These are not sector-specific and contain only the absolutely necessary data for fiscalisation. For more complex business cases, please see the folder 'Exsamples'."
 						},
 						{
-							"name": "Payment prove",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "cashboxid",
-										"value": "{{cashbox_id}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
+							"name": "Examples",
+							"item": [
+								{
+									"name": "Currency Exchange",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"21\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 0,\r\n    \"cbPreviousReceiptReference\": \"\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 80.00,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash in USD\",\r\n            \"Amount\": -80.0,\r\n            \"ftPayItemCase\": 5067112530745229314,\r\n            \"ftPayItemCaseData\": \"{\\\"CurrencyCode\\\": \\\"USD\\\", \\\"ForeigenCurrencyAmount\\\": 100.00, \\\"BaseCurrencyAmount\\\": 80.0}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229324\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x465200000000000C`\n\nCan be used for currency exchange for a client.\n\n*General business case:*\nA customer comes to the reception and wants to change 100.00 USD cash into EUR.\n\n*Additional information:*\nThe following fields for PayItemCase `0x4652000000000002` are mandatory for this business case.\n- `ftPayItemCaseData`\n  - `CurrencyCode`\n  - `ForeignCurrencyAmount`\n  - `BaseCurrencyAmount`\n\n**Signing & chaining:**\n- Signed: yes\n- Chain and national numbering: _P_\n\n_See also:_\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 									},
-									{
-										"key": "accesstoken",
-										"value": "{{access_token}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"2\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 81.56,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": -81.56,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229314\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									"response": []
 								},
-								"url": {
-									"raw": "{{base_url}}/json/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Sign"
-									]
-								},
-								"description": "ftReceiptCase: `0x4652000000000002`\r\n\r\nPayment without knowledge what was paid. Legal document; has to be signed. GT counters are raised.\r\n\r\nNo charge items must be included, but the total amount must always be zero. A pay item with negative amount and the ftPayItemCase `0x4652000000000011` has to be used therefore.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _P_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
-							},
-							"response": []
-						},
-						{
-							"name": "Invoice",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "cashboxid",
-										"value": "{{cashbox_id}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
+								{
+									"name": "Exchange of one T-Shirt",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "cd8f9ccb-4e5e-463e-8290-bd4f8b9e0b02",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text"
+											},
+											{
+												"key": "accesstoken",
+												"value": "BHfsAKbpUVjMC10xENWesolDQoe9bNWpqlpqxKKu+V51fgLQ8xwktCueKHm5JHeWNJuZy9ZcWhkm0y9ra0GLcMY=",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"21\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 0,\r\n    \"cbPreviousReceiptReference\": \"HP20210089\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"Moment\": \"{{current_moment}}\",\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"T-Shirt, white, cotton, medium\",\r\n            \"Amount\": -49.90,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": -8.32,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": -41.58}\",\r\n            \"Position\": 1,\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 49.90\r\n        },\r\n    {\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"Moment\": \"{{current_moment}}\",\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"T-Shirt, yellow, cotton, medium\",\r\n            \"Amount\": 49.90,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 8.32,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 41.58}\",\r\n            \"Position\": 1,\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 49.90\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 49.90,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Exchange of goods\",\r\n            \"Amount\": -49.90,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229313\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://signaturcloud-sandbox.fiskaltrust.fr/json/Sign",
+											"protocol": "https",
+											"host": [
+												"signaturcloud-sandbox",
+												"fiskaltrust",
+												"fr"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x4652000000000001`\n\nCustomer wants to exchange a product 1:1.\n\n*General business case:*\nA consumer bought a white T-shirt a few days ago. Today, the T-shirt is to be exchanged for a yellow one because the colour is not to his liking.\n\n*Additional information:*\nThe PayItems should be used for clear documentation of the BusinessCase. Once the `0x4652000000000001` for the Cash-Payment and to compensate this the PayItem `0x4652000000000011` is used with negative values.\n\n**Signing & chaining:**\n- Signed: yes\n- Chain and national numbering: _T_\n\n_See also:_\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 									},
-									{
-										"key": "accesstoken",
-										"value": "{{access_token}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"3\",\r\n    \"cbReceiptAmount\": 78.70,\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 2.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 27.98,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 4.66,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 23.32}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"colis\",\r\n            \"UnitPrice\": 13.99\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 50.72,\r\n            \"VATRate\": 5.5,\r\n            \"VATAmount\": 2.64,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 48.08}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 50.72\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 78.70,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229315\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									"response": []
 								},
-								"url": {
-									"raw": "{{base_url}}/json/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Sign"
-									]
-								},
-								"description": "ftReceiptCase: `0x4652000000000003`\r\n\r\nA reference to a ticket for which the invoice is created can be made by using the `cbPreviousReceiptNumber` field in the request.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _I_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
-							},
-							"response": []
-						},
-						{
-							"name": "Bill",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "cashboxid",
-										"value": "{{cashbox_id}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
+								{
+									"name": "Exchange of one T-Shirt and buy a pair of jeans",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text"
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"21\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 99.9,\r\n    \"cbPreviousReceiptReference\": \"HP20210089\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"Moment\": \"{{current_moment}}\",\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"T-Shirt, white, cotton, medium\",\r\n            \"Amount\": -49.90,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": -8.32,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": -41.58}\",\r\n            \"Position\": 1,\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 49.90\r\n        },\r\n    {\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"Moment\": \"{{current_moment}}\",\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"T-Shirt, yellow, cotton, medium\",\r\n            \"Amount\": 49.90,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 8.32,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 41.58}\",\r\n            \"Position\": 1,\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 49.90\r\n        },\r\n    {\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"Moment\": \"{{current_moment}}\",\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Jeans, gray, W34 L32\",\r\n            \"Amount\": 99.90,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 16.57,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 83.33}\",\r\n            \"Position\": 1,\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 83.33\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 149.80,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Exchange of goods\",\r\n            \"Amount\": -49.90,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229313\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x4652000000000001`\n\nCustomer exchanges a product for an equivalent one and buys an additional product.\n\n*General business case:*\nA consumer bought a white T-shirt a few days ago. Today, the T-shirt is to be exchanged for a yellow one because the colour is not to his liking. In addition, the customer buys a new pair of jeans.\n\n*Additional information:*\nThe PayItems should be used for clear documentation of the BusinessCase. Once the `0x4652000000000001` for the Cash-Payment with the additional price for the trousers and to compensate the exchange the PayItem `0x4652000000000011` is used with negative values.\n\n**Signing & chaining:**\n- Signed: yes\n- Chain and national numbering: _T_\n\n_See also:_\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 									},
-									{
-										"key": "accesstoken",
-										"value": "{{access_token}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"9\",\r\n    \"cbReceiptAmount\": 160.24,\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 0.5,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 60.83,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 10.14,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 50.60}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"litre\",\r\n            \"UnitPrice\": 121.66\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 99.41,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 16.57,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 82,84}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 99.41\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": 160.24,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229320\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									"response": []
 								},
-								"url": {
-									"raw": "{{base_url}}/json/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Sign"
-									]
-								},
-								"description": "ftReceiptCase: `0x4652000000000008`\r\n\r\nList of charge items to be payed. This can be used to inform customers about open items. ftPayitemtype `0x4652000000000011` must be used.\r\n\r\nGT counters are not raised. When this receipt case is used, the phrase \"document provisoire\" is returned within the ftSignatureItems and must be printed on the bill. Every time the bill is reprinted, an upcounting number denoting how may times the bill has been printed is returned and must be printed on the bill. This is then also recorded in the journal. \r\n\r\nCreating a bill and a payment prove does not replace creating a ticket. A ticket or an invoice has to be issued to raise turnover and raise the GT counters as well.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _B_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
-							},
-							"response": []
-						},
-						{
-							"name": "Delivery note",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "cashboxid",
-										"value": "{{cashbox_id}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
+								{
+									"name": "Return one T-Shirt and get money back",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text"
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"21\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": -49.90,\r\n    \"cbPreviousReceiptReference\": \"HP20210089\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"Moment\": \"{{current_moment}}\",\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"T-Shirt, white, cotton, medium\",\r\n            \"Amount\": -49.90,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": -8.32,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": -41.58}\",\r\n            \"Position\": 1,\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 49.90\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": -49.90,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"{\\\"Information\\\": \\\"return of good, unsatisfied\\\"}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229313\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x4652000000000001`\n\nCustomer returns a product and receives the purchase price in cash.\n\n*General business case:*\nA consumer bought a white T-shirt a few days ago. Today, the T-shirt was brought back and the clients gets the money back.\n\n**Signing & chaining:**\n- Signed: yes\n- Chain and national numbering: _T_\n\n_See also:_\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 									},
-									{
-										"key": "accesstoken",
-										"value": "{{access_token}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"10\",\r\n    \"cbReceiptAmount\": 36.96,\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 10.79,\r\n            \"VATRate\": 20.0,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"VATAmount\": 1.8,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 8.99}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 26.17,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 4.36,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 21.81}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"\"\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 36.96,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229321\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									"response": []
 								},
-								"url": {
-									"raw": "{{base_url}}/json/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Sign"
-									]
-								},
-								"description": "ftReceiptCase: `0x4652000000000009`\r\n\r\n**Signing & chaining:**\r\n- Signed: no\r\n- Chain and national numbering: none\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
-							},
-							"response": []
-						},
-						{
-							"name": "Cash deposit",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "cashboxid",
-										"value": "{{cashbox_id}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
+								{
+									"name": "Return one T-Shirt and buy a pair of jeans (direct pay)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text"
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"21\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 50.00,\r\n    \"cbPreviousReceiptReference\": \"HP20210089\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"Moment\": \"{{current_moment}}\",\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"T-Shirt, white, cotton, medium\",\r\n            \"Amount\": -49.90,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": -8.32,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": -41.58}\",\r\n            \"Position\": 1,\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 49.90\r\n        },\r\n    {\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"Moment\": \"{{current_moment}}\",\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Jeans, gray, W34 L32\",\r\n            \"Amount\": 99.90,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 16.57,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 83.33}\",\r\n            \"Position\": 1,\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 99.90\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 50.00,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229313\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x4652000000000001`\n\nCustomer returns a product and buys a more expensive product. He pays the difference cash.\n\n*General business case:*\nA consumer bought a white T-shirt a few days ago. Today, the T-shirt is given back and a new pair of jeans is purchased. The difference is paied in cash.\n\n*Additional information:*\nThe payable amount was calculated directly with the returned product.\n\n**Signing & chaining:**\n- Signed: yes\n- Chain and national numbering: _T_\n\n_See also:_\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 									},
-									{
-										"key": "accesstoken",
-										"value": "{{access_token}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"11\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 85.35,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": -85.35,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229322\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									"response": []
 								},
-								"url": {
-									"raw": "{{base_url}}/json/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Sign"
-									]
-								},
-								"description": "ftReceiptCase: `0x465200000000000A`\r\n\r\nSame requirements as _Payment prove_.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _P_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
-							},
-							"response": []
-						},
-						{
-							"name": "Payout",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "cashboxid",
-										"value": "{{cashbox_id}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
+								{
+									"name": "Return one T-Shirt and buy a pair of jeans",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text"
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"21\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 50.00,\r\n    \"cbPreviousReceiptReference\": \"HP20210089\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"Moment\": \"{{current_moment}}\",\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"T-Shirt, white, cotton, medium\",\r\n            \"Amount\": -49.90,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": -8.32,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": -41.58}\",\r\n            \"Position\": 1,\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 49.90\r\n        },\r\n    {\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"Moment\": \"{{current_moment}}\",\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Jeans, gray, W34 L32\",\r\n            \"Amount\": 99.90,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 16.57,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 83.33}\",\r\n            \"Position\": 1,\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 99.90\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 99.90,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"return of goods\",\r\n            \"Amount\": -49.90,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }    ],\r\n    \"ftReceiptCase\": 5067112530745229313\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x4652000000000001`\n\nCustomer returns a product and buys a more expensive product. He pays the difference by credit card.\n\n*General business case:*\nA consumer bought a white T-shirt a few days ago. Today, the T-shirt is given back and a new pair of jeans is purchased. The difference is paied in cash.\n\n*Additional information:*\nThe PayItems should be used for clear documentation of the BusinessCase. Once the `0x4652000000000001` for the Cash-Payment and to compensate this the PayItem `0x4652000000000011` is used with negative values.\n\n**Signing & chaining:**\n- Signed: yes\n- Chain and national numbering: _T_\n\n_See also:_\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 									},
-									{
-										"key": "accesstoken",
-										"value": "{{access_token}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"12\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 58.16,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": -58.16,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229323\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									"response": []
 								},
-								"url": {
-									"raw": "{{base_url}}/json/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Sign"
-									]
-								},
-								"description": "ftReceiptCase: `0x465200000000000B`\r\n\r\nSame requirements as _Payment prove_.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _P_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
-							},
-							"response": []
-						},
-						{
-							"name": "Payment transfer",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "cashboxid",
-										"value": "{{cashbox_id}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
+								{
+									"name": "Return a pair of jeans, buy a T-Shirt and money back",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text"
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"21\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": -50.00,\r\n    \"cbPreviousReceiptReference\": \"HP20210089\",\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"Moment\": \"{{current_moment}}\",\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"T-Shirt, white, cotton, medium\",\r\n            \"Amount\": 49.90,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": 8.32,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 41.58}\",\r\n            \"Position\": 1,\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 49.90\r\n        },\r\n    {\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"Moment\": \"{{current_moment}}\",\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Jeans, gray, W34 L32\",\r\n            \"Amount\": -99.90,\r\n            \"VATRate\": 20.0,\r\n            \"VATAmount\": -16.57,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": -83.33}\",\r\n            \"Position\": 1,\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 83.33\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash, return of goods\",\r\n            \"Amount\": -99.90,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 49.90,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229313\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x4652000000000001`\n\nCustomer returns a product and buys a cheaper product. The difference is given in cash.\n\n*General business case:*\nA consumer bought a pair of jeans a few days ago. Today, the trousers are given back and a T-Shirt was bought. The difference was given back in cash. \n\n*Additional information:*\nThe PayItems should be used for clear documentation of the BusinessCase. Once the `0x4652000000000001` for the Cash-Payment and to compensate this the PayItem `0x4652000000000011` is used with negative values.\n\n**Signing & chaining:**\n- Signed: yes\n- Chain and national numbering: _T_\n\n_See also:_\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 									},
-									{
-										"key": "accesstoken",
-										"value": "{{access_token}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"13\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 109.42,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": -109.42,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229324\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									"response": []
 								},
-								"url": {
-									"raw": "{{base_url}}/json/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Sign"
-									]
-								},
-								"description": "ftReceiptCase: `0x465200000000000C`\r\n\r\nSwitch between payment method, e.g. from cash to credit card.\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _P_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
-							},
-							"response": []
-						},
-						{
-							"name": "Internal / material",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "cashboxid",
-										"value": "{{cashbox_id}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
+								{
+									"name": "Discount for one product",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text"
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"21\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 18.80,\r\n    \"cbPreviousReceiptReference\": \"HP20210089\",\r\n    \"cbChargeItems\": [\r\n    {\r\n      \"ftChargeItemCase\": 5067112530745229314,\r\n      \"Moment\": \"2021-08-09T09:25:18.929555Z\",\r\n      \"Quantity\": 1.0,\r\n      \"Description\": \"Pizza\",\r\n      \"Amount\": 11.3,\r\n      \"VATRate\": 10.0,\r\n      \"VATAmount\": 1.03,\r\n      \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 10.27}\",\r\n      \"Position\": 1,\r\n      \"Unit\": \"pièce\",\r\n      \"UnitPrice\": 11.3\r\n    },\r\n    {\r\n      \"ftChargeItemCase\": 5067112530745229315,\r\n      \"Moment\": \"2021-08-09T09:25:32.5742798Z\",\r\n      \"Quantity\": 1.0,\r\n      \"Description\": \"Cocktail\",\r\n      \"Amount\": 12.5,\r\n      \"VATRate\": 20.0,\r\n      \"VATAmount\": 2.08,\r\n      \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 10.42}\",\r\n      \"Position\": 3,\r\n      \"Unit\": \"verre\",\r\n      \"UnitPrice\": 12.5\r\n    },\r\n    {\r\n      \"ftChargeItemCase\": 5067112530745229315,\r\n      \"Moment\": \"2021-08-09T09:25:32.5742798Z\",\r\n      \"Quantity\": 1.0,\r\n      \"Description\": \"Happy Hour, Cocktail\",\r\n      \"Amount\": -5.00,\r\n      \"VATRate\": 20.0,\r\n      \"VATAmount\": -0.83,\r\n      \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": -4.17}\",\r\n      \"Position\": 3,\r\n      \"Unit\": \"verre\",\r\n      \"UnitPrice\": -5.00\r\n    }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"MasterCard / Debit\",\r\n            \"Amount\": 18.80,\r\n            \"ftPayItemCase\": 5067112530745229316,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229313\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x4652000000000001`\n\nTwo products with different VAT-rate are paied with debit card. One product gets a discount of 5.0.\n\n*General business case:*\nA pizza and a cocktail was ordered. Because of the happy-hour a discount of 5€ was granted for the cocktail.\n\n*Additional information:*\nThe discount is calculated with the same ChargeItem but with a negative value.\n\n**Signing & chaining:**\n- Signed: yes\n- Chain and national numbering: _T_\n\n_See also:_\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 									},
-									{
-										"key": "accesstoken",
-										"value": "{{access_token}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"14\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n\t\"cbReceiptAmount\": 163.05,\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 83.28,\r\n            \"VATRate\": 20.0,\r\n\t\t\t\"VATAmount\": 13.88,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 69.4}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n\t\t\t\"UnitPrice\": 83.28\r\n        },\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 79.77,\r\n            \"VATRate\": 20.0,\r\n\t\t\t\"VATAmount\": 13.3,\r\n            \"ftChargeItemCase\": 5067112530745229315,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 66.47}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 79.77,\t\t\t\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Cash\",\r\n            \"Amount\": 163.05,\r\n            \"ftPayItemCase\": 5067112530745229313,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229325\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									"response": []
 								},
-								"url": {
-									"raw": "{{base_url}}/json/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Sign"
-									]
-								},
-								"description": "ftReceiptCase: `0x465200000000000D`\r\n\r\n**Signing & chaining:**\r\n- Signed: no\r\n- Chain and national numbering: none\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
-							},
-							"response": []
-						},
-						{
-							"name": "Foreign sales",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "cashboxid",
-										"value": "{{cashbox_id}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
+								{
+									"name": "Discount for all products",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "cashboxid",
+												"value": "{{cashbox_id}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text"
+											},
+											{
+												"key": "accesstoken",
+												"value": "{{access_token}}",
+												"description": "Only required when targeting the SignatureCloud",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"21\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"ftReceiptCaseData\": \"\",\r\n    \"cbReceiptAmount\": 21.42,\r\n    \"cbPreviousReceiptReference\": \"HP20210089\",\r\n    \"cbChargeItems\": [\r\n    {\r\n      \"ftChargeItemCase\": 5067112530745229314,\r\n      \"Moment\": \"2021-08-09T09:25:18.929555Z\",\r\n      \"Quantity\": 1.0,\r\n      \"Description\": \"Pizza\",\r\n      \"Amount\": 11.3,\r\n      \"VATRate\": 10.0,\r\n      \"VATAmount\": 1.03,\r\n      \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 10.27}\",\r\n      \"Position\": 1,\r\n      \"Unit\": \"pièce\",\r\n      \"UnitPrice\": 11.3\r\n    },\r\n    {\r\n      \"ftChargeItemCase\": 5067112530745229314,\r\n      \"Moment\": \"2021-08-09T09:25:18.929555Z\",\r\n      \"Quantity\": 1.0,\r\n      \"Description\": \"Happy-Hour, Pizza\",\r\n      \"Amount\": -1.13,\r\n      \"VATRate\": 10.0,\r\n      \"VATAmount\": -0.10,\r\n      \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": -1.03}\",\r\n      \"Position\": 2,\r\n      \"Unit\": \"pièce\",\r\n      \"UnitPrice\": -1.13\r\n    },\r\n    {\r\n      \"ftChargeItemCase\": 5067112530745229315,\r\n      \"Moment\": \"2021-08-09T09:25:32.5742798Z\",\r\n      \"Quantity\": 1.0,\r\n      \"Description\": \"Cocktail\",\r\n      \"Amount\": 12.5,\r\n      \"VATRate\": 20.0,\r\n      \"VATAmount\": 2.08,\r\n      \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 10.42}\",\r\n      \"Position\": 3,\r\n      \"Unit\": \"verre\",\r\n      \"UnitPrice\": 12.5\r\n    },\r\n    {\r\n      \"ftChargeItemCase\": 5067112530745229315,\r\n      \"Moment\": \"2021-08-09T09:25:32.5742798Z\",\r\n      \"Quantity\": 1.0,\r\n      \"Description\": \"Happy Hour, Cocktail\",\r\n      \"Amount\": -1.25,\r\n      \"VATRate\": 20.0,\r\n      \"VATAmount\": -0.21,\r\n      \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": -1.04}\",\r\n      \"Position\": 4,\r\n      \"Unit\": \"verre\",\r\n      \"UnitPrice\": -1.25\r\n    }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"MasterCard / Debit\",\r\n            \"Amount\": 21.42,\r\n            \"ftPayItemCase\": 5067112530745229316,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229313\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/json/Sign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"json",
+												"Sign"
+											]
+										},
+										"description": "ftReceiptCase: `0x4652000000000001`\n\nTwo products with different VAT-rate are paied with debit card. The entire receipt gets a discount of 10%.\n\n*General business case:*\nA pizza and a cocktail was ordered. Because of the happy-hour a discount of 10% was granted for the order.\n\n*Additional information:*\nThe discount is calculated with the same ChargeItems but with a negative value.\n\n**Signing & chaining:**\n- Signed: yes\n- Chain and national numbering: _T_\n\n_See also:_\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
 									},
-									{
-										"key": "accesstoken",
-										"value": "{{access_token}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"15\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n\t\"cbReceiptAmount\": 102.38,\r\n    \"cbChargeItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Article 1\",\r\n            \"Amount\": 44.86,\r\n            \"VATRate\": 20.0,\r\n\t\t\t\"VATAmount\": 7.48,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 37.38}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"1\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"pièce\",\r\n            \"UnitPrice\": 44.86\r\n        },\r\n        {\r\n            \"Quantity\": 2.5,\r\n            \"Description\": \"Article 2\",\r\n            \"Amount\": 57.52,\r\n            \"VATRate\": 5.5,\r\n\t\t\t\"VATAmount\": 3.0,\r\n            \"ftChargeItemCase\": 5067112530745229313,\r\n            \"ftChargeItemCaseData\": \"{\\\"NetAmount\\\": 54.52}\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"ProductGroup\": \"\",\r\n            \"ProductNumber\": \"2\",\r\n            \"ProductBarcode\": \"\",\r\n            \"Unit\": \"kg\",\r\n            \"UnitPrice\": 23.01\r\n        }\r\n    ],\r\n    \"cbPayItems\": [\r\n        {\r\n            \"Quantity\": 1.0,\r\n            \"Description\": \"Payment compensation\",\r\n            \"Amount\": 102.38,\r\n            \"ftPayItemCase\": 5067112530745229329,\r\n            \"ftPayItemCaseData\": \"\",\r\n            \"AccountNumber\": \"\",\r\n            \"CostCenter\": \"\",\r\n            \"MoneyGroup\": \"\",\r\n            \"MoneyNumber\": \"\"\r\n        }\r\n    ],\r\n    \"ftReceiptCase\": 5067112530745229326\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/json/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Sign"
-									]
-								},
-								"description": "ftReceiptCase: `0x465200000000000E`\r\n\r\nSame handling as bill\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _B_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
-							},
-							"response": []
-						},
-						{
-							"name": "Protocol / Technical Event Log",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "cashboxid",
-										"value": "{{cashbox_id}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
-									},
-									{
-										"key": "accesstoken",
-										"value": "{{access_token}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"19\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbReceiptAmount\": 0,\r\n    \"ftReceiptCaseData\": \"{\\\"Code\\\": \\\"80\\\", \\\"Message\\\": \\\"Démarrage du terminal, connexion, ouverture de session\\\", \\\"information\\\"; \\\"\\\"}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229330\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/json/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Sign"
-									]
-								},
-								"description": "ftReceiptCase: `0x4652000000000012`\r\n\r\nCan be used by the POS system to log custom data\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _L_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
-							},
-							"response": []
-						},
-						{
-							"name": "Protocol / Accounting / Audit",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "cashboxid",
-										"value": "{{cashbox_id}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
-									},
-									{
-										"key": "accesstoken",
-										"value": "{{access_token}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"20\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbReceiptAmount\": 0,\r\n    \"ftReceiptCaseData\": \"{\\\"Code\\\": \\\"280\\\", \\\"Message\\\": \\\"Début d'opération de contrôle fiscal\\\", \\\"information\\\"; \\\"\\\"}\",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229331\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/json/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Sign"
-									]
-								},
-								"description": "ftReceiptCase: `0x4652000000000013`\r\n\r\nCan be used by the POS system to log custom data\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _L_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
-							},
-							"response": []
-						},
-						{
-							"name": "Protocol / custom",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "cashboxid",
-										"value": "{{cashbox_id}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
-									},
-									{
-										"key": "accesstoken",
-										"value": "{{access_token}}",
-										"description": "Only required when targeting the SignatureCloud",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n    \"ftPosSystemId\": \"{{possystem_id}}\",\r\n    \"cbTerminalID\": \"1\",\r\n    \"cbReceiptReference\": \"21\",\r\n    \"cbReceiptMoment\": \"{{current_moment}}\",\r\n    \"cbReceiptAmount\": 0,\r\n    \"ftReceiptCaseData\": \"{\\\"Code\\\": \\\"910\\\", \\\"Message\\\": \\\"Coupure de courant de 10h13 à 12h37\\\", \\\"information\\\"; \\\"\\\" \",\r\n    \"cbChargeItems\": [],\r\n    \"cbPayItems\": [],\r\n    \"ftReceiptCase\": 5067112530745229332\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/json/Sign",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Sign"
-									]
-								},
-								"description": "ftReceiptCase: `0x4652000000000014`\r\n\r\nCan be used by the POS system to log custom data\r\n\r\n**Signing & chaining:**\r\n- Signed: yes\r\n- Chain and national numbering: _L_\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/fr/reference-tables"
-							},
-							"response": []
+									"response": []
+								}
+							],
+							"description": "#1 BusinessCase-Examples for France\nHere you will find various practical examples of business transactions that can be implemented with fiskaltrust.Middle3ware."
 						}
 					],
 					"description": "# Single business cases\r\nThe requests listed in this section demonstrate \"single-step\" business cases, i.e. cases that can be handled with a single call to the _sign_ endpoint.",
