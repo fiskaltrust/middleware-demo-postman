@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "84fc4f9f-be27-4def-b281-a477106f0bca",
-		"name": "fiskaltrust.Middleware to Git",
+		"_postman_id": "635bb4ec-1da4-4898-b296-f93d175de3f8",
+		"name": "fiskaltrust.Middleware",
 		"description": "A Postman collection containing examples that demonstrate how to implement common business cases with the fiskaltrust.Middleware.\r\n\r\n## Getting Started\r\nThis Postman collection is meant as a quickstart guide for working with the Middleware. Please keep in mind that therefore these samples are not covering everything that can be done with the Middleware - for complete information, please refer to our [API documentation](https://link.fiskaltrust.cloud/middleware-doc).\r\n\r\nThese samples use REST, but the Middleware also supports gRPC and SOAP scenarios. Please refer to our sample repositories on [GitHub](https://github.com/fiskaltrust), and use our [NuGet client packages](https://github.com/fiskaltrust/middleware-interface-dotnet) in case you are working with .NET.\r\n\r\n### Prerequisites\r\nIn order to use this demo collection, the following prerequisites are required:\r\n- *The fiskaltrust.Middleware* running on your machine, which can be configured and downloaded via the fiskaltrust.Portal ([AT](https://portal.fiskaltrust.at), [DE](https://portal.fiskaltrust.de), [FR](https://portal.fiskaltrust.fr)). Start it (either by running it as a service, or with the `test.cmd` file), and let it run in the background to handle your requests.\r\n- *Your Cashbox Id* is visible in the portal. It is also displayed in the startup console log of the Middleware. \r\n\r\n### Executing the demo requests\r\nAfter importing the Postman collection, you first need to set the required variables:\r\n- Right-click on the collection and select _Edit_\r\n- Open the _Variables_ tab, and enter the values for `cashbox_id` and `base_url` \r\n   - **cashbox_id** is a GUID and shown either in the Portal or in the log of the Middleware itself\r\n   - **base_url** is the URL of the Middleware's HTTP endpoint, **without a trailing slash**. This could e.g. look like this: `http://localhost:1500/bda7742e-fb7e-4eb6-b3ee-27e0c48fc316`. Again, this URL is both displayed in the Portal and in the Middleware log.\r\n   - **possystem_id** is the GUID of a POS System configured in the Portal. It's not required to set this value to run the demo, but it's a mandatory field in German and French production scenarios.\r\n   - **access_token** is only required when working with the SignatureCloud (Austria/France only), and also shown in the Portal.\r\n\r\nAfter you configured these two variables, you can easily run the examples by double-clicking them in the \"Collections\" menu.\r\n\r\nFor more information about how to use Postman collections, please refer to [their extensive documentation](https://learning.postman.com/docs/postman/collections/intro-to-collections/).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1101,6 +1101,64 @@
 									]
 								},
 								"description": "ftReceiptCase: `0x4445000100000018`\n\nFinishes the process of switching the connected SCU. This receipt connects the Queue to the target SCU (_Signature Creation Unit_) that has to be specified in the Portal beforehand. Can only be executed after a _initiate SCU switch_ receipt.\n\n`ftChargeItems` and `ftPayItems` must be empty.\n\nThis receipt case works only with the implicit flow flag. Using it without the ftReceiptCaseFlag `0x0000000100000000` ends up in an exception.\n\n_See also:_\n- https://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase\n- https://link.fiskaltrust.cloud/market-de/scu-switch"
+							},
+							"response": []
+						},
+						{
+							"name": "Fail-transaction receipt (Single transaction)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n  \"ftPosSystemId\": \"{{possystem_id}}\",\r\n  \"cbTerminalID\": \"1\",\r\n  \"cbReceiptReference\": \"PreviouslyUsedReceiptReference\",\r\n  \"cbReceiptMoment\": \"{{current_moment}}\",\r\n  \"cbChargeItems\": [],\r\n  \"cbPayItems\": [],\r\n  \"ftReceiptCase\": 4919338167972134923\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								},
+								"description": "ftReceiptCase: `0x444500000000000B`\n\nFails a single ongoing transaction, producing the BON_TYP `AVBelegAbbruch`. This receipt can be used if a start-transaction was sent by mistake, and clears the cbReceiptReferece <-> Transaction-ID relations.\n\nTo close single open transactions, an **explicit** fail-transaction receipt needs to be used. The open transaction needs to be referenced via cbReceiptReference. If this value is not provided or no open transaction exists, the fiskaltrust.Middleware will throw an exception and the call will fail.\n\nIn case you want to close multiple open transactions that might not be stored by the Middleware as open transactions (e.g. if the transactions were opened by another software), please refer to the next example.\n\n`ftChargeItems` and `ftPayItems` must be empty.\n\n_See also:_\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
+							},
+							"response": []
+						},
+						{
+							"name": "Fail-transaction receipt (Multiple transactions)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"ftCashBoxID\": \"{{cashbox_id}}\",\r\n  \"ftPosSystemId\": \"{{possystem_id}}\",\r\n  \"cbTerminalID\": \"1\",\r\n  \"cbReceiptReference\": \"\",\r\n  \"cbReceiptMoment\": \"{{current_moment}}\",\r\n  \"cbChargeItems\": [],\r\n  \"cbPayItems\": [],\r\n  \"ftReceiptCase\": 4919338172267102219,\r\n  \"ftReceiptCaseData\": \"{\\\"CurrentStartedTransactionNumbers\\\": [1, 2, 3]}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/v1/Sign",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"v1",
+										"Sign"
+									]
+								},
+								"description": "ftReceiptCase: `0x444500010000000B`\n\nFails a multiple started transactions, producing the BON_TYP `AVBelegAbbruch`. This receipt can be used if start-transactions were sent by mistake, or if open transactions exist on the TSE for any other case (e.g. because it was used with another software before, or because of errors). If the Middleware holds a reference to the respective reference, this receipt clears the cbReceiptReferece <-> Transaction-ID relations.\n\nTo close multiple open transactions, an **implicit** fail-transaction receipt needs to be sent. The transaction numbers that should be closed need to be passed via JSON in ftReceiptCaseData, using the array property CurrentStartedTransactionNumbers (e.g.: `\"ftReceiptCaseData\": \"{\\\"CurrentStartedTransactionNumbers\\\": [1, 2, 3]}\"`). `cbReceiptReference` must be empty in this case, otherwise the fiskaltrust.Middleware will throw an exception and return an error.\n\n`ftChargeItems` and `ftPayItems` must be empty.\n\n> Hint: The open transaction numbers can be requested by sending a zero-receipt with the TSE information flag (example above).\n\n_See also:_\nhttps://link.fiskaltrust.cloud/middleware-doc/de/ftreceiptcase"
 							},
 							"response": []
 						}
@@ -4937,6 +4995,203 @@
 					]
 				},
 				{
+					"name": "Journal",
+					"item": [
+						{
+							"name": "Version information",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/json/Journal?type=0&from=0&to=0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"Journal"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "0"
+										},
+										{
+											"key": "from",
+											"value": "0",
+											"description": "The timestamp determining where to start the export, in Ticks"
+										},
+										{
+											"key": "to",
+											"value": "0",
+											"description": "The timestamp determining where to end the export, in Ticks"
+										}
+									]
+								},
+								"description": "ftJournalType: `0x0000000000000000`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
+							},
+							"response": []
+						},
+						{
+							"name": "ActionJournal in internal format",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/json/Journal?type=1&from=0&to=0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"Journal"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "1"
+										},
+										{
+											"key": "from",
+											"value": "0",
+											"description": "The timestamp determining where to start the export, in Ticks"
+										},
+										{
+											"key": "to",
+											"value": "0",
+											"description": "The timestamp determining where to end the export, in Ticks"
+										}
+									]
+								},
+								"description": "ftJournalType: `0x0000000000000001`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
+							},
+							"response": []
+						},
+						{
+							"name": "ReceiptJournal in internal format",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/json/Journal?type=2&from=0&to=0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"Journal"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "2"
+										},
+										{
+											"key": "from",
+											"value": "0",
+											"description": "The timestamp determining where to start the export, in Ticks"
+										},
+										{
+											"key": "to",
+											"value": "0",
+											"description": "The timestamp determining where to end the export, in Ticks"
+										}
+									]
+								},
+								"description": "ftJournalType: `0x0000000000000002`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
+							},
+							"response": []
+						},
+						{
+							"name": "QueueItemJournal in internal format",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\"\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/json/Journal?type=3&from=0&to=0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"Journal"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "3"
+										},
+										{
+											"key": "from",
+											"value": "0"
+										},
+										{
+											"key": "to",
+											"value": "0"
+										}
+									]
+								},
+								"description": "ftJournalType: `0x0000000000000003`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
+							},
+							"response": []
+						}
+					],
+					"description": "# Journal\r\nThe _journal_ endpoint allows users to get data from a running Middleware instance, either in a \"raw\" JSON format, or specifically for the market (e.g. DSFinV-K in Germany).\r\n\r\nPlease note that the _ticks_ that need to be passed for the `from` and `to` parameters are .NET Ticks, **not** Unix timestamps. More details about this representation can be found [here](https://docs.microsoft.com/en-us/dotnet/api/system.datetime.ticks?view=net-5.0#remarks).",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
 					"name": "Single business cases",
 					"item": [
 						{
@@ -5886,203 +6141,6 @@
 						}
 					],
 					"description": "# Single business cases\r\nThe requests listed in this section demonstrate \"single-step\" business cases, i.e. cases that can be handled with a single call to the _sign_ endpoint.",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					]
-				},
-				{
-					"name": "Journal",
-					"item": [
-						{
-							"name": "Version information",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{base_url}}/json/Journal?type=0&from=0&to=0",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Journal"
-									],
-									"query": [
-										{
-											"key": "type",
-											"value": "0"
-										},
-										{
-											"key": "from",
-											"value": "0",
-											"description": "The timestamp determining where to start the export, in Ticks"
-										},
-										{
-											"key": "to",
-											"value": "0",
-											"description": "The timestamp determining where to end the export, in Ticks"
-										}
-									]
-								},
-								"description": "ftJournalType: `0x0000000000000000`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
-							},
-							"response": []
-						},
-						{
-							"name": "ActionJournal in internal format",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{base_url}}/json/Journal?type=1&from=0&to=0",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Journal"
-									],
-									"query": [
-										{
-											"key": "type",
-											"value": "1"
-										},
-										{
-											"key": "from",
-											"value": "0",
-											"description": "The timestamp determining where to start the export, in Ticks"
-										},
-										{
-											"key": "to",
-											"value": "0",
-											"description": "The timestamp determining where to end the export, in Ticks"
-										}
-									]
-								},
-								"description": "ftJournalType: `0x0000000000000001`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
-							},
-							"response": []
-						},
-						{
-							"name": "ReceiptJournal in internal format",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{base_url}}/json/Journal?type=2&from=0&to=0",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Journal"
-									],
-									"query": [
-										{
-											"key": "type",
-											"value": "2"
-										},
-										{
-											"key": "from",
-											"value": "0",
-											"description": "The timestamp determining where to start the export, in Ticks"
-										},
-										{
-											"key": "to",
-											"value": "0",
-											"description": "The timestamp determining where to end the export, in Ticks"
-										}
-									]
-								},
-								"description": "ftJournalType: `0x0000000000000002`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
-							},
-							"response": []
-						},
-						{
-							"name": "QueueItemJournal in internal format",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "\"\"",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/json/Journal?type=3&from=0&to=0",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"json",
-										"Journal"
-									],
-									"query": [
-										{
-											"key": "type",
-											"value": "3"
-										},
-										{
-											"key": "from",
-											"value": "0"
-										},
-										{
-											"key": "to",
-											"value": "0"
-										}
-									]
-								},
-								"description": "ftJournalType: `0x0000000000000003`\r\n\r\n_See also:_\r\nhttps://link.fiskaltrust.cloud/middleware-doc/ftjournaltype"
-							},
-							"response": []
-						}
-					],
-					"description": "# Journal\r\nThe _journal_ endpoint allows users to get data from a running Middleware instance, either in a \"raw\" JSON format, or specifically for the market (e.g. DSFinV-K in Germany).\r\n\r\nPlease note that the _ticks_ that need to be passed for the `from` and `to` parameters are .NET Ticks, **not** Unix timestamps. More details about this representation can be found [here](https://docs.microsoft.com/en-us/dotnet/api/system.datetime.ticks?view=net-5.0#remarks).",
 					"event": [
 						{
 							"listen": "prerequest",
