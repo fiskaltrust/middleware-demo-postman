@@ -7,7 +7,7 @@ A Postman collection containing examples that demonstrate how to call the fiskal
 
 ### Prerequisites
 In order to use this demo collection, the following prerequisites are required:
-- *Postman with the imported collection*: [Download Postman](https://www.postman.com/), an API testing tool, and install it on your machine. Then download the `fiskaltrust-Middleware.postman_collection.json`, either by using the link above or by cloning the repo and importing it into Postman
+- *Postman with the imported collection*: [Download Postman](https://www.postman.com/), an API testing tool, and install it on your machine. Then click on "Run in Postman" on the [middleware API docs](https://middleware-samples.docs.fiskaltrust.cloud/) to import the collection.
 - *The fiskaltrust.Middleware* running on your machine, which can be configured and downloaded via the fiskaltrust.Portal ([AT](https://portal.fiskaltrust.at), [DE](https://portal.fiskaltrust.de), [FR](https://portal.fiskaltrust.fr)). Start it (either by running it as a service, or with the `test.cmd` file), and let it run in the background to handle your requests.
 - *Your Cashbox Id* is visible in the portal. It is also displayed in the startup console log of the Middleware. 
 
